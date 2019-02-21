@@ -142,7 +142,7 @@ function FBLogin () {
 			//facebookConnectPlugin.api( "me/?fields=email", ["public_profile"],
 			function (response) { 
 			
-				alert(JSON.stringify(response))
+				alert(JSON.stringify(response)); //test
 				
 				$.ui.showMask();
 				var mob_model = global_platform + ' ' + global_model;

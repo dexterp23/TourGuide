@@ -108,10 +108,12 @@ function TourPage (ID_tours) {
 	
 		$.ui.showMask();
 		
-		if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
-			updateLocation ('UserLocationOnMap();', true);
-		} else {
-			updateLocationTest ('UserLocationOnMap();', true);
+		if (global_geolocationWatchTimer_chk == 0) {
+			if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
+				updateLocation ('UserLocationOnMap();', true);
+			} else {
+				updateLocationTest ('UserLocationOnMap();', true);
+			}
 		}
 		
 		jQuery.ajax({
@@ -376,6 +378,10 @@ function PointsList_html (data, key) {
 
 function PointPageChk (key) {
 	
+	//gasimo navigaciju
+	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
+	global_geolocationWatchTimer_chk = 0;
+	
 	$.ui.showMask();
 	nextPage('BlankoPage');
 	
@@ -393,6 +399,13 @@ function PointPageChk (key) {
 				global_direction_map.setZoom(16);
 				$('header #backButton').attr("onClick","TourPage("+global_ID_tours+");");
 				$.ui.hideMask();
+				if (global_geolocationWatchTimer_chk == 0) {
+					if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
+						updateLocation ('PointPageDirection_2();', false);
+					} else {
+						updateLocationTest ('PointPageDirection_2();', false);
+					}
+				}
 			} else {
 				PointPage(); //user je na pointu
 			}
@@ -462,10 +475,12 @@ function PointPageDirection () {
 	});
 	//circle point location end
 	
-	if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
-		updateLocation ('PointPageDirection_2();', false);
-	} else {
-		updateLocationTest ('PointPageDirection_2();', false);
+	if (global_geolocationWatchTimer_chk == 0) {
+		if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
+			updateLocation ('PointPageDirection_2();', false);
+		} else {
+			updateLocationTest ('PointPageDirection_2();', false);
+		}
 	}
 	if (global_audio_array.length > 0) AudioPlayerStop();
 	AudioPlayer_Data ('song', 1);
@@ -561,9 +576,11 @@ function PointPageDirection_2 () {
 
 function PointPage () {
 	
-	global_audio_end_chk = 1;
+	//gasimo navigaciju
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
 	global_geolocationWatchTimer_chk = 0;
+	
+	global_audio_end_chk = 1;
 	if (typeof(global_infowindow) !== 'undefined') global_infowindow.close();
 	
 	//odredjujemo koji je next point
