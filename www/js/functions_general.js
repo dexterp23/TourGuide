@@ -2,6 +2,7 @@ function nextPage (idHash) {
 	
 	$.ui.loadContent(idHash,false,false,'slide');
 	$.ui.disableSideMenu();
+	global_current_page = idHash;
 
 }
 
@@ -278,18 +279,19 @@ function updateLocation (callback, clearWatch_chk) {
 function updateLocationError (error) {
 	
 	$.ui.hideMask();
-	//navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-	//global_geolocationWatchTimer_chk = 0;
+	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
+	global_geolocationWatchTimer_chk = 0;
+	if (global_current_page == "PointPageDirection") TourPage(global_ID_tours);
 	//custom_alert("Cannot determine current location, ensure location services are on for the app and try again.");
 	//custom_alert('code: ' + error.code + '\n' + 'message: ' + error.message);
-	alert(JSON.stringify(error.message))
+	alert(JSON.stringify(error.message));
   
 }
 
 
 
 function updateLocationTest (callback, clearWatch_chk) {
-
+	
 	var coordinates_test = new Array();
 	coordinates_test.push({'lat':'44.8700416', 'lng':'20.6446592'});
 	coordinates_test.push({'lat':'44.870164281662646', 'lng':'20.645378557965046'});

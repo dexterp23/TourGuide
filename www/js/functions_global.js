@@ -24,7 +24,7 @@ var global_longitude = 0;
 var global_accuracy;
 var global_accuracy_value = 1000;
 if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
-	global_accuracy_value = 5000;
+	global_accuracy_value = 800;
 } 
 var global_list_pgg = new Array();
 var global_search_results_by = 20;
@@ -62,6 +62,7 @@ var global_user_location_infowindow;
 var global_user_location_marker;
 var global_point_page_chk = 0;
 var global_before_point_chk = 0;
+var global_current_page;
 
 
 
