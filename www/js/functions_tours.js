@@ -108,14 +108,11 @@ function TourPage (ID_tours) {
 	
 		$.ui.showMask();
 		
-		updateLocationTest ('UserLocationOnMap();', true);
-		/*
-		if (local_chk == 1 || local_chk == 20) {
+		if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
 			updateLocation ('UserLocationOnMap();', true);
 		} else {
 			updateLocationTest ('UserLocationOnMap();', true);
 		}
-		*/
 		
 		jQuery.ajax({
 			url: global_host + '/action_mobile.php',
@@ -188,14 +185,11 @@ function TourPage (ID_tours) {
 		$.ui.clearHistory();
 		$('header #backButton').attr("onClick","WelcomePage();");
 		if (global_geolocationWatchTimer_chk == 0) {
-			updateLocationTest ('UserLocationOnMap();', true);
-			/*
-			if (local_chk == 1 || local_chk == 20) {
+			if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
 				updateLocation ('UserLocationOnMap();', true);
 			} else {
 				updateLocationTest ('UserLocationOnMap();', true);
 			}
-			*/
 		} else {
 			UserLocationOnMap();
 		}
@@ -468,14 +462,11 @@ function PointPageDirection () {
 	});
 	//circle point location end
 	
-	updateLocationTest ('PointPageDirection_2();', false);
-	/*
-	if (local_chk == 1 || local_chk == 20) {
+	if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
 		updateLocation ('PointPageDirection_2();', false);
 	} else {
 		updateLocationTest ('PointPageDirection_2();', false);
 	}
-	*/
 	if (global_audio_array.length > 0) AudioPlayerStop();
 	AudioPlayer_Data ('song', 1);
 	setTimeout(function() {

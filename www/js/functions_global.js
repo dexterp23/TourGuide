@@ -22,7 +22,7 @@ var global_login_data = new Array();
 var global_latitude = 0;
 var global_longitude = 0;
 var global_accuracy;
-if (local_chk == 1 || local_chk == 20) {
+if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
 	var global_accuracy_value = 500;
 } else {
 	var global_accuracy_value = 1000;
@@ -66,7 +66,13 @@ var global_before_point_chk = 0;
 
 
 
-//local
+//data
+// za sada smo iskljucili logovanje. u index.html je u meniju iskljuceno logout i my profile dugme
+global_login_data['ID_users'] = 72; 
+global_login_data['e_mail'] = "ivandexter26@yahoo.com";
+global_login_data['f_name'] = "Tour";
+global_login_data['l_name'] = "Guide";
+/*
 if (local_chk == 10 || local_chk == 12) { //local_chk == 99 nebi trebalo da bude ovde
 	global_login_data['ID_users'] = 72; 
 	global_login_data['e_mail'] = "ivandexter26@yahoo.com";
@@ -82,7 +88,8 @@ if (local_chk == 10 || local_chk == 12) { //local_chk == 99 nebi trebalo da bude
 	//global_latitude = "34.1400687";
 	//global_longitude = "-118.4061716";
 }
-//local end
+*/
+//data end
 
 
 /* INIT */
