@@ -16,7 +16,7 @@ if (local_chk == 1 || local_chk == 20) {
 }
 //putanja u mobu: file://android_asset/www/
 
-var global_app_title = "TourGuide";
+var global_app_title = "Tour Guide";
 var global_ajax_timeout = 20000;//20sec
 var global_login_data = new Array();
 var global_latitude = 0;

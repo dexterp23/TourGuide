@@ -254,8 +254,8 @@ function updateLocation (callback, clearWatch_chk) {
 														  								  
 	global_geolocationWatchTimer = navigator.geolocation.watchPosition(function(position) {
 		
-																var test2 = rand(1,1000) + ' * ' + position.coords.latitude;
-																$('header h1').html(test2);
+																//var test2 = rand(1,1000) + ' * ' + position.coords.latitude;
+																//$('header h1').html(test2);
 																
 																if (position.coords.accuracy < global_accuracy_value) {
 																	global_latitude = position.coords.latitude; 
@@ -282,9 +282,9 @@ function updateLocationError (error) {
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
 	global_geolocationWatchTimer_chk = 0;
 	if (global_current_page == "PointPageDirection") TourPage(global_ID_tours);
-	//custom_alert("Cannot determine current location, ensure location services are on for the app and try again.");
+	custom_alert("Cannot determine current location, ensure location services are on for the app and try again.");
 	//custom_alert('code: ' + error.code + '\n' + 'message: ' + error.message);
-	alert(JSON.stringify(error.message));
+	//alert(JSON.stringify(error.message));
   
 }
 
@@ -293,9 +293,9 @@ function updateLocationError (error) {
 function updateLocationTest (callback, clearWatch_chk) {
 	
 	var coordinates_test = new Array();
-	coordinates_test.push({'lat':'44.8700416', 'lng':'20.6446592'});
-	coordinates_test.push({'lat':'44.870164281662646', 'lng':'20.645378557965046'});
-	coordinates_test.push({'lat':'44.86994757852484', 'lng':'20.645615514367705'});
+	coordinates_test.push({'lat':'44.87902889711484', 'lng':'20.653866349783243'});
+	coordinates_test.push({'lat':'44.87476910196427', 'lng':'20.652143617224397'});
+	coordinates_test.push({'lat':'44.871153763713124', 'lng':'20.648988417413534'});
 	coordinates_test.push({'lat':'44.869392510625886', 'lng':'20.64599194563914'});
 	
 	if (clearWatch_chk == true) {
@@ -336,7 +336,7 @@ function updateLocationTest (callback, clearWatch_chk) {
 			if (global_coordinate_key_test <= 3) setTimeout(updateLocationTest (callback, clearWatch_chk), 100);
 			$.ui.hideMask();
 			
-		}, 10000);
+		}, 12000);
 		
 		setTimeout(function() {
 			$.ui.hideMask();
@@ -413,6 +413,25 @@ function distanceCal(lat1, lon1, lat2, lon2, unit) {
 		if (unit=="N") { dist = dist * 0.8684 }
 		return dist;
 	}
+}
+
+
+
+function ScreenBrightness (type) {
+	
+	if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
+		
+		if (window.cordova.plugins.Brightness) {
+			  // set Brightness
+			  //window.cordova.plugins.Brightness.setBrightness(0.3);
+			  // prevents sleep
+			  window.cordova.plugins.Brightness.setKeepScreenOn(type); //true
+			  // returns normal behavior
+			  window.cordova.plugins.Brightness.setKeepScreenOn(type); //false
+		}
+		
+	}
+	
 }
 
 
