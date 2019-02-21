@@ -26,15 +26,20 @@
 </plugin>
 <plugin name="cordova-plugin-network-information" spec="https://github.com/apache/cordova-plugin-network-information"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="cordova-plugin-geolocation" spec="https://github.com/apache/cordova-plugin-geolocation"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
+<!--
 <plugin name="cordova-plugin-facebook4" spec="https://github.com/jeduan/cordova-plugin-facebook4">
 <variable name="APP_ID" value="486108958875603"/>
 <variable name="APP_NAME" value="Tour Guide"/>
 <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false"/>
 <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.25.0"/>
 </plugin>
+-->
 <plugin name="cordova-plugin-screen-orientation" spec="https://github.com/apache/cordova-plugin-screen-orientation"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="es6-promise-plugin" spec="4.2.2"/>
 <plugin name="cordova-plugin-keyboard" spec="https://github.com/cjpearson/cordova-plugin-keyboard"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
+<!--
+<plugin name="cordova-plugin-inappbrowser" spec="https://github.com/apache/cordova-plugin-inappbrowser"/>
+-->
 <plugin name="cordova-plugin-whitelist" spec="1.2.2"/>
 <platform  name="ios">
     <!-- below requires the splash screen plugin -->
