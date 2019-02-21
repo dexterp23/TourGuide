@@ -30,7 +30,7 @@
 <variable name="APP_ID" value="486108958875603"/>
 <variable name="APP_NAME" value="Tour Guide"/>
 <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false"/>
-<variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0"/>
+<variable name="ANDROID_SDK_VERSION" value="4.40.0"/>
 </plugin>
 <plugin name="cordova-plugin-screen-orientation" spec="https://github.com/apache/cordova-plugin-screen-orientation"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="es6-promise-plugin" spec="4.2.2"/>
@@ -61,7 +61,6 @@
     <preference name="KeyboardShrinksView" value="true"/>
     <preference name="phonegap-version" value="cli-6.5.0"/>
     <preference name="android-windowSoftInputMode" value="adjustPan"/>
-	<preference name="FACEBOOK_ANDROID_SDK_VERSION" default="4.40.0"/>
 </platform>
 <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect --ignore-gpu-blacklist "/>
 <platform name="android" >
