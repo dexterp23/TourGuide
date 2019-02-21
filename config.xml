@@ -25,7 +25,7 @@
 <variable name="KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE" value="NO"/>
 </plugin>
 <plugin name="cordova-plugin-network-information" spec="https://github.com/apache/cordova-plugin-network-information"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
-<plugin name="cordova-plugin-geolocation" spec="https://github.com/apache/cordova-plugin-geolocation"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
+<plugin name="cordova-plugin-geolocation" spec="2.2.0"/>
 <plugin name="cordova-plugin-screen-orientation" spec="https://github.com/apache/cordova-plugin-screen-orientation"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="es6-promise-plugin" spec="4.2.2"/>
 <plugin name="cordova-plugin-keyboard" spec="https://github.com/cjpearson/cordova-plugin-keyboard"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
