@@ -252,6 +252,10 @@ function updateLocation (callback, clearWatch_chk) {
 	var options = {timeout: 15000, maximumAge: 11000, enableHighAccuracy: true };
 														  								  
 	global_geolocationWatchTimer = navigator.geolocation.watchPosition(function(position) {
+		
+																var test2 = rand(1,1000) + ' * ' + position.coords.latitude;
+																$('header h1').html(test2);
+																
 																if (position.coords.accuracy < global_accuracy_value) {
 																	global_latitude = position.coords.latitude; 
 																	global_longitude = position.coords.longitude;
@@ -262,10 +266,6 @@ function updateLocation (callback, clearWatch_chk) {
 																	}
 																	if (callback != false) setTimeout(callback, 100);
 																	$.ui.hideMask();
-																	
-																	var test2 = rand(1,1000) + ' * ' + global_latitude;
-																	$('header h1').html(test2);
-																	
 																} else {
 																	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
 																	global_geolocationWatchTimer_chk = 0;
@@ -283,7 +283,7 @@ function updateLocationError (error) {
 	global_geolocationWatchTimer_chk = 0;
 	//custom_alert("Cannot determine current location, ensure location services are on for the app and try again.");
 	//custom_alert('code: ' + error.code + '\n' + 'message: ' + error.message);
-	alert(JSON.stringify(error))
+	alert(JSON.stringify(error.message))
   
 }
 
