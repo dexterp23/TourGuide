@@ -1,0 +1,1093 @@
+/* ### MY ### */
+
+#afui.android {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	/*background-color: #fcb040;*/
+	background-color: #000000;
+	background-image: url(../images/background.jpg);
+	background-repeat: repeat;
+}
+
+#afui.android .header {
+	border-color: #33B5E5;
+	background-color: #fcb040;
+	background-image: none;
+}
+
+#afui.android>#aside_menu, #afui.android>#menu {
+    border-right: 1px solid rgba(128,128,128,.5);
+    color: inherit;
+    background-color: #fcb040;
+	background-image: none;
+}
+
+#afui.android select, #afui.android textarea, #afui.android input[type=text], #afui.android input[type=search], #afui.android input[type=password], #afui.android input[type=datetime], #afui.android input[type=datetime-local], #afui.android input[type=date], #afui.android input[type=month], #afui.android input[type=time], #afui.android input[type=week], #afui.android input[type=number], #afui.android input[type=email], #afui.android input[type=url], #afui.android input[type=tel], #afui.android input[type=color], #afui.android .input-group {
+	color: #47acd1;
+	background-color: #FFF;
+	border-top-color: #2f95ba;
+	border-right-color: #2f95ba;
+	border-bottom-color: #2f95ba;
+	border-left-color: #2f95ba;
+	max-width: 300px;
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+:focus {
+	outline:0;
+}
+
+a {
+	color: #007eac;
+	text-decoration: none;
+}
+
+label.error {
+	display: none;
+}
+
+input.error, textarea.error, select.error, #afui input[type="text"].error, #afui input[type="password"].error, #afui input[type="email"].error {
+	border: 1px solid #b94a48;
+	background-color: #E8C2C1;
+}
+
+#afui #backButton.countdown::before {
+	content:normal;
+}
+
+#afui.ios7 #GameStatus.countdown {
+	color: #000;
+}
+
+.team_opacity {
+	opacity: 0.7;
+}
+
+.top_menu_opacity {
+	opacity: 0.7;
+}
+
+#afui header .left_text {
+	color: #fff;
+	display: block;
+	position: absolute;
+	line-height: 44px;
+	left: 25px;
+	text-overflow: ellipsis;
+	font-size: 14px;
+	padding: 0;
+	text-shadow: none;
+	background-color: transparent;
+	border: none;
+	border-color: transparent;
+	height: 44px;
+	top: 0;
+	border-radius: 0;
+	box-shadow: none;
+	margin: 0;
+	padding-left: 0;
+	text-align: center;
+	width: 50px;
+	padding: 0 !important;
+	margin: 0 !important;
+	white-space: nowrap;
+	left: 5px;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.logo_hold {
+	background-image: url(../images/logo.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	padding: 0px;
+	height: 100px;
+	width: 100%;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+	margin-left: 0px;
+}
+
+.text_box_blue {
+	color: #FFF;
+	background-color: #59ccf1;
+	padding: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	line-height: 20px;
+	font-weight: normal;
+	width: 300px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.text_box_white {
+	color: #000;
+	background-color: #FFFFFF;
+	padding: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	line-height: 20px;
+	font-weight: normal;
+	width: 300px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.buttons_hold {
+	text-align: center;
+	display: block;
+	width: 304px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.buttons_hold .button_image {
+	display: inline-block;
+	width: 150px;
+	margin-top: 10px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	padding: 0px;
+	height: 45px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+}
+
+.buttons_hold .button_text {
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #FFF;
+	background-image: url(../images/custom_button.png);
+	background-repeat: no-repeat;
+	background-position: left center;
+	display: inline-block;
+	height: 46px;
+	width: 250px;
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	text-decoration: none;
+	padding-top: 14px;
+	padding-right: 8px;
+	padding-bottom: 0px;
+	padding-left: 48px;
+}
+
+.buttons_hold .button_text span {
+	text-align: center;
+	display: block;
+	width: 194px;
+}
+
+.buttons_hold .button_regular {
+	font-size: 14px;
+	font-weight: bold;
+	color: #FFF;
+	text-decoration: none;
+	background-color: #fcb040;
+	text-align: center;
+	display: inline-block;
+	width: auto;
+	padding-top: 10px;
+	padding-right: 20px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+.page_button {
+	display: inline-block;
+	padding: 5px;
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%);
+	border: 1px solid #C3C5CB;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	width: auto;
+	font-size: 14px;
+	font-weight: normal;
+	color: #6A6A6A;
+	text-decoration: none;
+	text-align: center;
+	margin: 5px;
+}
+
+#afui #header h1 {
+	text-overflow: ellipsis;
+	overflow:hidden;
+	white-space: nowrap;
+}
+
+#afui .footer footer {
+	background-color: #4fc9f0;
+	border-top-width: 2px;
+	border-top-style: solid;
+	border-top-color: #1c528e;
+}
+
+#afui.android .footer>footer>a.pressed:not(.button) {
+	border-radius: 0;
+	background-image: url(../images/arrow.png);
+	background-repeat: no-repeat;
+	background-position: center top;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	padding-top: 4px;
+}
+
+#afui.android #navbar a.pressed .icon:before {
+	top: 6px;
+}
+
+#afui .list > li > a.rotate_button:after {content: "";}
+
+#afui #navbar .icon:before {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    font-size: 25px;
+    margin: auto;
+    width: 100%;
+}
+
+.uploading_text {
+	text-align: center;	
+	color: #fff;
+	margin-bottom: 5px;
+	display: none;
+}
+
+.percentage_hold {
+	background-color: #CCC;
+	display: none;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.percentage_text {
+	height: 20px;
+	width: 100%;
+	font-size: 12px;
+	line-height: 20px;
+	color: #000;
+	text-align: center;
+	position: absolute;
+}
+
+.percentage {
+	background-color: #F90;
+	height: 20px;
+	width: 0px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.group_code_form {
+	padding: 0px;
+	width: 100%;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 20px;
+	margin-left: auto;
+}
+
+.group_code_hold {
+	width: 300px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#afui.android input[type=text].group_code_input {
+	background-image: url(../images/enter_code_form_text.png);
+	background-repeat: no-repeat;
+	background-position: left top;
+	display: inline-block;
+	height: 35px;
+	width: 214px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	/*font-size: 0px;
+	line-height: 0px;*/
+	margin: 0px;
+	float: left;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 5px;
+	
+	font-size: 22px;
+	font-weight: bold;
+}
+
+#afui.android input[type=text].group_code_input_focus {
+	background-image: url(../images/enter_code_form.png);
+}
+
+#afui.android input[type=text].group_code_input_blur {
+	background-image: url(../images/enter_code_form_text.png);
+}
+
+#afui.android input[type=text].group_code_input2:focus {
+	background-image: url(../images/enter_code_form.png);
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.group_code_button {
+	font-size: 0px;
+	line-height: 0px;
+	background-image: url(../images/enter_code_search.png);
+	background-repeat: no-repeat;
+	background-position: left top;
+	display: inline-block;
+	margin: 0px;
+	padding: 0px;
+	height: 35px;
+	width: 84px;
+	float: left;
+}
+
+/* ### MY ### */
+
+
+
+/* popup */
+
+/*
+::-webkit-scrollbar { width: 32px; } 
+::-webkit-scrollbar-track {
+	background-image: url(../images/scrollbar.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+} 
+::-webkit-scrollbar-thumb {
+	background-image: url(../images/scrollbar_buton.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 39px;
+	width: 32px;
+}
+*/
+
+#afui.android .afPopup {
+	background: none;
+	background-color: #ffffff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	border: 10px solid #0088b4;
+	color: #000;
+}
+
+#afui.android .afPopup>DIV {
+	font-size: 14px;
+	text-align: left;
+	padding: 10px;
+	margin: 0;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #aaa;
+	border-bottom-color: #aaa;
+}
+
+#afui.android .afPopup>FOOTER {
+    background: #fff;
+}
+
+#afui.android .afPopup>FOOTER>A, #afui.android.light .afPopup>FOOTER>A {
+    background: #fcb040;
+    color: #111;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#afui.android .afPopup>FOOTER>A#cancel {
+    margin-left: 10px;
+    width: 110px;
+}
+
+#afui.android .afPopup>FOOTER>A#action {
+    margin-right: 10px;
+    width: 110px;
+}
+
+.afPopup .content {
+	width: 208px;
+	display: inline-block;
+}
+
+.afPopup .scroll {
+	width: 32px;
+	display: inline-block;
+	background-image: url(../images/scrollbar.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.afPopup .scroll .ui-widget-header {
+	border: 0px solid #ddd;
+	background-color: transparent;
+}
+
+.afPopup .scroll.ui-widget-content {
+	border: 0px solid #fcb040;
+	background-color:transparent;
+}
+
+.afPopup .scroll .ui-state-default, .afPopup .scroll.ui-widget-content .ui-state-default, .afPopup .scroll .ui-widget-header .ui-state-default {
+	border: 0px solid #fcb040;
+	font-weight: normal;
+	color: #454545;
+	background-color: transparent;
+	background-image: url(../images/scrollbar_buton.png);
+	background-position: center center;
+	height: 39px;
+	width: 32px;
+	margin-left: 4px;
+}
+
+.afPopup .popup_button {
+	font-size: 36px;
+	color: #111;
+	background-color: #fcb040;
+	display: inline-block;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-align: center;
+    width: 47%;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+/* popup end */
+
+
+
+
+/* top_menu_page */
+
+#top_menu_page {
+	top: 44px;
+	bottom: auto;
+	position: absolute;
+	z-index: 1000;
+	height: 48px;
+	margin: 0px;
+	padding: 0px;
+	display: block;
+	overflow: hidden;
+	background-color: #4fc9f0;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #32a9cf;
+}
+
+.top_menu_page {
+	display: none;
+}
+
+#afui.android #top_menu_page .button {
+    background: #fcb040;
+    color: inherit;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.4);
+}
+
+@media handheld, only screen and (min-width: 9999999px) {
+	#afui > #top_menu_page  {
+		left:256px;
+	}
+}
+
+/* top_menu_page end */
+
+
+/* search list */
+
+.game_list {
+	margin-right: -10px;
+	margin-left: -10px;
+}
+
+.game_list li.divider {
+	line-height: 30px;
+	color: #4fc9f0;
+	background-color: #000;
+	height: 30px;
+	font-weight: bold;
+	padding-right: 10px;
+	padding-left: 10px;
+	margin: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+
+.game_list li.photo {
+	color: #4fc9f0;
+	background-color: transparent;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	padding: 0px;
+	text-align: center;
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+	margin-left: 0px;
+}
+
+.game_list li.title {
+	line-height: 40px;
+	color: #FFFFFF;
+	background-color: #4fc9f0;
+	height: 40px;
+	font-weight: bold;
+	margin: 0px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 1px;
+	border-left-width: 0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	font-size: 16px;
+	text-align: center;
+	padding: 0px;
+	border-bottom-style: solid;
+	border-bottom-color: #32a9cf;
+}
+
+.game_list li.our_team {
+	background-color: #fcb040;
+}
+
+.game_list li.profile_photos {
+	background-color: #FFFFFF;
+}
+
+.game_list li .buttons_hold {
+	width: 276px;
+}
+
+.game_list .content, .game_list li {
+	background-color: #59ccf1;
+	padding: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	border: 2px solid #FFF;
+	color: #000;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	list-style-image: none;
+	list-style-type: none;
+}
+
+.game_list .content.selected {
+	background-color: #fcb040;
+}
+
+.game_list li {
+	background-color: #59ccf1;
+	padding: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	border: 2px solid #FFF;
+	color: #000;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+}
+
+.game_list .content.join_button {
+	margin-right: 40px;
+}
+
+.game_list .content a {
+	color: #000;
+}
+
+.tour_map_hold, .tour_list_hold {
+	padding-bottom:50px;
+}
+
+#VideoEditWelcomePage .hold {
+	position: absolute;
+	padding-top: 20px;
+	width:50%;
+}
+
+#VideoEditWelcomePage .hold .title {
+	font-size: 16px;
+    font-weight: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+    padding-bottom: 8px;
+    line-height: 16px;
+    color: #FFF;
+}
+
+.audio_button {
+	background-repeat: no-repeat;
+    background-position: center center;
+	background-size: 35px 35px;
+    height: 35px;
+    width: 35px;
+    margin-right: 10px;
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 10px;
+	float:left;
+}
+
+.audio_button.play {
+	background-image: url(../images/play.png);
+}
+
+.audio_button.stop {
+	background-image: url(../images/stop.png);
+}
+
+.audio_button.spin {
+	-webkit-transform: rotate(360deg);
+	-webkit-animation-name: spin_custom;
+	-webkit-animation-duration: 0.4s;
+	-webkit-animation-iteration-count: infinite;
+}
+
+#afui .list li.search_results_hold:first-child {
+	border-top: 0px solid #ccc;
+}
+
+.search_results_hold a {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+}
+
+.search_results_hold .join {
+	background-image: url(../images/join_button.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 67px;
+	width: 60px;
+	position: absolute;
+	right: 0px;
+	margin-top: 10px;
+}
+
+.search_results_hold .select {
+	background-image: url(../images/load_button.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 67px;
+	width: 60px;
+	position: absolute;
+	right: 0px;
+	margin-top: 10px;
+}
+
+.search_results_hold img {
+	margin-right: 5px;
+	display: inline-block;
+	background-color: #FFFFFF;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.search_results_hold .hold {
+	display: inline-block;
+	width: 58%;
+	vertical-align: top;
+}
+
+.search_results_hold .title {
+	font-size: 18px;
+	font-weight: normal;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	display: block;
+	padding-bottom: 8px;
+	line-height: 18px;
+	color: #FFF;
+}
+
+.search_results_hold .subtext {
+	font-size: 12px;
+	display: block;
+	padding-top: 0px;
+	font-weight: normal;
+	line-height: 14px;
+	padding-bottom: 8px;
+	/*
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	*/
+	padding-left: 4px;
+}
+
+.search_results_hold .description {
+	text-overflow: ellipsis;
+	overflow:hidden;
+	white-space: nowrap;
+}
+
+.search_results_hold .place {
+	margin-right: 10px;
+	display: inline-block;
+	font-size: 40px;
+	font-weight: bold;
+}
+
+.search_results_hold .left_side {
+	margin-right: 5px;
+	display: inline-block;
+}
+
+.search_results_hold .team_title {
+	display: block;
+	font-size: 18px;
+	font-weight: normal;
+	text-overflow: ellipsis;
+	overflow:hidden;
+	white-space: nowrap;
+}
+
+.search_results_hold .mission_title {
+	display: block;
+	font-size: 18px;
+	font-weight: normal;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	padding-bottom: 8px;
+}
+
+.search_results_hold .points {
+	display: block;
+	padding-top: 8px;
+}
+
+.search_results_hold .profile_photos a {
+	width: auto;
+}
+
+.search_results_hold .profile_photos img {
+	height: 50px;
+	width: 50px;
+}
+
+#afui .list > li.profile_photos > a {
+	display: inline-block;	
+}
+
+#afui .list > li.profile_photos > a:after, #afui .list > li.feed_hold > a:after { 
+	content:normal	
+}
+
+#afui .list > li.feed_hold > a {
+	display: inline;
+	margin: 0px;
+	padding: 0px;
+}
+
+.search_results_hold .feed_hold a {
+	color: inherit;
+}
+
+.search_results_hold .snap_button a {
+	line-height: 60px;
+	display: inline-block;
+	float: left;
+}
+
+#afui.android .snap_button .button, #afui.android .snap_again.button {
+	border-color: transparent;
+	color: #FFF;
+	background-color: #fcb040;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+#afui .form_fix label {
+	float: none;
+	width: auto;
+	display: inline-block;
+}
+
+#afui .form_fix input[type="radio"] + label, #afui .form_fix input[type="checkbox"] + label {
+	float: none;
+	width: auto;
+	margin-left: 25px;
+	display: inline-block;
+	padding-top: 11px;
+	padding-right: 3px;
+	padding-bottom: 11px;
+	padding-left: 3px;
+}
+
+.capture_photo_hold {
+	height: 224px;
+	width: 224px;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: #FFF;
+	border: 2px solid #fcb040;
+	padding: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.search_results_hold .capture_photo_hold img {
+	margin: 0px;
+	padding: 0px;
+}
+
+a.rotate_button {
+	color: #FFF;
+	background-color: #fcb040;
+	border: 2px solid #FFF;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	display: inline-block;
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	width: 100px;
+}
+
+#afui.android .button.new_button {
+    background: #fcb040;
+    color: #FFF;
+}
+
+/* search list end */
+
+
+
+
+/* footer */ 
+
+footer .footer_desc {
+	line-height: 47px;
+	text-align:center;
+	font-size: 12px;
+}
+
+/* footer end */
+
+
+
+
+/* wysiwyg color */
+
+.wysiwyg-color-black {
+  color: black;
+}
+
+.wysiwyg-color-silver {
+  color: silver;
+}
+
+.wysiwyg-color-gray {
+  color: gray;
+}
+
+.wysiwyg-color-white {
+  color: white;
+}
+
+.wysiwyg-color-maroon {
+  color: maroon;
+}
+
+.wysiwyg-color-red {
+  color: red;
+}
+
+.wysiwyg-color-purple {
+  color: purple;
+}
+
+.wysiwyg-color-fuchsia {
+  color: fuchsia;
+}
+
+.wysiwyg-color-green {
+  color: #3dd53d;
+}
+
+.wysiwyg-color-lime {
+  color: lime;
+}
+
+.wysiwyg-color-olive {
+  color: olive;
+}
+
+.wysiwyg-color-yellow {
+  color: yellow;
+}
+
+.wysiwyg-color-navy {
+  color: navy;
+}
+
+.wysiwyg-color-blue {
+  color: #3d7dd5;
+}
+
+.wysiwyg-color-teal {
+  color: teal;
+}
+
+.wysiwyg-color-aqua {
+  color: aqua;
+}
+
+.wysiwyg-color-orange {
+  color: orange;
+}
+
+/* wysiwyg color - end */
+
+
+
+
+/*
+.afPopup div {
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;  
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;    
+	word-wrap: break-word;
+}
+*/
+
+
+/* tour */
+
+.tour_map_hold {
+	height: 200px;
+	width: 200px;
+	margin-left: -10px;
+}
+
+.direction_map_instructions {
+	color: #FFF;
+	background-color: #000;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	position: absolute;
+	z-index: 100;
+	left: -5px;
+	opacity: 0.7;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+#PointPage .photo_hold {
+	text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#PointPage .photo_hold img {
+	width: 300px;
+}
+
+.footer_back_button {
+	float: right;
+    margin-top: 8px;
+}
+
+.footer_duration {
+	float: left;
+    line-height: 47px;
+}
+
+/* tour end */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

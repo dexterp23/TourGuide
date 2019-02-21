@@ -1,0 +1,68 @@
+u fajlu "appframework/appframework.ui.min.js" i "appframework/2.1/appframework.ui.min.js" izmenjeno je:
+
+- ubacena nova funkcija (izmedju funkcija clearHistory i pushHistory)
+	clearHistoryLast: function(id_remove, delta) {if (typeof id_remove !== 'undefined') {var array = this.history;for(var i in array){if(array[i]['target']==id_remove) this.history.splice(i,1);}} else {delta = Math.min(Math.abs(~~delta || 1), this.history.length);if (delta) {var tmpEl = this.history.splice(-delta).shift();var array = this.history;for(var i in array){if(array[i]['target']==tmpEl.target) this.history.splice(i,1);}}}},
+	clearBackCustom: function (num) {for (var i = 0; i < num; i++) {$.ui.history.pop();}},
+	TopMenuPageCustom: function (idHash) { var topMenu = $('#'+idHash).attr('data-topMenu');if (topMenu == 'true') {if (1==1) {var html = $('#'+idHash+' .top_menu_page').html();$('#afui #top_menu_page').html(html);$('#top_menu_page .top_menu_page').css('display','block');$('#afui #content').css('top','92px');$('#top_menu_page').css('width', $('#content').width() + 'px');$('#top_menu_page').show();}} else {$('#top_menu_page').hide();} },
+
+- u delu gde je "#content, #header, #navbar" (pazi razmak izmedju id-jeva moze da bude razlicit) dodati i #top_menu_page (da bi se dodatni top meni pomerao za slide meni)
+
+- u funkciju "loadContent:function" ubacen je na kraju $.ui.TopMenuPageCustom(a); i "goBack:function" ubacen je na kraju $.ui.TopMenuPageCustom(a.target.replace("#", ""));
+
+- u funkciji loadContentData markirano je "$("#header #menubadge").css("float", "left");"
+
+- u funkciji toggleLeftSideMenu je dodato $.ui.disableSideMenu(); u delu  } else if (force === undefined || (force !== undefined && force === false)) {
+
+- u funkciji goBack je ubaceno:
+	$.ui.clearHistoryLast('#TaskVideoConvertPage');
+	$.ui.disableSideMenu();
+	VideoStop ();
+
+- u funkciji setLeftSideMenuWidth je izmenjeno "@media handheld, only screen and (min-width: 768px)" u "@media handheld, only screen and (min-width: 9999999px)"
+
+- promenjiva handheldMinWidth je setovana u 9999999
+
+- u fajlu "appframework/2.1/css/af.ui.min.css" i "css/custom.css" je izmenjen deo @media handheld,only screen and (min-width:768px) u @media handheld,only screen and (min-width:9999999px)
+
+- u funkciji za "$.ui.popup" je u delu positionPopup izmenjeno
+popup.css("top", ((window.innerHeight / 2.5) + window.pageYOffset) - (popup[0].offsetHeight / 2) + "px");
+popup.css("left", (window.innerWidth / 2) - (popup[0].offsetWidth  / 2) + "px");
+
+- u funkciji "af.animate" u delu "setPosition:function(x,y)" ubacen deo
+if (y > 0 && typeof(global_popup_scroll_slider) !== 'undefined') global_popup_scroll_slider.slider('value', parseInt(90 - (parseInt (y) * 0.3)));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TourGuide</title>
+<!--
+    This template can be used for simple app with left side menu that can be opened to switch views, for applications like Youtube App or Gmail app.
+-->  
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0;" />
+
+    <link rel="stylesheet" type="text/css" href="css/icons.fa.css" /> <!-- http://fortawesome.github.io/Font-Awesome/cheatsheet/ -->
+    <link rel="stylesheet" type="text/css" href="./js/jquery-ui-1.11.4.custom/jquery-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="./js/jquery-ui-1.11.4.custom/jquery-ui.structure.min.css" />
+    <link rel="stylesheet" type="text/css" href="./js/jquery-ui-1.11.4.custom/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="appframework/2.1/css/icons.min.css" />
+    <link rel="stylesheet" type="text/css" href="appframework/2.1/css/af.ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/custom.css?4"  />
+    
+    <script type="application/javascript" src="appframework/2.1/appframework.js"></script>
+    <script type="application/javascript" src="appframework/2.1/appframework.ui.js?6" data-ver="1"></script>
+
+    <!--AppFramework plugin for sliding side menu-->
+    <script type="text/javascript" charset="utf-8" src="appframework/plugins/af.slidemenu.js"></script>
+    <script type="text/javascript" charset="utf-8" src="appframework/plugins/af.touchEvents.js"></script>
+    
+
+    <!-- phantom library, needed for XDK "legacy" container api calls -->
+    <script src="intelxdk.js"></script>
+    <!-- phantom library, needed for Cordova api calls -->
+    <script src="cordova.js"></script>
+    <!-- phantom library, needed for XDK "legacy" container CORS -->
+    <script src="xhr.js"></script>
+	
+    <script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script> 
+    <script type="text/javascript" charset="utf-8" src="./js/jquery.validate.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/jquery-ui-touch-punch-master/jquery.ui.touch-punch.min.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="./js/functions_global.js?7"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/functions_users.js?3"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/functions_general.js?4"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/functions_tours.js?4"></script>
+    
+    <script type="text/javascript" charset="utf-8" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWbcOZHiwsNy-rbQuizEKqx4N6hwYTSu0"></script><!-- ovo je key od jumpstay -->
+    
+    
+</head>
+<body style="overflow:hidden;"> 
+
+<div id="afui" class="android">
+
+    <!--Left Side Menu Navigation bar -->
+    <nav>
+        <ul class="list">
+        	<li id="login_user_box" class="login_show" style="display:none;"></li>
+            
+            
+        	<!-- samo kad user nije ulogovan -->
+            <li class="login_remove"><a href="javascript: void(0);" onClick="homePage();" class="icon fa-home big">Home</a></li>
+            <li class="login_remove"><a href="javascript: void(0);" onClick="loginPage();" class="icon fa-sign-in big">Sign In</a></li>
+            <!-- samo kad user nije ulogovan end -->
+            
+            <!-- samo kad je user ulogovan -->
+            <li class="login_show" style="display:none;"><a href="javascript: void(0);" onClick="WelcomePage();" class="icon fa-home big">Home</a></li>
+            <li class="login_show" style="display:none;"><a href="javascript: void(0);" onClick="MyProfilePage();" class="icon fa-user big">My Profile</a></li>
+            <li class="login_show" style="display:none;"><a href="javascript: void(0);" onClick="logout();" class="icon fa-sign-out big">Sign Out</a></li>
+            <!-- samo kad je user ulogovan - end-->
+            
+            <!--<li><a href="javascript: void(0);" onClick="aboutPage();" class="icon fa-user big">About Us</a></li>-->
+        </ul>
+    </nav>
+    
+    <div id="content" style="">
+
+        <!-- loginPage -->
+        <div id="loginPage" class="panel" title="Login" data-footer="none">
+            <header>
+                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+                <h1>Login</h1>
+            </header>
+            
+            <div class="logo_hold"></div>
+            
+            <div class="text_box_blue">
+            	Log in with the info you signed up with & click "Log In". If you haven't registered yet, click the "Register" Link or sign in using your Facebook account. 
+            </div>
+            
+            <form style="margin-top:10px;" id="login_form" onSubmit="return false;">
+            
+                <input name="login_e_mail" id="login_e_mail" class="required email" type="email" placeholder="E-mail" value="" />
+                
+                <input name="login_password" id="login_password" class="required" type="text" placeholder="Password" autocomplete="off" value="" />
+                
+                <div class="buttons_hold">
+                    <a href="javascript: void(0);" onClick="loginSend();" class="button_image" style="background-image: url(./images/login_button.png);"></a>
+                    <a href="javascript: void(0);" onClick="registrationPage();" class="button_image" style="background-image: url(./images/register_button.png);"></a>
+                    <a href="javascript: void(0);" onClick="FBLogin();" class="button_image" style="background-image: url(./images/fb_button.png);"></a>
+                    <a href="javascript: void(0);" onClick="resetpassPage();" class="button_image" style="background-image: url(./images/recpass_button.png);"></a>
+                </div>
+                
+            </form>
+        
+        </div>
+        <!-- loginPage end -->
+
+        
+        <!-- registrationPage -->
+        <div id="registrationPage" class="panel" title="Register" data-footer="none">
+            <header>
+                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+                <h1>Register</h1>
+                <a id="backButton" onClick="GoBack();" class='button'>Back</a>
+            </header>
+            
+            <div class="logo_hold"></div>
+            
+            <form style="margin-top:10px;" id="registration_form" onSubmit="return false;">
+            
+                <input name="registration_f_name" id="registration_f_name" class="required" type="text" placeholder="Your first name" value="" />
+                
+                <input name="registration_l_name" id="registration_l_name" class="required" type="text" placeholder="Your last name" value="" />
+                
+                <input name="registration_e_mail" id="registration_e_mail" class="required email" type="email" placeholder="Your email address" autocomplete="off" value="" />
+                
+                <input name="registration_e_mail_2" id="registration_e_mail_2" class="required email" type="email" placeholder="Repeat email address" equalTo="#registration_e_mail" autocomplete="off" value="" />
+                
+                <input name="registration_password" id="registration_password" class="required" type="text" placeholder="Create a password" autocomplete="off" value="" />
+                
+                <input name="registration_password_2" id="registration_password_2" class="required" equalTo="#registration_password" type="text" placeholder="Retype password" autocomplete="off" value=""  />
+                
+                <div class="buttons_hold">
+                    <a href="javascript: void(0);" onClick="registrationSend();" class="button_image" style="background-image: url(./images/register_button.png);"></a>
+                    <a href="javascript: void(0);" onClick="loginPage();" class="button_image" style="background-image: url(./images/login_button.png);"></a>
+                </div>
+                
+            </form>
+        
+        </div>
+        <!-- registrationPage end -->
+                
+        
+        <!-- resetpassPage -->
+        <div id="resetpassPage" class="panel" title="Password Recovery" data-footer="none">
+            <header>
+                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+                <h1>Password Recovery</h1>
+                <a id="backButton" onClick="GoBack();" class='button'>Back</a>
+            </header>
+            
+            <div class="logo_hold"></div>
+            
+            <form style="margin-top:10px;" id="resetpass_form" onSubmit="return false;">
+                
+                <input name="e_mail_name" id="e_mail_name" class="required" type="email" placeholder="Enter your email address" value="" />
+                
+                <div class="buttons_hold">
+                    <a href="javascript: void(0);" onClick="resetpassSend();" class="button_image" style="background-image: url(./images/recpass_button.png);"></a>
+                    <a href="javascript: void(0);" onClick="loginPage();" class="button_image" style="background-image: url(./images/login_button.png);"></a>
+                </div>
+                
+            </form>
+        
+        </div>
+        <!-- resetpassPage end -->
+        
+        
+        
+        <!-- MyProfilePage -->
+        <div id="MyProfilePage" class="panel" title="My Profile" data-footer="none">
+            <header>
+                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+                <h1>My Profile</h1>
+                <a id="backButton" onClick="GoBack();" class='button'>Back</a>
+            </header>
+            
+            <div class="logo_hold"></div>
+            
+            <form style="margin-top:10px;" id="MyProfile_form" onSubmit="return false;">
+
+                <input name="MyProfile_f_name" id="MyProfile_f_name" class="required" type="text" placeholder="Your first name" value="" />
+                
+                <input name="MyProfile_l_name" id="MyProfile_l_name" class="required" type="text" placeholder="Your last name" value="" />
+                
+                <input name="MyProfile_e_mail" id="MyProfile_e_mail" class="required email" type="email" placeholder="Your email address" autocomplete="off" value="" />
+                
+                <div class="text_box_blue" style="margin-bottom:10px;">
+                	Only if you want to change your password
+                </div>
+                
+                <input name="MyProfile_password" id="MyProfile_password" class="" type="text" placeholder="New Password (Optional)" autocomplete="off" value="" />
+                
+                <input name="MyProfile_password_2" id="MyProfile_password_2" class="" equalTo="#MyProfile_password" type="text" placeholder="Retype password" autocomplete="off" value=""  />
+                <div class="buttons_hold">
+                	<a href="javascript: void(0);" onClick="MyProfileSend();" class="button_text" style="padding-left:35px;"><span>Save</span></a>
+                </div>
+                
+            </form>
+        
+        </div>
+        <!-- MyProfilePage end -->
+        
+        
+        <!-- WelcomePage -->
+        <div id="WelcomePage" class="panel" title="Welcome" data-footer="none">
+            <header>
+                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+                <h1></h1>
+                <span class="left_text">Welcome!</span>
+            </header>
+            
+
+           	<div class="logo_hold"></div>
+            
+            <ul class="game_list search_results_hold"></ul>
+            
+        </div>
+        <!-- WelcomePage end -->
+        
+        
+        
+        <!-- TourPage -->
+        <div id="TourPage" class="panel no-scroll" title="TourPage" data-topMenu="true">
+            <header>
+                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+                <h1></h1>
+                <a id="backButton" onClick="WelcomePage();" class='button'>Tours</a>
+            </header>
+            
+            <div class="top_menu_page">
+                <div class="top_menu">
+                    <div class="button-grouped flex" style="text-align: center;">
+                        <a href="javascript: void(0);" onClick="TourPage_MapTab();" class="button top_menu_opacity remaining">MAP</a>
+                        <a href="javascript: void(0);" onClick="TourPage_ListTab();" class="button completed">LIST</a>
+                    </div>
+                </div>
+            </div>
+            
+           	<div id="tour_map" class="tour_map_hold"></div>
+            
+            <footer>
+              <div class="footer_desc">Select your starting point on map or list</div>
+              <div class="footer_player">
+              	<a href="javascript: void(0);" onclick="AudioPlayerPause();" class="audio_button play"></a>
+                <div class="footer_duration"></div>
+                <a href="javascript: void(0);" onClick="PointPageChk();" class="page_button footer_back_button">Back</a>
+              </div>
+            </footer>
+            
+        </div>
+        <!-- TourPage end -->
+        
+        
+        
+        <!-- TourPage_2 -->
+        <div id="TourPage_2" class="panel" title="TourPage_2" data-topMenu="true">
+            <header>
+                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+                <h1></h1>
+                <a id="backButton" onClick="WelcomePage();" class='button'>Tours</a>
+            </header>
+            
+            <div class="top_menu_page">
+                <div class="top_menu">
+                    <div class="button-grouped flex" style="text-align: center;">
+                        <a href="javascript: void(0);" onClick="TourPage_MapTab();" class="button remaining">MAP</a>
+                        <a href="javascript: void(0);" onClick="TourPage_ListTab();" class="button top_menu_opacity completed">LIST</a>
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="tour_list_hold game_list search_results_hold"></ul>
+            
+            <footer>
+              <div class="footer_desc">Select your starting point on map or list</div>
+              <div class="footer_player">
+              	<a href="javascript: void(0);" onclick="AudioPlayerPause();" class="audio_button play"></a>
+                <div class="footer_duration"></div>
+                <a href="javascript: void(0);" onClick="PointPageChk();" class="page_button footer_back_button">Back</a>
+              </div>
+            </footer>
+            
+        </div>
+        <!-- TourPage_2 end -->
+        
+        
+        
+        <!-- PointPageDirection -->
+        <div id="PointPageDirection" class="panel no-scroll" title="PointPageDirection">
+            <header>
+                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+                <h1></h1>
+                <a id="backButton" onClick="GoBack();" class='button'>Back</a>
+            </header>
+            
+            <div class="direction_map_instructions">des</div>
+           	<div id="direction_map" class="tour_map_hold"></div>
+            
+            <footer>
+              <div class="footer_player">
+              	<a href="javascript: void(0);" onclick="AudioPlayerPause();" class="audio_button play"></a>
+                <div class="footer_duration"></div>
+              </div>
+            </footer>
+            
+        </div>
+        <!-- PointPageDirection end -->
+        
+        
+        
+        <!-- PointPage -->
+        <div id="PointPage" class="panel" title="PointPage" data-topMenu="true">
+            <header>
+                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+                <h1></h1>
+                <a id="backButton" onClick="GoBack();" class='button'>Back</a>
+            </header>
+            
+            <div class="top_menu_page">
+                <div class="top_menu">
+                    <div class="button-grouped flex" style="text-align: center;">
+                        <a href="javascript: void(0);" class="button next_point"></a>
+                    </div>
+                </div>
+            </div>
+            
+           	<div class="photo_hold"></div>
+            <div class="desc_hold text_box_white"></div>
+            
+            <footer>
+              <div class="footer_player">
+              	<a href="javascript: void(0);" onclick="AudioPlayerPause();" class="audio_button play"></a>
+                <div class="footer_duration"></div>
+              </div>
+            </footer>
+            
+        </div>
+        <!-- PointPage end -->
+        
+        
+        <!-- BlankoPage -->
+        <div id="BlankoPage" class="panel" title="." data-footer="none">
+            <header>
+                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+                <h1></h1>
+                <a id="backButton" onClick="GoBack();" class='button'>Back</a>
+            </header>
+        </div>
+        <!-- BlankoPage end -->
+                
+		
+        <!-- disclaimerPage -->
+        <div id="disclaimerPage" class="panel" title="Disclaimer" data-footer="none">
+            <header>
+                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+                <h1>Disclaimer</h1>
+                <a id="backButton" onClick="GoBack();" class='button'>Back</a>
+            </header>
+            
+            <div class="logo_hold"></div>
+            
+            <div class="text_box_white">
+            	
+				<strong>TERMS, CONDITIONS, RELEASE, WAIVER OF LIABILITY, ASSUMPTION OF RISK, ARBITRATION AND INDEMNITY AGREEMENT ("AGREEMENT")</strong>
+                <br /><br />
+                In consideration of being permitted to use this mobile application (hereinafter referred to as "APP") and/or participate, attend, volunteer, sponsor, enjoy or work at/in the Event, Training, Team Building, Ice Breaker or other activity (hereinafter referred to as "ACTIVITY") facilitated by Team TuneUp LLC and/or DIY Team Building LLC (hereinafter "COMPANY") I, my personal representatives, assigned heirs and next of kin (hereinafter referred to as "CLIENT") hereby:
+                <br /><br />
+                <strong>QUALIFIED PERSON</strong>
+                <br />
+                1.	<strong>ACKNOWLEDGE</strong>, agree, and represent that :
+                I understand the nature of the activity and that I am qualified, in good health and in proper physical condition to participate in or observe such activity. 	
+                <br /><br />
+                <strong>ASSUMPTION OF RISK</strong>
+                <br />
+                2.	<strong>FULLY UNDERSTAND</strong> that: 
+                <br />
+                a.	<strong>GROUP ACTIVITIES INVOLVE PHYSICAL ACTIVITIES WHICH MAY INVOLVE RISKS AND DANGERS OF SERIOUS BODILY INJURY, INCLUDING PERMANENT DISABILITY, PARALYSIS, AND DEATH (hereinafter referred to collectively as "Risks")</strong>
+                <br />
+                b.	These Risks and dangers may be caused by either or all of the following: 
+                <br />
+                i.	<strong>My own actions or inactions</strong>; and/or 
+                <br />
+                ii.	The <strong>actions</strong> or <strong>inactions of others</strong> participating/volunteering/observing or otherwise attending the activity; and/or
+                <br />
+                iii.	The <strong>condition</strong> in which the activity takes place; weather, acts of nature and/or God, and/or 
+                <br />
+                iv.	<strong>THE NEGLIGENCE</strong> OF COMPANY, ANY OF THE PEOPLE INVOLVED IN THE SETTING UP OR RUNNING OF THE EVENT, as well as the officers, directors, agents, employees and assigns of each, coaches, officials, administrators, members, volunteers, participants, sponsors, advertisers, and if applicable, owners and lessors of premises on which the activity takes place, and any other party indemnified and held harmless by "CLIENT" (Hereinafter collectively referred to as "RELEASEES"). 
+                <br />
+                c.	There may be <strong>OTHER RISKS AND SOCIAL AND ECONOMIC LOSSES</strong> either not known to me or not readily foreseeable at this time.
+                <br />
+                d.	Mobile Applications have to potential to negatively affect, and in some cases damage either the hardware, software, performance or data upon mobile devices, which includes this devices. While COMPANY has taken reasonable precautions to test APP on Android and iPhone devices, there is no warranty, assumed or implied that the APP will not negatively impact the speed, functionality, data, hardware or software of any device I install it up.  
+                <br />
+                e.	Of free will <strong>I FULLY ACCEPT AND ASSUME ALL THE RISKS</strong> associated with installing and using this software, as well as any risks that result from participating in, attending, working or in any other way observing the activity
+                <br /><br />
+                <strong>ASSUMPTION OF LOSSES</strong>
+                <br />
+                3.	<strong>FULLY ACCEPT AND ASSUME ALL THE RISKS AND ALL RESPONSIBILITY FOR LOSSES, COSTS, AND DAMAGES</strong> incurred as a result of my use of this mobile application and/or my participation in the ACTIVITY.   	       
+                <br /><br />      
+                <strong>RELEASE OF LIABILITY</strong>
+                <br />
+                4.	<strong>COVENANT TO NOT SUE, RELEASE AND DISCHARGE THE "RELEASEES" FROM ALL LIABILITY, CLAIMS, DEMANDS, LOSES, OR DAMAGES ON MY ACCOUNT CAUSED OR ALLEGED TO BE CAUSED IN WHOLE OR IN PART BY THE NEGLIGENCE OF THE "RELEASEES" OR OTHERWISE, INCLUDING NEGLIGENT PROGRAMMING, TESTING, RESCUE OPERATIONS, NEGLIGENT SECURITY, TRAVEL, AND RECREATIONAL OPERATIONS AND ACTIVITIES. Activities may take place in downtown, urban, rural or remote environments and involve risk of injury as a result of collision with motor vehicles, bicycles, pedestrians, trips and falls and other hazards. Events may include exposure water, which exposes participants to risk of drowning and water damage to personal property. Sharp objects, might also be involved and can result in injuries or death.</strong>
+                <br /><br />
+                <strong>INDEMNIFICATION AGREEMENT</strong>
+                <br />
+                5.	<strong>AGREE</strong> that if, despite this <strong>RELEASE AND WAIVER OF LIABILITY, ASSUMPTION OF RISK, AND INDEMNITY AGREEMENT I</strong>, or anyone on my behalf, makes a claim against any of the RELEASEES, <strong>I WILL INDEMNIFY, SAVE, ANTICIPATE ALL LITIGATION COSTS FOR AND HOLD HARMLESS EACH OF THE RELEASEES</strong> from any litigation expense, attorney fees, loss, liability, damage, or cost which any may incur as the result of such claim.          
+                <br /><br />                                                                                                                                 
+                <strong>CHOICE OF LAW</strong>
+                <br />
+                6.	Agree that this Agreement shall be governed by and construed in accordance with California law.   
+                <br /><br />                             
+                <strong>NO WAIVER OF TERMS</strong>
+                <br />
+                7.	AGREE THAT any party's waiver of any breach or failure to enforce any of the terms and conditions of this Agreement at any time shall not in any way affect, limit or waive such party's right thereafter to enforce and compel strict compliance with every term and condition hereof.     
+                <br /><br />                                                                                  
+                <strong>ARBITRATION CLAUSE </strong>
+                <br />
+                8.	<strong>AGREE THAT</strong>:
+                <br />
+                a.	Any dispute or difference of any kind whatsoever arising out of, relating to or in connection with this contract, whether in contract, tort, statutory, or otherwise, including any questions as to the existence, scope, validity, breach or termination of this agreement in its entirety or part, shall be finally settled by binding arbitration, conducted pursuant to the American Arbitration Association (AAA) rules by a single person panel.
+                <br />
+                b.	Arbitration shall be held in Los Angeles, CA; 
+                <br />
+                c.	Arbitrators shall apply law indicated in the "Choice of Law" provision of the present agreement. 
+                <br />
+                d.	Costs of arbitration shall be equally divided among the parties.
+                <br />
+                e.	<strong>ARBITRATION INVOLVES THE WAIVER OF THE RIGHT TO A JURY TRIAL. BY EXECUTING THE PRESENT AGREEMENT PARTIES AGREE TO BE BOUND BY THE PROVISIONS OF THE PRESENT SECTION, AND AGREE TO WAIVE THEIR RIGHT TO A TRIAL IN A COURT OF LAW.</strong>
+                <br /><br /> 
+                <strong>NO ORAL MODIFICATION</strong>
+                <br />
+                9.	AGREE THAT this Agreement constitutes the complete, final and exclusive agreement among the parties hereto and supersedes and cancels any and all prior communications and agreements between the parties with respect to the subject matter hereof.
+                <br />
+                10.	 FURTHER AGREE THAT the present agreement excludes future modification except by a signed writing, and that this agreement may not otherwise be modified
+                <br /><br />
+                <strong>SEVERABILITY, INDEPENDENCE AND INTERPRETATION OF THE CLAUSES</strong>
+                <br />
+                11.	AGREE AND UNDERSTAND THAT:
+                <br />
+                a.	The provisions and terms of the present Agreement shall be deemed independent and severable, and that a determination of invalidity or partial invalidity or unenforceability of any one provision or portion hereof by a court or arbitration tribunal of competent jurisdiction shall not affect the validity or enforceability of any other provision herein. 
+                <br />
+                b.	The provisions of this Agreement shall be liberally construed to effectuate its purpose of releasing from liability, indemnifying and protecting the RELEASEES. 
+                <br />
+                c.	The Article headings, titles and captions have been inserted for convenience only, and shall not be considered or referred to in resolving questions of interpretation or construction.
+                <br />
+                d.	That, as used in this Agreement, the term "including" shall be construed and understood, unless otherwise indicated, to mean "including, without limitation" or "including, not limited to."                            <br /><br />                                                            
+                <strong>BY SIGNING HERE BELOW I INDICATE THE FOLLOWING: 
+                <br />
+                (i)	THAT THE DEVICE I AM INSTALLING THIS UPON IS MY OWN DEVICE, AND I TAKE RESPONSIBILITY FOR MYSELF AND ASSUME ALL LIABILITY AND RESPONSIBILITY FOR ANY OTHER PARTY WHO USES THIS APP ON MY PHONE;
+                 <br />
+                (ii)	THAT I HAVE READ THIS  ENTIRE AGREEMENT AND FULLY UNDERSTAND ALL OF ITS TERMS; 
+                 <br />
+                (iii)	 UNDERSTAND THAT I HAVE GIVEN UP SUBSTANTIAL RIGHTS BY AGREEING TO IT; 
+                 <br />
+                (iv)	THAT I HAVE AGREED TO IT FREELY AND WITHOUT ANY INDUCEMENT OR ASSURANCE BY ANYONE; 
+                 <br />
+                (v)	THAT I AM OF CLEAR AND SOUND MIND, AND NOT UNDER EFFECTS OF ANY MIND ALTERING DRUG; 
+                 <br />
+                (vi)	THAT I INTEND THIS AGREEMENT TO BE, AS TOWARDS THE RELEASEES, A COMPLETE AND UNCONDITIONAL RELEASE OF ALL LIABILITY TO THE GREATEST EXTENT ALLOWED BY LAW; 
+                 <br />
+                (vii)	AGREE TO HAVE MY PHOTO AND/OR VIDEO TAKEN AT THIS EVENT OR USING THIS APP AND RELEASE ALL CLAIM TO RIGHTS TO SAID PHOTOS AND VIDEOS WHICH MAY BE USED IN CONJUNCTION WITH MARKETING, ADVERTISING AND PROMOTIONAL MATERIALS;
+                 <br />
+                (viii)	AND AGREE THAT IF ANY PORTION OF THIS AGREEMENT IS HELD TO BE INVALID, THE BALANCE, NOT WITHSTANDING, SHALL CONTINUE IN FULL FORCE AND EFFECT. </strong>
+                 <br /><br /><br />
+                
+                 <strong style="background-color:#FF0">DO NOT CLICK "I ACCEPT" UNLESS YOU HAVE READ, UNDERSTOOD AND AGREED TO ALL THE CONDITIONS ABOVE!</strong>
+            </div>
+            
+        	<div class="buttons_hold">
+                <a href="javascript: void(0);" onClick="" class="button_regular I_Agreee"><span>I ACCEPT</span></a>
+                <a href="javascript: void(0);" onClick="GoBack();" class="button_regular" style="background-color:#C00;"><span>CANCEL</span></a>
+            </div>
+            
+        </div>
+        <!-- disclaimerPage end -->
+        
+        
+        <!--
+        <div class="panel" title="About Us" id="aboutPage" >
+            <header>
+                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+                <h1>About Us header</h1>
+                <a id="backButton" onClick="GoBack();" class='button'>Back</a>
+            </header>
+            
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <a onClick="cordova.InAppBrowser.open('http://google.com', '_blank', 'location=yes');" class='button'>Maecenas feugiat consequat diam</a>. Maecenas metus. Vivamus diam purus, cursus a, commodo non, facilisis vitae, nulla. Aenean dictum lacinia tortor. Nunc iaculis, nibh non iaculis aliquam, orci felis euismod neque, sed ornare massa mauris sed velit. Nulla pretium mi et risus. Fusce mi pede, tempor id, cursus ac, ullamcorper nec, enim. Sed tortor. Curabitur molestie. Duis velit augue, condimentum at, ultrices a, luctus ut, orci. Donec pellentesque egestas eros. Integer cursus, augue in cursus faucibus, eros pede bibendum sem, in tempus tellus justo quis ligula. Etiam eget tortor. Vestibulum rutrum, est ut placerat elementum, lectus nisl aliquam velit, tempor aliquam eros nunc nonummy metus. In eros metus, gravida a, gravida sed, lobortis id, turpis. Ut ultrices, ipsum at venenatis fringilla, sem nulla lacinia tellus, eget aliquet turpis mauris non enim. Nam turpis. Suspendisse lacinia. Curabitur ac tortor ut ipsum egestas elementum. Nunc imperdiet gravida mauris. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas feugiat consequat diam. Maecenas metus. Vivamus diam purus, cursus a, commodo non, facilisis vitae, nulla. Aenean dictum lacinia tortor. Nunc iaculis, nibh non iaculis aliquam, orci felis euismod neque, sed ornare massa mauris sed velit. Nulla pretium mi et risus. Fusce mi pede, tempor id, cursus ac, ullamcorper nec, enim. Sed tortor. Curabitur molestie. Duis velit augue, condimentum at, ultrices a, luctus ut, orci. Donec pellentesque egestas eros. Integer cursus, augue in cursus faucibus, eros pede bibendum sem, in tempus tellus justo quis ligula. Etiam eget tortor. Vestibulum rutrum, est ut placerat elementum, lectus nisl aliquam velit, tempor aliquam eros nunc nonummy metus. In eros metus, gravida a, gravida sed, lobortis id, turpis. Ut ultrices, ipsum at venenatis fringilla, sem nulla lacinia tellus, eget aliquet turpis mauris non enim. Nam turpis. Suspendisse lacinia. Curabitur ac tortor ut ipsum egestas elementum. Nunc imperdiet gravida mauris. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas feugiat consequat diam. Maecenas metus. Vivamus diam purus, cursus a, commodo non, facilisis vitae, nulla. Aenean dictum lacinia tortor. Nunc iaculis, nibh non iaculis aliquam, orci felis euismod neque, sed ornare massa mauris sed velit. Nulla pretium mi et risus. Fusce mi pede, tempor id, cursus ac, ullamcorper nec, enim. Sed tortor. Curabitur molestie. Duis velit augue, condimentum at, ultrices a, luctus ut, orci. Donec pellentesque egestas eros. Integer cursus, augue in cursus faucibus, eros pede bibendum sem, in tempus tellus justo quis ligula. Etiam eget tortor. Vestibulum rutrum, est ut placerat elementum, lectus nisl aliquam velit, tempor aliquam eros nunc nonummy metus. In eros metus, gravida a, gravida sed, lobortis id, turpis. Ut ultrices, ipsum at venenatis fringilla, sem nulla lacinia tellus, eget aliquet turpis mauris non enim. Nam turpis. Suspendisse lacinia. Curabitur ac tortor ut ipsum egestas elementum. Nunc imperdiet gravida mauris. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas feugiat consequat diam. Maecenas metus. Vivamus diam purus, cursus a, commodo non, facilisis vitae, nulla. Aenean dictum lacinia tortor. Nunc iaculis, nibh non iaculis aliquam, orci felis euismod neque, sed ornare massa mauris sed velit. Nulla pretium mi et risus. Fusce mi pede, tempor id, cursus ac, ullamcorper nec, enim. Sed tortor. Curabitur molestie. Duis velit augue, condimentum at, ultrices a, luctus ut, orci. Donec pellentesque egestas eros. Integer cursus, augue in cursus faucibus, eros pede bibendum sem, in tempus tellus justo quis ligula. Etiam eget tortor. Vestibulum rutrum, est ut placerat elementum, lectus nisl aliquam velit, tempor aliquam eros nunc nonummy metus. In eros metus, gravida a, gravida sed, lobortis id, turpis. Ut ultrices, ipsum at venenatis fringilla, sem nulla lacinia tellus, eget aliquet turpis mauris non enim. Nam turpis. Suspendisse lacinia. Curabitur ac tortor ut ipsum egestas elementum. Nunc imperdiet gravida mauris. 
+            <footer>
+              <a class="icon home" href="#home">Home</a>
+              <a class="icon settings" href="#settings">Settings</a>
+              <a class="icon bug" href="#bugs">Bugs</a>
+              <a class="icon info" href="#bugs">About</a>
+            </footer>
+        </div>
+       	-->
+        
+         
+    </div>
+    
+    <div id="top_menu_page"></div>
+    
+</div>
+</body>
+</html>    
