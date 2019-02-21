@@ -30,7 +30,7 @@
 <variable name="APP_ID" value="486108958875603"/>
 <variable name="APP_NAME" value="Tour Guide"/>
 <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false"/>
-<variable name="ANDROID_SDK_VERSION" value="4.40.0"/>
+<variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.25.0"/>
 </plugin>
 <plugin name="cordova-plugin-screen-orientation" spec="https://github.com/apache/cordova-plugin-screen-orientation"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="es6-promise-plugin" spec="4.2.2"/>
