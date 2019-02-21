@@ -37,6 +37,7 @@
 <plugin name="cordova-plugin-screen-orientation" spec="https://github.com/apache/cordova-plugin-screen-orientation"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="es6-promise-plugin" spec="4.2.2"/>
 <plugin name="cordova-plugin-keyboard" spec="https://github.com/cjpearson/cordova-plugin-keyboard"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
+<!--
 <plugin name="cordova-plugin-inappbrowser" spec="https://github.com/apache/cordova-plugin-inappbrowser"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="cordova-plugin-whitelist" spec="1.2.2"/>
 <platform  name="ios">
