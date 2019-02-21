@@ -22,11 +22,10 @@ var global_login_data = new Array();
 var global_latitude = 0;
 var global_longitude = 0;
 var global_accuracy;
+var global_accuracy_value = 1000;
 if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
-	var global_accuracy_value = 500;
-} else {
-	var global_accuracy_value = 1000;
-}
+	global_accuracy_value = 5000;
+} 
 var global_list_pgg = new Array();
 var global_search_results_by = 20;
 var global_lang = "en";

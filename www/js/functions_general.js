@@ -281,8 +281,9 @@ function updateLocationError (error) {
 	$.ui.hideMask();
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
 	global_geolocationWatchTimer_chk = 0;
-	custom_alert("Cannot determine current location, ensure location services are on for the app and try again.");
+	//custom_alert("Cannot determine current location, ensure location services are on for the app and try again.");
 	//custom_alert('code: ' + error.code + '\n' + 'message: ' + error.message);
+	alert(JSON.stringify(error))
   
 }
 
