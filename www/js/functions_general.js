@@ -245,6 +245,9 @@ function getLocationNetChk (callback) {
 }
 function updateLocation (callback, clearWatch_chk) {
 	
+	var test1 = rand(1,1000) + ' * gps start';
+	$('header h1').html(test1);
+	
 	global_geolocationWatchTimer_chk = 1;
 	var options = {timeout: 15000, maximumAge: 11000, enableHighAccuracy: true };
 														  								  
@@ -260,8 +263,8 @@ function updateLocation (callback, clearWatch_chk) {
 																	if (callback != false) setTimeout(callback, 100);
 																	$.ui.hideMask();
 																	
-																	var test = rand(1,1000) + ' * ' + global_latitude;
-																	$('header h1').html(test);
+																	var test2 = rand(1,1000) + ' * ' + global_latitude;
+																	$('header h1').html(test2);
 																	
 																} else {
 																	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
