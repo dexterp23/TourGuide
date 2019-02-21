@@ -61,6 +61,7 @@
     <preference name="KeyboardShrinksView" value="true"/>
     <preference name="phonegap-version" value="cli-6.5.0"/>
     <preference name="android-windowSoftInputMode" value="adjustPan"/>
+	<preference name="FACEBOOK_ANDROID_SDK_VERSION" default="4.40.0"/>
 </platform>
 <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect --ignore-gpu-blacklist "/>
 <platform name="android" >
