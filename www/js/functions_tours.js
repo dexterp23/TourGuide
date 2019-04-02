@@ -561,9 +561,9 @@ function PointPageDirection_2 () {
 			}
 			//instructions += '<div>Arrive in ' + duration + '</div>';
 			$('#PointPageDirection .direction_map_instructions').html(instructions);
-			if (distance > 50) { //metara
+			if (distance > global_distance_on_point) { 
 				directionsDisplay.setDirections(response);
-				if (distance < 500 && global_audio_end_chk == 0 && AudioPlayer_Data ('audio_end', 0)) {
+				if (distance < global_distance_before_point && global_audio_end_chk == 0 && AudioPlayer_Data ('audio_end', 0)) {
 					AudioPlayerUpdate ('audio_end');
 					global_audio_end_chk = 1;
 				}
@@ -659,7 +659,7 @@ function AudioPlayer_Data (type, chk) {
 	
 	global_audio_array.push({'audio':audio, 'duration':duration, 'replay':replay});
 	
-	//if (audio && chk == 1) AudioPlayer ();
+	if (audio && chk == 1) AudioPlayer ();
 	if (chk == 0) return audio;
 
 }
@@ -767,7 +767,7 @@ function AudioPlayerStop () {
 	
 	global_audio_update_chk = 0;
 	$(".audio_button").addClass('stop');
-	//AudioPlayer ();
+	AudioPlayer ();
 	
 }
 

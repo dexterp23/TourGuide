@@ -1,4 +1,4 @@
-var local_chk = 14;
+var local_chk = 1;
 /*
 0 - local app full
 1 - mob app full
@@ -9,10 +9,10 @@ var local_chk = 14;
 */
 
 if (local_chk == 1 || local_chk == 20) {
-	var global_host = "http://app.teamsnapp.com"; //hosting
+	var global_host = "http://tourguide.teamsnapp.com"; //hosting
 } else if (local_chk == 0 || local_chk == 10 || local_chk == 12 || local_chk == 14) {
-	//var global_host = "http://127.0.0.2/tour_guide"; //local
-	var global_host = "http://192.168.0.13/tour_guide"; //local
+	var global_host = "http://127.0.0.2/tour_guide"; //local
+	//var global_host = "http://192.168.0.13/tour_guide"; //local
 }
 //putanja u mobu: file://android_asset/www/
 
@@ -63,7 +63,8 @@ var global_user_location_marker;
 var global_point_page_chk = 0;
 var global_before_point_chk = 0;
 var global_current_page;
-
+var global_distance_on_point = 50; //metara
+var global_distance_before_point = 500; //metara
 
 
 //data
