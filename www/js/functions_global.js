@@ -65,6 +65,7 @@ var global_before_point_chk = 0;
 var global_current_page;
 var global_distance_on_point = 50; //metara
 var global_distance_before_point = 500; //metara
+var global_time_audio_next_point = 5000; //sec
 
 
 //data

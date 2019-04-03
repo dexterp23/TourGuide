@@ -490,7 +490,7 @@ function PointPageDirection () {
 	AudioPlayer_Data ('song', 1);
 	setTimeout(function() {
 		if (global_point_page_chk == 0 && AudioPlayer_Data ('audio_start', 0)) AudioPlayerUpdate ('audio_start');
-	}, 5000);
+	}, global_time_audio_next_point);
 	
 }
 

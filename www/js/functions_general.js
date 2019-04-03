@@ -246,8 +246,8 @@ function getLocationNetChk (callback) {
 }
 function updateLocation (callback, clearWatch_chk) {
 	
-	var test1 = rand(1,1000) + ' * gps start';
-	$('header h1').html(test1);
+	//var test1 = rand(1,1000) + ' * gps start';
+	//$('header h1').html(test1);
 	
 	global_geolocationWatchTimer_chk = 1;
 	var options = {timeout: 15000, maximumAge: 11000, enableHighAccuracy: true };
