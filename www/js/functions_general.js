@@ -436,7 +436,7 @@ function ScreenBrightness (type) {
 
 
 
-
+/*
 function audioLoad (audio) {
 	
 	if (typeof(Media) == 'undefined') {
@@ -496,3 +496,125 @@ function audioPlayonSuccess() {
 function audioPlayonError(error) {
     //alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
 }
+*/
+
+/* ******************************** */
+
+
+function AudioBackLoad (audio) {
+	
+	$('#audio_player_back_holder').remove();
+	$('body').append('<audio id="audio_player_back_holder"><source src="'+audio+'" type="audio/mpeg" /></audio>');
+	global_audio_back_player = document.getElementById('audio_player_back_holder');
+	global_audio_back_player.load();
+	AudioBackVolume (1);
+	global_audio_back_player.addEventListener("timeupdate", AudioBackTimeUpdate);
+	
+}
+
+function AudioBackPlay () {
+	
+    global_audio_back_player.play();
+	
+}
+
+function AudioBackPause () {
+	
+    global_audio_back_player.pause();
+	
+}
+
+function AudioBackVolume (value) {
+	
+	global_audio_back_player.volume = value; 
+	
+}
+
+function AudioBackTimeUpdate (data) {
+	
+	var ended = global_audio_back_player.ended; 
+	
+	if (ended == true) AudioBackPlay ();
+	
+}
+
+
+
+function AudioLoad (audio) {
+	
+	$('#audio_player_holder').remove();
+	$('body').append('<audio id="audio_player_holder"><source src="'+audio+'" type="audio/mpeg" /></audio>');
+	global_audio_player = document.getElementById('audio_player_holder');
+	global_audio_player.load();
+	AudioVolume (1);
+	global_audio_player.addEventListener("timeupdate", AudioBackTimeUpdate);
+	
+}
+
+function AudioPlay () {
+	
+    global_audio_player.play();
+	
+}
+
+function AudioPause () {
+	
+    global_audio_player.pause();
+	
+}
+
+function AudioVolume (value) {
+	
+	global_audio_player.volume = value; 
+	
+}
+
+function AudioTimeUpdate (data) {
+	
+	if (global_browser == "Firefox") {
+		var amp = data.originalTarget.currentTime;
+	} else {
+		var amp = data.srcElement.currentTime;
+	}	
+	
+	var ended = global_audio_player.ended; 
+	
+	console.log (amp);
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
