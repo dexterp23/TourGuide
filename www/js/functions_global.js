@@ -1,4 +1,4 @@
-var local_chk = 0; //0 ili 14
+var local_chk = 14; //0 ili 14
 /*
 0 - local app full
 1 - mob app full
