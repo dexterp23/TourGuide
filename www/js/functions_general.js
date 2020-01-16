@@ -261,6 +261,9 @@ function updateLocation (callback, clearWatch_chk) {
 	//var test1 = rand(1,1000) + ' * gps start';
 	//$('header h1').html(test1);
 	
+	if (typeof(callback) !== 'undefined') global_geolocation_callback = callback;
+	if (typeof(clearWatch_chk) !== 'undefined') global_geolocation_clearWatch_chk = clearWatch_chk;
+	
 	global_geolocationWatchTimer_chk = 1;
 	var options = {timeout: 15000, maximumAge: 11000, enableHighAccuracy: true };
 														  								  
@@ -271,6 +274,8 @@ function updateLocation (callback, clearWatch_chk) {
 																
 																global_gps_chk = 0;
 																SetGps(true);
+																clearInterval(global_geolocation_update_timer);
+																
 																if (position.coords.accuracy < global_accuracy_value) {
 																	global_latitude = position.coords.latitude; 
 																	global_longitude = position.coords.longitude;
@@ -293,15 +298,16 @@ function updateLocation (callback, clearWatch_chk) {
 function updateLocationError (error) {
 	
 	$.ui.hideMask();
-	//navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-	//global_geolocationWatchTimer_chk = 0;
+	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
+	global_geolocationWatchTimer_chk = 0;
 	//if (global_current_page == "PointPageDirection") TourPage(global_ID_tours);
 	if (global_gps_chk == 0) {
-		
 		custom_alert("Cannot determine current location, ensure location services are on for the app and try again.");
 		global_gps_chk = 1;
 		SetGps(false);
-		
+		global_geolocation_update_timer = setInterval(function () {
+			updateLocation (global_geolocation_callback, global_geolocation_clearWatch_chk);
+		}, 5000);
 	}
 	//custom_alert('code: ' + error.code + '\n' + 'message: ' + error.message);
 	//alert(JSON.stringify(error.message));
@@ -483,9 +489,9 @@ function ScreenBrightness (type) {
 function SetWiFi (status) {
 	
 	if (status == true) {
-		$('header h1').html('wifi radi');
+		//$('header h1').html('wifi radi');
 	} else {
-		$('header h1').html('wifi ne radi');
+		//$('header h1').html('wifi ne radi');
 	}
 	
 }
