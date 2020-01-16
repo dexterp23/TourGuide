@@ -274,13 +274,13 @@ function updateLocation (callback, clearWatch_chk) {
 		var test1 = rand(1,1000) + ' * ' + global_geolocation_callback;
 		$('header h1').html(test1);
 		
-		global_geolocationWatchTimer_chk = 1;
+		//global_geolocationWatchTimer_chk = 1;
 		var options = {timeout: 5000, maximumAge: 11000, enableHighAccuracy: true };
 																							  
 		global_geolocationWatchTimer = navigator.geolocation.watchPosition(function(position) {
 			
-																	//var test2 = rand(1,1000) + ' * ' + position.coords.latitude;
-																	//$('header h1').html(test2);
+																	var test2 = rand(1,1000) + ' * ' + position.coords.latitude;
+																	$('header #backButton').html(test2);
 																	
 																	global_gps_chk = 0;
 																	SetGps(true);
@@ -291,13 +291,14 @@ function updateLocation (callback, clearWatch_chk) {
 																		global_accuracy = position.coords.accuracy;
 																		if (clearWatch_chk == true) {
 																			navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-																			global_geolocationWatchTimer_chk = 0;
+																			//global_geolocationWatchTimer_chk = 0;
+																			global_geolocation_clear = 1;
 																		}
 																		if (callback != false) setTimeout(callback, 100);
 																		$.ui.hideMask();
 																	} else {
 																		navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-																		global_geolocationWatchTimer_chk = 0;
+																		//global_geolocationWatchTimer_chk = 0;
 																		updateLocation (callback, clearWatch_chk);
 																	}
 																  },updateLocationError,options);
@@ -310,7 +311,7 @@ function updateLocationError (error) {
 	
 	$.ui.hideMask();
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-	global_geolocationWatchTimer_chk = 0;
+	//global_geolocationWatchTimer_chk = 0;
 	//if (global_current_page == "PointPageDirection") TourPage(global_ID_tours);
 	if (global_gps_chk == 0) {
 		custom_alert("Cannot determine current location, ensure location services are on for the app and try again.");
@@ -511,9 +512,9 @@ function SetWiFi (status) {
 function SetGps (status) {
 
 	if (status == true) {
-		$('header #backButton').html('gps radi');
+		$('header #menubadge').html('gps radi');
 	} else {
-		$('header #backButton').html('gps ne radi');
+		$('header #menubadge').html('gps ne radi');
 	}	
 	
 }
