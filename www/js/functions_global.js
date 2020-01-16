@@ -1,4 +1,4 @@
-var local_chk = 12;
+var local_chk = 14; //0 ili 14
 /*
 0 - local app full
 1 - mob app full
@@ -34,6 +34,9 @@ var global_browser;
 var global_audio_back_player = null;
 var global_audio_player_array = new Array();
 var global_audio_id_current=  '';
+var global_audio_back_volume_high = 0.5;
+var global_audio_back_volume_low = 0.1;
+var global_audio_volume_high = 1;
 /*
 var global_audio_player = null;
 var global_audio_timer;
@@ -68,7 +71,7 @@ var global_user_location_marker;
 var global_before_point_chk = 0;
 var global_current_page;
 var global_distance_on_point = 30; //metara
-var global_distance_before_point = 100; //metara
+var global_distance_before_point = 500; //metara
 /*var global_time_audio_next_point = 5000; //sec*/
 var global_functions_array = new Array();
 var global_audio_slider;

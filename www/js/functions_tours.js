@@ -223,7 +223,7 @@ function TourPage (ID_tours) {
 		if (global_audio_id_current) AudioPause (global_audio_id_current);
 		global_functions_array = new Array();
 		global_audio_end_chk = 0;
-		AudioBackVolume (1);
+		AudioBackVolume (global_audio_back_volume_high);
 		
 		//pustamo tour_end audio
 		var key_next = parseInt(global_ID_check_point_key) + 1;
@@ -435,12 +435,12 @@ function PointPageChk (key) {
 				if (global_audio_id_current && global_audio_end_chk == 1) { //ako trenutno ide neki audio a cekirano je da je pusten audio_before onda audio_desc stavljamo na cekanje
 					global_audio_end_chk = 2;
 					global_functions_array.push({'function':'PointPage();', 'type':0});
-					global_functions_array.push({'function':'AudioPlay (\'audio_desc_'+global_ID_check_point_key+'\');', 'type':1});
+					global_functions_array.push({'function':'AudioLocationPlay (\'audio_desc_'+global_ID_check_point_key+'\');', 'type':1});
 				} else {
 					PointPage();
 					if (global_audio_id_current) AudioPause (global_audio_id_current);
 					global_functions_array = new Array();
-					AudioPlay ('audio_desc_' + global_ID_check_point_key);
+					AudioLocationPlay ('audio_desc_' + global_ID_check_point_key);
 				}
 				
 			}
@@ -606,7 +606,7 @@ function PointPageDirection_2 () {
 							var class_current = $(".audio_back_button").attr('class');	
 							if (class_current.indexOf("stop") > 0) { 
 								global_functions_array.push({'function':'AudioBackPlay ();', 'type':0});
-								global_functions_array.push({'function':'AudioBackVolume (1);', 'type':0});
+								global_functions_array.push({'function':'AudioBackVolume ('+global_audio_back_volume_high+');', 'type':0});
 							}
 						}
 					} else {
@@ -615,7 +615,7 @@ function PointPageDirection_2 () {
 							var class_current = $(".audio_back_button").attr('class');	
 							if (class_current.indexOf("stop") > 0) { 
 								global_functions_array.push({'function':'AudioBackPlay ();', 'type':0});
-								global_functions_array.push({'function':'AudioBackVolume (1);', 'type':0});
+								global_functions_array.push({'function':'AudioBackVolume ('+global_audio_back_volume_high+');', 'type':0});
 							}
 							AudioBackPause();
 						}

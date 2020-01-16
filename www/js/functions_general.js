@@ -336,7 +336,7 @@ function updateLocationTest (callback, clearWatch_chk) {
 			if (global_coordinate_key_test <= 3) setTimeout(updateLocationTest (callback, clearWatch_chk), 100);
 			$.ui.hideMask();
 			
-		}, 400000);
+		}, 4000);
 		
 		setTimeout(function() {
 			$.ui.hideMask();
@@ -533,7 +533,7 @@ function AudioBackLoad (audio) {
 	global_audio_back_player = document.getElementById('audio_player_back_holder');
 	global_audio_back_player.load();
 	global_audio_back_player.loop = true;
-	AudioBackVolume (1);
+	AudioBackVolume (global_audio_back_volume_high);
 	//global_audio_back_player.addEventListener("timeupdate", AudioBackTimeUpdate);
 	//console.log (global_audio_back_player.readyState);
 	
@@ -606,7 +606,7 @@ function AudioPlay (id) {
 	
 	var audio_player = global_audio_player_array[id];
 	global_audio_id_current = id;
-	AudioBackVolume (0.2);
+	AudioBackVolume (global_audio_back_volume_low);
 	
 	if (audio_player.readyState == 4) {
 		audio_player.play();
@@ -622,7 +622,7 @@ function AudioLocationPlay (id) {
 	
 	var audio_player = global_audio_player_array[id];
 	global_audio_id_current = id;
-	AudioBackVolume (0.2);
+	AudioBackVolume (global_audio_back_volume_low);
 	audio_player.play();
 	
 	$(".player_button").removeClass('play');
@@ -667,7 +667,7 @@ function audioSeekTo (id, time) {
 
 function AudioTimeUpdate (data, id) {
 	
-	if (id.indexOf("audio_desc_") >= 0) {
+	if (global_audio_id_current.indexOf("audio_desc_") >= 0) {
 		if (global_browser == "Firefox") {
 			var amp = data.originalTarget.currentTime;
 		} else {
@@ -682,7 +682,7 @@ function AudioTimeUpdate (data, id) {
 	
 	//kada se zavrsi audio pustamo funkcije koje su na cekanju
 	if (ended == true) {
-		if (id.indexOf("audio_desc_") >= 0) AudioLocationPause (id);
+		if (global_audio_id_current.indexOf("audio_desc_") >= 0) AudioLocationPause (id);
 		global_audio_id_current = '';
 		for (var key in global_functions_array){
 			if (typeof(global_functions_array[key]['function']) !== 'undefined') {
@@ -695,7 +695,7 @@ function AudioTimeUpdate (data, id) {
 				}
 			}
 		}
-		if (typeof(global_functions_array) == 'undefined' || global_functions_array.length == 0 || (typeof(global_functions_array[0]) !== 'undefined' && typeof(global_functions_array[0]['function']) == 'undefined')) AudioBackVolume (1);
+		if (typeof(global_functions_array) == 'undefined' || global_functions_array.length == 0 || (typeof(global_functions_array[0]) !== 'undefined' && typeof(global_functions_array[0]['function']) == 'undefined')) AudioBackVolume (global_audio_back_volume_high);
 	}
 	
 }
