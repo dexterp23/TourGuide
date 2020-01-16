@@ -80,6 +80,7 @@ var global_gps_chk = 0;
 var global_geolocation_update_timer;
 var global_geolocation_callback = '';
 var global_geolocation_clearWatch_chk = true;
+var global_geolocation_clear = 0;
 
 
 //data

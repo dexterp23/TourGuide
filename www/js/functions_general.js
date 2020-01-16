@@ -257,51 +257,55 @@ function getLocationNetChk (callback) {
 
 }
 function updateLocation (callback, clearWatch_chk) {
-
-	if (typeof(callback) !== 'undefined') {
-		global_geolocation_callback = callback;
-	} else {
-		callback = global_geolocation_callback;
-	}
-	if (typeof(clearWatch_chk) !== 'undefined') {
-		global_geolocation_clearWatch_chk = clearWatch_chk;
-	} else {
-		clearWatch_chk = global_geolocation_clearWatch_chk;
-	}
 	
-	var test1 = rand(1,1000) + ' * ' + global_geolocation_callback;
-	$('header h1').html(test1);
-	
-	global_geolocationWatchTimer_chk = 1;
-	var options = {timeout: 5000, maximumAge: 11000, enableHighAccuracy: true };
-														  								  
-	global_geolocationWatchTimer = navigator.geolocation.watchPosition(function(position) {
+	if (global_geolocation_clear == 0) {
 		
-																//var test2 = rand(1,1000) + ' * ' + position.coords.latitude;
-																//$('header h1').html(test2);
-																
-																global_gps_chk = 0;
-																SetGps(true);
-																clearInterval(global_geolocation_update_timer);
-																
-																if (position.coords.accuracy < global_accuracy_value) {
-																	global_latitude = position.coords.latitude; 
-																	global_longitude = position.coords.longitude;
-																	global_accuracy = position.coords.accuracy;
-																	if (clearWatch_chk == true) {
+		if (typeof(callback) !== 'undefined') {
+			global_geolocation_callback = callback;
+		} else {
+			callback = global_geolocation_callback;
+		}
+		if (typeof(clearWatch_chk) !== 'undefined') {
+			global_geolocation_clearWatch_chk = clearWatch_chk;
+		} else {
+			clearWatch_chk = global_geolocation_clearWatch_chk;
+		}
+		
+		var test1 = rand(1,1000) + ' * ' + global_geolocation_callback;
+		$('header h1').html(test1);
+		
+		global_geolocationWatchTimer_chk = 1;
+		var options = {timeout: 5000, maximumAge: 11000, enableHighAccuracy: true };
+																							  
+		global_geolocationWatchTimer = navigator.geolocation.watchPosition(function(position) {
+			
+																	//var test2 = rand(1,1000) + ' * ' + position.coords.latitude;
+																	//$('header h1').html(test2);
+																	
+																	global_gps_chk = 0;
+																	SetGps(true);
+																	clearInterval(global_geolocation_update_timer);
+																	
+																	if (position.coords.accuracy < global_accuracy_value) {
+																		global_latitude = position.coords.latitude; 
+																		global_longitude = position.coords.longitude;
+																		global_accuracy = position.coords.accuracy;
+																		if (clearWatch_chk == true) {
+																			navigator.geolocation.clearWatch(global_geolocationWatchTimer);
+																			global_geolocationWatchTimer_chk = 0;
+																		}
+																		if (callback != false) setTimeout(callback, 100);
+																		$.ui.hideMask();
+																	} else {
 																		navigator.geolocation.clearWatch(global_geolocationWatchTimer);
 																		global_geolocationWatchTimer_chk = 0;
+																		updateLocation (callback, clearWatch_chk);
 																	}
-																	if (callback != false) setTimeout(callback, 100);
-																	$.ui.hideMask();
-																} else {
-																	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-																	global_geolocationWatchTimer_chk = 0;
-																	updateLocation (callback, clearWatch_chk);
-																}
-															  },updateLocationError,options);
-															  
-	
+																  },updateLocationError,options);
+
+	}
+																  
+		
 }
 function updateLocationError (error) {
 	
@@ -317,7 +321,9 @@ function updateLocationError (error) {
 			//updateLocation ();
 		}, 5000);
 	}
-	updateLocation ();
+	if (global_geolocation_clear == 0) {
+		updateLocation ();
+	}
 	//custom_alert('code: ' + error.code + '\n' + 'message: ' + error.message);
 	//alert(JSON.stringify(error.message));
   

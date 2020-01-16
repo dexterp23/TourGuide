@@ -21,6 +21,7 @@ function WelcomePage () {
 	global_geolocationWatchTimer_chk = 0;
 	clearInterval(global_geolocation_update_timer);
 	global_gps_chk = 0;
+	global_geolocation_clear = 1;
 	
 	//setujemo screen
 	ScreenBrightness(false);
@@ -113,6 +114,7 @@ function TourPage (ID_tours) {
 		$.ui.showMask();
 		
 		if (global_geolocationWatchTimer_chk == 0) {
+			global_geolocation_clear = 0;
 			if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
 				updateLocation ('UserLocationOnMap();', true);
 			} else {
@@ -214,6 +216,7 @@ function TourPage (ID_tours) {
 		$('header #backButton').attr("onClick","WelcomePage();");
 		
 		if (global_geolocationWatchTimer_chk == 0) {
+			global_geolocation_clear = 0;
 			if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
 				updateLocation ('UserLocationOnMap();', true);
 			} else {
@@ -407,11 +410,12 @@ function PointsList_html (data, key) {
 function PointPageChk (key) {
 	
 	//gasimo navigaciju
-	if (global_gps_chk == 0) {
+	//if (global_gps_chk == 0) {
 		navigator.geolocation.clearWatch(global_geolocationWatchTimer);
 		global_geolocationWatchTimer_chk = 0;
 		clearInterval(global_geolocation_update_timer);
-	}
+		global_geolocation_clear = 1;
+	//}
 	
 	if (typeof(key) == 'undefined') key = global_ID_check_point_key;
 	
@@ -427,6 +431,7 @@ function PointPageChk (key) {
 				$('header #backButton').attr("onClick","TourPage("+global_ID_tours+");");
 				$.ui.hideMask();
 				if (global_geolocationWatchTimer_chk == 0) {
+					global_geolocation_clear = 0;
 					if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
 						updateLocation ('PointPageDirection_2();', false);
 					} else {
@@ -471,14 +476,15 @@ function PointPageChk (key) {
 
 
 function PointPageDirection () {
-	
+	/*
 	//gasimo navigaciju
 	if (global_gps_chk == 0) {
 		navigator.geolocation.clearWatch(global_geolocationWatchTimer);
 		global_geolocationWatchTimer_chk = 0;
 		clearInterval(global_geolocation_update_timer);
+		global_geolocation_clear = 1;
 	}
-	
+	*/
 	$('#PointPageDirection h1').html(global_points_data[global_ID_check_point_key]['title']);
 	nextPage('PointPageDirection');
 	$.ui.clearHistory();
@@ -527,6 +533,7 @@ function PointPageDirection () {
 	//circle point location end
 	
 	if (global_geolocationWatchTimer_chk == 0) {
+		global_geolocation_clear = 0;
 		if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
 			updateLocation ('PointPageDirection_2();', false);
 		} else {
@@ -652,6 +659,7 @@ function PointPage () {
 		navigator.geolocation.clearWatch(global_geolocationWatchTimer);
 		global_geolocationWatchTimer_chk = 0;
 		clearInterval(global_geolocation_update_timer);
+		global_geolocation_clear = 1;
 	}
 	
 	global_audio_end_chk = 1;
