@@ -273,7 +273,7 @@ function updateLocation (callback, clearWatch_chk) {
 	$('header h1').html(test1);
 	
 	global_geolocationWatchTimer_chk = 1;
-	var options = {timeout: 15000, maximumAge: 11000, enableHighAccuracy: true };
+	var options = {timeout: 5000, maximumAge: 11000, enableHighAccuracy: true };
 														  								  
 	global_geolocationWatchTimer = navigator.geolocation.watchPosition(function(position) {
 		
@@ -314,9 +314,10 @@ function updateLocationError (error) {
 		global_gps_chk = 1;
 		SetGps(false);
 		global_geolocation_update_timer = setInterval(function () {
-			updateLocation ();
+			//updateLocation ();
 		}, 5000);
 	}
+	updateLocation ();
 	//custom_alert('code: ' + error.code + '\n' + 'message: ' + error.message);
 	//alert(JSON.stringify(error.message));
   
