@@ -258,7 +258,7 @@ function TourPage_ListTab () {
 
 
 function UserLocationOnMap () {
-	
+	console.log ('location');
 	if (typeof(global_user_location_infowindow) !== 'undefined') global_user_location_infowindow.close();
 	if (typeof(global_user_location_marker) !== 'undefined') global_user_location_marker.setMap(null);
 	
