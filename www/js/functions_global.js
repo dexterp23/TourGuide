@@ -131,8 +131,8 @@ if (local_chk == 10 || local_chk == 12) { //local_chk == 99 nebi trebalo da bude
 			navigator.splashscreen.hide() ;                 // hide splash screen
 			//global_platform = "iOS";
 			if (local_chk == 1 || local_chk == 20 || local_chk == 12 || local_chk == 14) {
-				if (local_chk != 14) document.addEventListener("offline", getNetChk, false);
-				if (local_chk != 14) document.addEventListener("online", getNetChk, false);
+				document.addEventListener("offline", getNetChk, false);
+				document.addEventListener("online", getNetChk, false);
 				global_platform = device.platform;
 				global_model = device.model;
 				Keyboard.shrinkView(true);
