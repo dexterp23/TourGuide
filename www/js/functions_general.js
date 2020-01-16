@@ -284,7 +284,6 @@ function updateLocation (callback, clearWatch_chk) {
 																	
 																	global_gps_chk = 0;
 																	SetGps(true);
-																	clearInterval(global_geolocation_update_timer);
 																	
 																	if (position.coords.accuracy < global_accuracy_value) {
 																		global_latitude = position.coords.latitude; 
@@ -317,9 +316,6 @@ function updateLocationError (error) {
 		custom_alert("Cannot determine current location, ensure location services are on for the app and try again.");
 		global_gps_chk = 1;
 		SetGps(false);
-		global_geolocation_update_timer = setInterval(function () {
-			//updateLocation ();
-		}, 5000);
 	}
 	if (global_geolocation_clear == 0) {
 		updateLocation ();

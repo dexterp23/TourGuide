@@ -77,7 +77,6 @@ var global_functions_array = new Array();
 var global_audio_slider;
 var global_net_chk = 0;
 var global_gps_chk = 0;
-var global_geolocation_update_timer;
 var global_geolocation_callback = '';
 var global_geolocation_clearWatch_chk = true;
 var global_geolocation_clear = 0;
