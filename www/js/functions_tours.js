@@ -20,6 +20,7 @@ function WelcomePage () {
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
 	global_geolocationWatchTimer_chk = 0;
 	clearInterval(global_geolocation_update_timer);
+	global_gps_chk = 0;
 	
 	//setujemo screen
 	ScreenBrightness(false);
@@ -258,7 +259,7 @@ function TourPage_ListTab () {
 
 
 function UserLocationOnMap () {
-	console.log ('location');
+	
 	if (typeof(global_user_location_infowindow) !== 'undefined') global_user_location_infowindow.close();
 	if (typeof(global_user_location_marker) !== 'undefined') global_user_location_marker.setMap(null);
 	
@@ -406,9 +407,11 @@ function PointsList_html (data, key) {
 function PointPageChk (key) {
 	
 	//gasimo navigaciju
-	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-	global_geolocationWatchTimer_chk = 0;
-	clearInterval(global_geolocation_update_timer);
+	if (global_gps_chk == 0) {
+		navigator.geolocation.clearWatch(global_geolocationWatchTimer);
+		global_geolocationWatchTimer_chk = 0;
+		clearInterval(global_geolocation_update_timer);
+	}
 	
 	if (typeof(key) == 'undefined') key = global_ID_check_point_key;
 	
@@ -470,9 +473,11 @@ function PointPageChk (key) {
 function PointPageDirection () {
 	
 	//gasimo navigaciju
-	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-	global_geolocationWatchTimer_chk = 0;
-	clearInterval(global_geolocation_update_timer);
+	if (global_gps_chk == 0) {
+		navigator.geolocation.clearWatch(global_geolocationWatchTimer);
+		global_geolocationWatchTimer_chk = 0;
+		clearInterval(global_geolocation_update_timer);
+	}
 	
 	$('#PointPageDirection h1').html(global_points_data[global_ID_check_point_key]['title']);
 	nextPage('PointPageDirection');
@@ -643,9 +648,11 @@ function PointPageDirection_2 () {
 function PointPage () {
 	
 	//gasimo navigaciju
-	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-	global_geolocationWatchTimer_chk = 0;
-	clearInterval(global_geolocation_update_timer);
+	if (global_gps_chk == 0) {
+		navigator.geolocation.clearWatch(global_geolocationWatchTimer);
+		global_geolocationWatchTimer_chk = 0;
+		clearInterval(global_geolocation_update_timer);
+	}
 	
 	global_audio_end_chk = 1;
 	if (typeof(global_infowindow) !== 'undefined') global_infowindow.close();
