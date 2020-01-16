@@ -79,7 +79,7 @@ var global_net_chk = 0;
 var global_gps_chk = 0;
 var global_geolocation_update_timer;
 var global_geolocation_callback = '';
-var global_geolocation_clearWatch_chk = '';
+var global_geolocation_clearWatch_chk = true;
 
 
 //data
@@ -157,10 +157,11 @@ function homePage () {
 	homePage_init ();
 	
 	//TourPage(1);
+	/*
 	setTimeout(function() {
 		//PointPageChk (0);
 	}, 1000);
-				
+	*/		
 	//PointPageChk (0);
 	//nextPage('test');
 

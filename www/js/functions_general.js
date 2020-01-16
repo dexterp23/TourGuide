@@ -258,11 +258,19 @@ function getLocationNetChk (callback) {
 }
 function updateLocation (callback, clearWatch_chk) {
 	
-	//var test1 = rand(1,1000) + ' * gps start';
-	//$('header h1').html(test1);
+	var test1 = rand(1,1000) + ' * gps start';
+	$('header h1').html(test1);
 	
-	if (typeof(callback) !== 'undefined') global_geolocation_callback = callback;
-	if (typeof(clearWatch_chk) !== 'undefined') global_geolocation_clearWatch_chk = clearWatch_chk;
+	if (typeof(callback) !== 'undefined') {
+		global_geolocation_callback = callback;
+	} else {
+		callback = global_geolocation_callback;
+	}
+	if (typeof(clearWatch_chk) !== 'undefined') {
+		global_geolocation_clearWatch_chk = clearWatch_chk;
+	} else {
+		clearWatch_chk = global_geolocation_clearWatch_chk;
+	}
 	
 	global_geolocationWatchTimer_chk = 1;
 	var options = {timeout: 15000, maximumAge: 11000, enableHighAccuracy: true };
@@ -306,7 +314,7 @@ function updateLocationError (error) {
 		global_gps_chk = 1;
 		SetGps(false);
 		global_geolocation_update_timer = setInterval(function () {
-			updateLocation (global_geolocation_callback, global_geolocation_clearWatch_chk);
+			updateLocation ();
 		}, 5000);
 	}
 	//custom_alert('code: ' + error.code + '\n' + 'message: ' + error.message);
