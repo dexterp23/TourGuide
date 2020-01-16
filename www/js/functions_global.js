@@ -153,7 +153,6 @@ function homePage () {
 	
 	homePage_init ();
 	
-
 	//TourPage(1);
 	setTimeout(function() {
 		//PointPageChk (0);

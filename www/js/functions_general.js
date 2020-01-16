@@ -268,6 +268,7 @@ function updateLocation (callback, clearWatch_chk) {
 		
 																//var test2 = rand(1,1000) + ' * ' + position.coords.latitude;
 																//$('header h1').html(test2);
+																
 																global_gps_chk = 0;
 																SetGps(true);
 																if (position.coords.accuracy < global_accuracy_value) {
@@ -292,13 +293,15 @@ function updateLocation (callback, clearWatch_chk) {
 function updateLocationError (error) {
 	
 	$.ui.hideMask();
-	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-	global_geolocationWatchTimer_chk = 0;
+	//navigator.geolocation.clearWatch(global_geolocationWatchTimer);
+	//global_geolocationWatchTimer_chk = 0;
 	//if (global_current_page == "PointPageDirection") TourPage(global_ID_tours);
 	if (global_gps_chk == 0) {
+		
 		custom_alert("Cannot determine current location, ensure location services are on for the app and try again.");
 		global_gps_chk = 1;
 		SetGps(false);
+		
 	}
 	//custom_alert('code: ' + error.code + '\n' + 'message: ' + error.message);
 	//alert(JSON.stringify(error.message));

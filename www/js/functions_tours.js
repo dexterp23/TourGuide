@@ -466,6 +466,7 @@ function PointPageChk (key) {
 
 function PointPageDirection () {
 	
+	//gasimo navigaciju
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
 	global_geolocationWatchTimer_chk = 0;
 	
