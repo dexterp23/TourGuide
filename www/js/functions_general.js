@@ -336,7 +336,7 @@ function updateLocationTest (callback, clearWatch_chk) {
 			if (global_coordinate_key_test <= 3) setTimeout(updateLocationTest (callback, clearWatch_chk), 100);
 			$.ui.hideMask();
 			
-		}, 12000);
+		}, 400000);
 		
 		setTimeout(function() {
 			$.ui.hideMask();
@@ -371,6 +371,31 @@ function TimeFormat (value) {
 
 }
 
+
+function TimeFormatMilliseconds (value) {
+	
+	value = value / 1000;
+	
+	var out="";
+	var mins=0;
+	var secs=0;
+	var msecs=0;
+	
+	mins=Math.floor(value/60);
+	value=value%60;
+	secs=Math.floor(value);
+	msecs=Math.floor((value % 1) * 100);
+		
+	if (mins) {
+		out += mins + 'm ';
+	}
+	
+	out += secs + 's ';
+	out += msecs + 'ms ';
+		
+	return out;
+
+}
 
 
 function WhichBrowser () {
@@ -507,20 +532,42 @@ function AudioBackLoad (audio) {
 	$('body').append('<audio id="audio_player_back_holder"><source src="'+audio+'" type="audio/mpeg" /></audio>');
 	global_audio_back_player = document.getElementById('audio_player_back_holder');
 	global_audio_back_player.load();
+	global_audio_back_player.loop = true;
 	AudioBackVolume (1);
-	global_audio_back_player.addEventListener("timeupdate", AudioBackTimeUpdate);
+	//global_audio_back_player.addEventListener("timeupdate", AudioBackTimeUpdate);
+	//console.log (global_audio_back_player.readyState);
 	
 }
 
 function AudioBackPlay () {
 	
-    global_audio_back_player.play();
+	if (global_audio_back_player.readyState == 4) {
+		AudioBackPlay_2 ();
+	} else {
+		global_audio_back_player.oncanplay = function() {
+			AudioBackPlay_2 ();
+		}; 
+	}
+	
+}
+
+function AudioBackPlay_2 () {
+
+	global_audio_back_player.play();
+	
+	$(".audio_back_button").removeClass('play');
+	$(".audio_back_button").addClass('stop');
+	$('.audio_back_button').attr("onClick","AudioBackPause();");
 	
 }
 
 function AudioBackPause () {
 	
     global_audio_back_player.pause();
+	
+	$(".audio_back_button").removeClass('stop');
+	$(".audio_back_button").addClass('play');
+	$('.audio_back_button').attr("onClick","AudioBackPlay();");
 	
 }
 
@@ -531,57 +578,129 @@ function AudioBackVolume (value) {
 }
 
 function AudioBackTimeUpdate (data) {
-	
+	/*
 	var ended = global_audio_back_player.ended; 
-	
 	if (ended == true) AudioBackPlay ();
-	
+	*/
 }
 
 
 
-function AudioLoad (audio) {
+function AudioLoad (audio, id) {
 	
-	$('#audio_player_holder').remove();
-	$('body').append('<audio id="audio_player_holder"><source src="'+audio+'" type="audio/mpeg" /></audio>');
-	global_audio_player = document.getElementById('audio_player_holder');
-	global_audio_player.load();
-	AudioVolume (1);
-	global_audio_player.addEventListener("timeupdate", AudioBackTimeUpdate);
+	var audio_holder = 'audio_player_holder_' + id;
+	$('#' + audio_holder).remove();
+	$('body').append('<audio id="'+audio_holder+'"><source src="'+audio+'" type="audio/mpeg" /></audio>');
+	var audio_player = document.getElementById(audio_holder);
+	global_audio_player_array[id] = audio_player;
+	audio_player.load(); 
+	AudioVolume (id, 1);
 	
-}
-
-function AudioPlay () {
-	
-    global_audio_player.play();
-	
-}
-
-function AudioPause () {
-	
-    global_audio_player.pause();
+	audio_player.addEventListener("timeupdate", function(data){
+		AudioTimeUpdate(data, id);
+	});
 	
 }
 
-function AudioVolume (value) {
+function AudioPlay (id) {
 	
-	global_audio_player.volume = value; 
+	var audio_player = global_audio_player_array[id];
+	global_audio_id_current = id;
+	AudioBackVolume (0.2);
 	
-}
-
-function AudioTimeUpdate (data) {
-	
-	if (global_browser == "Firefox") {
-		var amp = data.originalTarget.currentTime;
+	if (audio_player.readyState == 4) {
+		audio_player.play();
 	} else {
-		var amp = data.srcElement.currentTime;
-	}	
-	
-	var ended = global_audio_player.ended; 
-	
-	console.log (amp);
+		audio_player.oncanplay = function() {
+			audio_player.play();
+		}; 
+	}
 	
 }
+
+function AudioLocationPlay (id) {
+	
+	var audio_player = global_audio_player_array[id];
+	global_audio_id_current = id;
+	AudioBackVolume (0.2);
+	audio_player.play();
+	
+	$(".player_button").removeClass('play');
+	$(".player_button").addClass('stop');
+	$('.player_button').attr("onClick","AudioLocationPause('"+id+"');");
+	
+}
+
+function AudioPause (id) {
+	
+	var audio_player = global_audio_player_array[id];
+    audio_player.pause();
+	global_audio_id_current = '';
+	
+}
+
+function AudioLocationPause (id) {
+	
+	var audio_player = global_audio_player_array[id];
+    audio_player.pause();
+	
+	$(".player_button").removeClass('stop');
+	$(".player_button").addClass('play');
+	$('.player_button').attr("onClick","AudioLocationPlay('"+id+"');");
+	
+}
+
+function AudioVolume (id, value) {
+	
+	var audio_player = global_audio_player_array[id];
+	audio_player.volume = value; 
+	
+}
+
+function audioSeekTo (id, time) {
+	
+	var audio_player = global_audio_player_array[id];
+	if (time > 0) time = time / 1000;
+	audio_player.currentTime = time;
+
+}
+
+function AudioTimeUpdate (data, id) {
+	
+	if (id.indexOf("audio_desc_") >= 0) {
+		if (global_browser == "Firefox") {
+			var amp = data.originalTarget.currentTime;
+		} else {
+			var amp = data.srcElement.currentTime;
+		}
+		amp = amp * 1000;
+		global_audio_slider.slider("value", amp);
+	}
+	
+	var audio_player = global_audio_player_array[id];
+	var ended = audio_player.ended; 
+	
+	//kada se zavrsi audio pustamo funkcije koje su na cekanju
+	if (ended == true) {
+		if (id.indexOf("audio_desc_") >= 0) AudioLocationPause (id);
+		global_audio_id_current = '';
+		for (var key in global_functions_array){
+			if (typeof(global_functions_array[key]['function']) !== 'undefined') {
+				setTimeout(global_functions_array[key]['function'], 100);
+				if (global_functions_array[key]['type'] == 1) {
+					global_functions_array[key] = new Array();
+					break;
+				} else {
+					global_functions_array[key] = new Array();
+				}
+			}
+		}
+		if (typeof(global_functions_array) == 'undefined' || global_functions_array.length == 0 || (typeof(global_functions_array[0]) !== 'undefined' && typeof(global_functions_array[0]['function']) == 'undefined')) AudioBackVolume (1);
+	}
+	
+}
+
+
 
 
 

@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="./js/jquery-ui-1.11.4.custom/jquery-ui.theme.min.css" />
     <link rel="stylesheet" type="text/css" href="appframework/2.1/css/icons.min.css" />
     <link rel="stylesheet" type="text/css" href="appframework/2.1/css/af.ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/custom.css?4"  />
+    <link rel="stylesheet" type="text/css" href="css/custom.css?6"  />
     
     <script type="application/javascript" src="appframework/2.1/appframework.js"></script>
     <script type="application/javascript" src="appframework/2.1/appframework.ui.js?7" data-ver="1"></script>
@@ -36,10 +36,10 @@
     <script type="text/javascript" charset="utf-8" src="./js/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="./js/jquery-ui-touch-punch-master/jquery.ui.touch-punch.min.js"></script>
 
-    <script type="text/javascript" charset="utf-8" src="./js/functions_global.js?7"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/functions_global.js?9"></script>
     <script type="text/javascript" charset="utf-8" src="./js/functions_users.js?3"></script>
-    <script type="text/javascript" charset="utf-8" src="./js/functions_general.js?4"></script>
-    <script type="text/javascript" charset="utf-8" src="./js/functions_tours.js?4"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/functions_general.js?5"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/functions_tours.js?6"></script>
     
     <script type="text/javascript" charset="utf-8" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWbcOZHiwsNy-rbQuizEKqx4N6hwYTSu0"></script><!-- ovo je key od jumpstay -->
     
@@ -210,6 +210,7 @@
                 <span class="left_text">Welcome!</span>
             </header>
             
+            <!--
             <a href="javascript: void(0);" onClick="AudioBackLoad ('http://192.168.0.13/tour_guide/images_upload/audio/2019-02-12_7639540d46e93015c8420bfffbbb0f.mp3');" class="page_button">back Load</a>
             <a href="javascript: void(0);" onClick="AudioBackPlay();" class="page_button">back play</a>
             <a href="javascript: void(0);" onClick="AudioBackVolume(0.3);" class="page_button">back volume down</a>
@@ -219,12 +220,13 @@
             
             <br><br>
             
-            <a href="javascript: void(0);" onClick="AudioLoad ('http://192.168.0.13/tour_guide/images_upload/audio/2019-02-19_309744f16c799dc2c25ed063802596.mp3');" class="page_button">audio load 1</a>
-            <a href="javascript: void(0);" onClick="AudioPlay();" class="page_button">audio play 1</a>
+            <a href="javascript: void(0);" onClick="AudioLoad ('http://192.168.0.13/tour_guide/images_upload/audio/janet.mp3', 'audio_start_1');" class="page_button">audio load 1</a>
+            <a href="javascript: void(0);" onClick="AudioPlay('audio_start_1');" class="page_button">audio play 1</a>
             
-            <a href="javascript: void(0);" onClick="AudioLoad ('http://192.168.0.13/tour_guide/images_upload/audio/2019-02-19_6f373e593a6c5ddd40d0182d0b9769.mp3');" class="page_button">audio load 2</a>
-            <a href="javascript: void(0);" onClick="AudioPlay();" class="page_button">audio play 2</a>
-
+            <a href="javascript: void(0);" onClick="AudioLoad ('http://192.168.0.13/tour_guide/images_upload/audio/wedontalk.mp3', 'audio_start_2');" class="page_button">audio load 2</a>
+            <a href="javascript: void(0);" onClick="AudioPlay('audio_start_2');" class="page_button">audio play 2</a>
+			-->
+            
            	<div class="logo_hold"></div>
             
             <ul class="game_list search_results_hold"></ul>
@@ -254,12 +256,11 @@
            	<div id="tour_map" class="tour_map_hold"></div>
             
             <footer>
-              <div class="footer_desc">Select your starting point on map or list</div>
-              <div class="footer_player">
-              	<a href="javascript: void(0);" onclick="AudioPlayerPause();" class="audio_button play"></a>
-                <div class="footer_duration"></div>
-                <a href="javascript: void(0);" onClick="PointPageChk();" class="page_button footer_back_button">Back</a>
-              </div>
+            	<div>
+                    <a href="javascript: void(0);" onClick="AudioBackPause();" class="audio_back_button play"></a>
+                    <div class="text">Select your starting point on map or list</div>
+                    <a href="javascript: void(0);" onClick="PointPageChk();" class="page_button footer_back_button">Back To Location > </a>
+                </div>
             </footer>
             
         </div>
@@ -287,12 +288,11 @@
             <ul class="tour_list_hold game_list search_results_hold"></ul>
             
             <footer>
-              <div class="footer_desc">Select your starting point on map or list</div>
-              <div class="footer_player">
-              	<a href="javascript: void(0);" onclick="AudioPlayerPause();" class="audio_button play"></a>
-                <div class="footer_duration"></div>
-                <a href="javascript: void(0);" onClick="PointPageChk();" class="page_button footer_back_button">Back</a>
-              </div>
+            	<div>
+                    <a href="javascript: void(0);" onClick="AudioBackPause();" class="audio_back_button play"></a>
+                    <div class="text">Select your starting point on map or list</div>
+                    <a href="javascript: void(0);" onClick="PointPageChk();" class="page_button footer_back_button">Back To Location > </a>
+                </div>
             </footer>
             
         </div>
@@ -308,14 +308,18 @@
                 <a id="backButton" onClick="GoBack();" class='button'>Back</a>
             </header>
             
-            <div class="direction_map_instructions">des</div>
+            <div class="direction_map_instructions"></div>
            	<div id="direction_map" class="tour_map_hold"></div>
             
             <footer>
-              <div class="footer_player">
-              	<a href="javascript: void(0);" onclick="AudioPlayerPause();" class="audio_button play"></a>
-                <div class="footer_duration"></div>
-              </div>
+              	<div>
+                    <a href="javascript: void(0);" onClick="AudioBackPause();" class="audio_back_button play"></a>
+                    <!--
+                    <a href="javascript: void(0);" onClick=";" class="page_button">drive</a>
+                    <a href="javascript: void(0);" onClick=";" class="page_button">wifi</a>
+                    <a href="javascript: void(0);" onClick=";" class="page_button">gps</a>
+                    -->
+                </div>
             </footer>
             
         </div>
@@ -343,10 +347,14 @@
             <div class="desc_hold text_box_white"></div>
             
             <footer>
-              <div class="footer_player">
-              	<a href="javascript: void(0);" onclick="AudioPlayerPause();" class="audio_button play"></a>
-                <div class="footer_duration"></div>
-              </div>
+              	<div>
+                    <a href="javascript: void(0);" onClick="AudioBackPause();" class="audio_back_button play"></a>
+                    <div class="audio_player">
+                    	<a href="javascript: void(0);" onClick="AudioLocationPlay ('audio_desc_1');" class="player_button play"></a>
+                        <div class="player_slider"></div>
+                        <div class="player_time">0s</div>
+                    </div>
+                </div>
             </footer>
             
         </div>

@@ -10,14 +10,11 @@ function WelcomePage () {
 	//resetujemo data
 	global_tours_data['ID_tours'] = 0;
 	global_ID_check_point_key = null;
-	global_point_page_chk = 0;
 	
 	//gasimo player
-	$('.footer_player').hide();
-	$('.footer_desc').show();
-	if (global_audio_array.length > 0) {
-		AudioPlayerStop();
-	}
+	if (typeof(global_audio_back_player) !== 'undefined' && global_audio_back_player) AudioBackPause();
+	if (global_audio_id_current) AudioPause (global_audio_id_current);
+	global_functions_array = new Array();
 	
 	//gasimo navigaciju
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
@@ -147,9 +144,24 @@ function TourPage (ID_tours) {
 				
 				$('#TourPage_2 .tour_list_hold').html(html);
 				$('#TourPage h1, #TourPage_2 h1').html(global_tours_data['title']);
+				$('#TourPage footer .text, #TourPage_2 footer .text').show();
+				$('#TourPage footer .footer_back_button, #TourPage_2 footer .footer_back_button').hide();
 		
 				nextPage('TourPage');
 				$.ui.clearHistory();
+
+				//pustamo background music
+				AudioBackLoad (global_tours_data['song']);
+				AudioBackPlay ();
+				
+				//ucitavamo audio od ture
+				AudioLoad (global_tours_data['audio_on_start'], 'audio_on_start');
+				AudioLoad (global_tours_data['audio_at_end'], 'audio_at_end');
+				AudioLoad (global_tours_data['audio_left'], 'audio_left');
+				AudioLoad (global_tours_data['audio_right'], 'audio_right');
+				
+				//pustamo audio pocetak ture
+				AudioPlay ('audio_on_start');
 
 				//setujemo mapu
 				$('#TourPage .tour_map_hold').css({'width':global_width+'px', 'height':(global_height - 50 - 50 - 40)+'px'});
@@ -163,6 +175,11 @@ function TourPage (ID_tours) {
 
 				for (var key in global_points_data){
 					AddLocatiOnMap(key);
+					
+					//ucitavamo sve audio fajlove
+					AudioLoad (global_points_data[key]['audio_start'], 'audio_start_'+key);
+					AudioLoad (global_points_data[key]['audio_end'], 'audio_end_'+key);
+					AudioLoad (global_points_data[key]['audio_desc'], 'audio_desc_'+key);
 				}
 				
 				
@@ -170,8 +187,6 @@ function TourPage (ID_tours) {
 				//global_ID_check_point_key = 0;
 				//PointPage();
 				/*
-				$('.footer_desc').hide();
-				$('.footer_player').show();
 				AudioPlayer_Data ('song', 1);				
 				setTimeout(function() {
 					AudioPlayerUpdate ('audio_end');
@@ -186,10 +201,14 @@ function TourPage (ID_tours) {
 		});
 	
 	} else {
-	
+		
+		$('#TourPage footer .footer_back_button, #TourPage_2 footer .footer_back_button').show();
+		$('#TourPage footer .text, #TourPage_2 footer .text').hide();
+		
 		nextPage('TourPage');
 		$.ui.clearHistory();
 		$('header #backButton').attr("onClick","WelcomePage();");
+		
 		if (global_geolocationWatchTimer_chk == 0) {
 			if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
 				updateLocation ('UserLocationOnMap();', true);
@@ -198,6 +217,20 @@ function TourPage (ID_tours) {
 			}
 		} else {
 			UserLocationOnMap();
+		}
+		
+		//gasimo audio
+		if (global_audio_id_current) AudioPause (global_audio_id_current);
+		global_functions_array = new Array();
+		global_audio_end_chk = 0;
+		AudioBackVolume (1);
+		
+		//pustamo tour_end audio
+		var key_next = parseInt(global_ID_check_point_key) + 1;
+		if (typeof(global_points_data[key_next]) == 'undefined') {
+			AudioPlay ('audio_at_end');
+			$('footer .text').show();
+			$('footer .footer_back_button').hide();
 		}
 		
 	}
@@ -209,26 +242,13 @@ function TourPage (ID_tours) {
 function TourPage_MapTab () {
 	nextPage('TourPage');
 	$.ui.clearHistory();
-	/*
-	$('#TourPage .tour_list_hold').hide(); 
-	$('#TourPage .tour_map_hold').show(); 
-	$('#top_menu_page .completed').removeClass('top_menu_opacity'); 
-	$('#top_menu_page .remaining').addClass('top_menu_opacity');	
-	*/
 }
 
 
 
 function TourPage_ListTab () {
-	
 	nextPage('TourPage_2');
 	$.ui.clearHistory();
-	/*
-	$('#TourPage .tour_map_hold').hide(); 
-	$('#TourPage .tour_list_hold').show(); 
-	$('#top_menu_page .remaining').removeClass('top_menu_opacity'); 
-	$('#top_menu_page .completed').addClass('top_menu_opacity');
-	*/
 }
 
 
@@ -386,18 +406,14 @@ function PointPageChk (key) {
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
 	global_geolocationWatchTimer_chk = 0;
 	
-	$.ui.showMask();
-	nextPage('BlankoPage');
-	
 	if (typeof(key) == 'undefined') key = global_ID_check_point_key;
 	
 	setTimeout(function() {
 		
-		$('.footer_desc').hide();
-		$('.footer_player').show();
-		
 		if (global_ID_check_point_key == key) {
 			if (global_point_distance_chk == 0) {
+				$.ui.showMask();
+				//nextPage('BlankoPage');
 				nextPage('PointPageDirection');
 				$.ui.clearHistory();
 				global_direction_map.setZoom(16);
@@ -411,14 +427,36 @@ function PointPageChk (key) {
 					}
 				}
 			} else {
-				PointPage(); //user je na pointu
+				//user je na pointu
+				
+				global_point_distance_chk = 2;
+				
+				//pustamo audio za opis lokacije
+				if (global_audio_id_current && global_audio_end_chk == 1) { //ako trenutno ide neki audio a cekirano je da je pusten audio_before onda audio_desc stavljamo na cekanje
+					global_audio_end_chk = 2;
+					global_functions_array.push({'function':'PointPage();', 'type':0});
+					global_functions_array.push({'function':'AudioPlay (\'audio_desc_'+global_ID_check_point_key+'\');', 'type':1});
+				} else {
+					PointPage();
+					if (global_audio_id_current) AudioPause (global_audio_id_current);
+					global_functions_array = new Array();
+					AudioPlay ('audio_desc_' + global_ID_check_point_key);
+				}
+				
 			}
 		} else {
+			$.ui.showMask();
+			nextPage('BlankoPage');
 			if (typeof(key) !== 'undefined') global_ID_check_point_key = key;
 			global_point_distance_chk = 0;
-			global_point_page_chk = 0;
 			global_audio_end_chk = 0;
 			PointPageDirection(); //user tek treba da dodje do pointa
+			
+			//pustamo audio pocetak lokacije
+			if (global_audio_id_current) AudioPause (global_audio_id_current);
+			global_functions_array = new Array();
+			AudioPlay ('audio_start_' + global_ID_check_point_key);
+			
 		}
 
 	}, 500);	
@@ -469,7 +507,7 @@ function PointPageDirection () {
 	var infowindow =  new google.maps.InfoWindow({});
 	var html_destination = '';
 	html_destination += '<div style="font-weight:bold; color: black;">'+global_points_data[global_ID_check_point_key]['title']+'</div>';
-	html_destination += '<a href="javascript: void(0);" onclick="global_point_distance_chk = 1; PointPageChk();" class="page_button">GO</a>';
+	html_destination += '<a href="javascript: void(0);" onclick="global_point_distance_chk = 1; PointPageChk();" class="page_button">VIEW</a>';
 	infowindow.setContent(html_destination);
 	infowindow.open(global_direction_map, currentCity);
 	google.maps.event.addListener(currentCity, 'click', function() {
@@ -486,12 +524,7 @@ function PointPageDirection () {
 			updateLocationTest ('PointPageDirection_2();', false);
 		}
 	}
-	if (global_audio_array.length > 0) AudioPlayerStop();
-	AudioPlayer_Data ('song', 1);
-	setTimeout(function() {
-		if (global_point_page_chk == 0 && AudioPlayer_Data ('audio_start', 0)) AudioPlayerUpdate ('audio_start');
-	}, global_time_audio_next_point);
-	
+
 }
 
 
@@ -563,13 +596,38 @@ function PointPageDirection_2 () {
 			$('#PointPageDirection .direction_map_instructions').html(instructions);
 			if (distance > global_distance_on_point) { 
 				directionsDisplay.setDirections(response);
-				if (distance < global_distance_before_point && global_audio_end_chk == 0 && AudioPlayer_Data ('audio_end', 0)) {
-					AudioPlayerUpdate ('audio_end');
+				
+				//pustamo audio pred dolazak na lokaciju
+				if (distance < global_distance_before_point && global_audio_end_chk == 0) { //ako smo dovoljno blizu a nije chekirano da je bio audio_before onda pustamo audio_before
+					if (global_audio_id_current) { //ako trenutno ide neki audio onda audio_before setujemo za kasnije
+						if (global_points_data[global_ID_check_point_key]['audio_end_background_chk'] == 1) global_functions_array.push({'function':'AudioBackPause ();', 'type':0});
+						global_functions_array.push({'function':'AudioPlay (\'audio_end_'+global_ID_check_point_key+'\');', 'type':1});
+						if (global_points_data[global_ID_check_point_key]['audio_end_background_chk'] == 1) {
+							var class_current = $(".audio_back_button").attr('class');	
+							if (class_current.indexOf("stop") > 0) { 
+								global_functions_array.push({'function':'AudioBackPlay ();', 'type':0});
+								global_functions_array.push({'function':'AudioBackVolume (1);', 'type':0});
+							}
+						}
+					} else {
+						AudioPlay ('audio_end_' + global_ID_check_point_key);
+						if (global_points_data[global_ID_check_point_key]['audio_end_background_chk'] == 1) {
+							var class_current = $(".audio_back_button").attr('class');	
+							if (class_current.indexOf("stop") > 0) { 
+								global_functions_array.push({'function':'AudioBackPlay ();', 'type':0});
+								global_functions_array.push({'function':'AudioBackVolume (1);', 'type':0});
+							}
+							AudioBackPause();
+						}
+					}
 					global_audio_end_chk = 1;
 				}
+				
 			} else {
-				global_point_distance_chk = 1;
-				PointPageChk(); //user je na pointu	
+				if (global_point_distance_chk == 0) {
+					global_point_distance_chk = 1;
+					PointPageChk(); //user je na pointu	
+				}
 			}
 		}
 	});	
@@ -594,8 +652,24 @@ function PointPage () {
 	$('#PointPage h1').html(global_points_data[global_ID_check_point_key]['title']);
 	$('#PointPage .photo_hold').html('<img src="'+global_points_data[global_ID_check_point_key]['photo']+'" />');
 	$('#PointPage .desc_hold').html(global_points_data[global_ID_check_point_key]['description']);
-	$('.footer_player').show();
-	$('.footer_desc').hide();
+	
+	//audio slider
+	$('.audio_player .player_slider').css({'width': (global_width - 210) + 'px'});
+	global_audio_slider = jQuery('footer .player_slider').slider({
+		min: 0,
+		max: global_points_data[global_ID_check_point_key]['duration_desc'],
+		step: 100,
+		slide: function( event, ui ) {
+			var update_value = ui.value;
+			$('footer .player_time').html(TimeFormat(update_value));
+			audioSeekTo('audio_desc_'+global_ID_check_point_key, update_value);
+		},
+		change: function( event, ui ) {
+			var update_value = ui.value;
+			$('footer .player_time').html(TimeFormat(update_value));	
+		},
+	});
+	
 	nextPage('PointPage');
 	$.ui.clearHistory();
 	$.ui.hideMask();
@@ -606,18 +680,11 @@ function PointPage () {
 		$('#top_menu_page .next_point').attr("onClick","TourPage("+global_ID_tours+");").html('TOUR END');
 	}
 	
-	if (global_point_page_chk == 0) {
-		global_point_page_chk = 1;
-		AudioPlayerStop();
-		setTimeout(function() {
-			AudioPlayer_Data ('point_desc', 1);
-		}, 100);
-	} 
 }
 
 
 
-
+/*
 function AudioPlayer_Data (type, chk) {
 	
 	global_audio_array = new Array();
@@ -815,7 +882,7 @@ function AudioTimeUpdate (data) {
 	}
 	
 }
-
+*/
 
 
 

@@ -1,4 +1,4 @@
-var local_chk = 20;
+var local_chk = 12;
 /*
 0 - local app full
 1 - mob app full
@@ -32,6 +32,9 @@ var global_lang = "en";
 var global_countdownInterval;
 var global_browser;
 var global_audio_back_player = null;
+var global_audio_player_array = new Array();
+var global_audio_id_current=  '';
+/*
 var global_audio_player = null;
 var global_audio_timer;
 var global_audio_array = new Array();
@@ -39,6 +42,7 @@ var global_audio_play_chk = 0;
 var global_audio_player_duration = 0;
 var global_audio_update_chk = 0;
 var global_audio_update_time = 0;
+*/
 var global_disclaimer_chk = 0;
 var global_geolocationWatchTimer;
 var global_geolocationWatchTimer_chk = 0;
@@ -61,12 +65,13 @@ var global_currentCity
 var global_directionsDisplay;
 var global_user_location_infowindow;
 var global_user_location_marker;
-var global_point_page_chk = 0;
 var global_before_point_chk = 0;
 var global_current_page;
-var global_distance_on_point = 50; //metara
-var global_distance_before_point = 500; //metara
-var global_time_audio_next_point = 5000; //sec
+var global_distance_on_point = 30; //metara
+var global_distance_before_point = 100; //metara
+/*var global_time_audio_next_point = 5000; //sec*/
+var global_functions_array = new Array();
+var global_audio_slider;
 
 
 //data
@@ -142,8 +147,13 @@ if (local_chk == 10 || local_chk == 12) { //local_chk == 99 nebi trebalo da bude
 function homePage () {
 	
 	homePage_init ();
+	
 
 	//TourPage(1);
+	setTimeout(function() {
+		//PointPageChk (0);
+	}, 1000);
+				
 	//PointPageChk (0);
 	//nextPage('test');
 
