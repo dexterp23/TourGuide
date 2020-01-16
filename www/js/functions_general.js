@@ -59,9 +59,15 @@ function getNetChk () {
 	
 	if (navigator.connection.type=="none") {
 		$.ui.hideMask();
-		custom_alert("No Internet connection, make sure you have coverage and try again.");
+		if (global_net_chk == 0) {
+			custom_alert("No Internet connection, make sure you have coverage and try again.");
+			global_net_chk = 1;
+			SetWiFi (false);
+		}
 	} else {
-		homePage ();
+		global_net_chk = 0;
+		SetWiFi (true);
+		if (global_current_page == "WelcomePage" || global_current_page == "TourPage") homePage ();
 	}
 
 }
@@ -238,8 +244,14 @@ function getLocationNetChk (callback) {
 	
 	if (navigator.connection.type=="none") {
 		$.ui.hideMask();
-		custom_alert("No Internet connection, make sure you have coverage and try again.");
+		if (global_net_chk == 0) {
+			custom_alert("No Internet connection, make sure you have coverage and try again.");
+			global_net_chk = 1;	
+			SetWiFi (false);
+		}
 	} else {
+		global_net_chk = 0;
+		SetWiFi (true);
 		setTimeout(function(){updateLocation (callback, true);}, 0);
 	}
 
@@ -256,7 +268,8 @@ function updateLocation (callback, clearWatch_chk) {
 		
 																//var test2 = rand(1,1000) + ' * ' + position.coords.latitude;
 																//$('header h1').html(test2);
-																
+																global_gps_chk = 0;
+																SetGps(true);
 																if (position.coords.accuracy < global_accuracy_value) {
 																	global_latitude = position.coords.latitude; 
 																	global_longitude = position.coords.longitude;
@@ -281,8 +294,12 @@ function updateLocationError (error) {
 	$.ui.hideMask();
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
 	global_geolocationWatchTimer_chk = 0;
-	if (global_current_page == "PointPageDirection") TourPage(global_ID_tours);
-	custom_alert("Cannot determine current location, ensure location services are on for the app and try again.");
+	//if (global_current_page == "PointPageDirection") TourPage(global_ID_tours);
+	if (global_gps_chk == 0) {
+		custom_alert("Cannot determine current location, ensure location services are on for the app and try again.");
+		global_gps_chk = 1;
+		SetGps(false);
+	}
 	//custom_alert('code: ' + error.code + '\n' + 'message: ' + error.message);
 	//alert(JSON.stringify(error.message));
   
@@ -336,7 +353,7 @@ function updateLocationTest (callback, clearWatch_chk) {
 			if (global_coordinate_key_test <= 3) setTimeout(updateLocationTest (callback, clearWatch_chk), 100);
 			$.ui.hideMask();
 			
-		}, 4000);
+		}, 400000);
 		
 		setTimeout(function() {
 			$.ui.hideMask();
@@ -460,70 +477,26 @@ function ScreenBrightness (type) {
 }
 
 
-
-/*
-function audioLoad (audio) {
+function SetWiFi (status) {
 	
-	if (typeof(Media) == 'undefined') {
-		$('#audio_player_holder').remove();
-		$('body').append('<audio id="audio_player_holder"><source src="'+audio+'" type="audio/mpeg" /></audio>');
-		global_audio_player = document.getElementById('audio_player_holder');
-		global_audio_player.load();
+	if (status == true) {
+		$('header h1').html('wifi radi');
 	} else {
-		global_audio_player = new Media(audio, audioPlayonSuccess, audioPlayonError);
-		if (global_platform != "iOS") {
-			global_audio_player.setVolume('0.0');
-			global_audio_player.play();
-			global_audio_player.setVolume('0.0');
-		}
+		$('header h1').html('wifi ne radi');
 	}
 	
 }
 
-function audioPlay () {
-	
-	if (typeof(Media) !== 'undefined' && global_platform != "iOS") global_audio_player.setVolume('1.0');
-    global_audio_player.play();
-	
-}
 
-function audioStop () {
-	
-	if (typeof(Media) == 'undefined') {
-		global_audio_player.pause();
+function SetGps (status) {
+
+	if (status == true) {
+		$('header #backButton').html('gps radi');
 	} else {
-		global_audio_player.stop();
-	}
+		$('header #backButton').html('gps ne radi');
+	}	
 	
 }
-
-function audioPause () {
-
-	global_audio_player.pause();
-	
-}
-
-function audioSeekTo (time) {
-
-	if (typeof(Media) == 'undefined') {
-		if (time > 0) time = time / 1000;
-		global_audio_player.currentTime = time;
-	} else {
-		global_audio_player.seekTo(time);	
-	}
-	
-}
-
-function audioPlayonSuccess() {
-    //console.log("playCordovaAudio():Audio Success");
-}
-
-function audioPlayonError(error) {
-    //alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
-}
-*/
-
-/* ******************************** */
 
 
 function AudioBackLoad (audio) {

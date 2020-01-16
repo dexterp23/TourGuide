@@ -58,7 +58,7 @@ function ToursListPage () {
 		},
 		error : function() {
 			$.ui.hideMask();
-			custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
+			if (global_net_chk == 0) custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
 		}
 	});
 	
@@ -104,6 +104,7 @@ function TourPage (ID_tours) {
 	
 	ScreenBrightness(true);
 	global_ID_tours = ID_tours;
+	global_point_distance_chk = 0;
 	
 	if (global_tours_data['ID_tours'] != global_ID_tours) {
 	
@@ -196,7 +197,7 @@ function TourPage (ID_tours) {
 			},
 			error : function() {
 				$.ui.hideMask();
-				custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
+				if (global_net_chk == 0) custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
 			}
 		});
 	
@@ -429,8 +430,6 @@ function PointPageChk (key) {
 			} else {
 				//user je na pointu
 				
-				global_point_distance_chk = 2;
-				
 				//pustamo audio za opis lokacije
 				if (global_audio_id_current && global_audio_end_chk == 1) { //ako trenutno ide neki audio a cekirano je da je pusten audio_before onda audio_desc stavljamo na cekanje
 					global_audio_end_chk = 2;
@@ -625,7 +624,7 @@ function PointPageDirection_2 () {
 				
 			} else {
 				if (global_point_distance_chk == 0) {
-					global_point_distance_chk = 1;
+					global_point_distance_chk = 2;
 					PointPageChk(); //user je na pointu	
 				}
 			}
@@ -674,6 +673,15 @@ function PointPage () {
 	$.ui.clearHistory();
 	$.ui.hideMask();
 	$('header #backButton').attr("onClick","TourPage("+global_ID_tours+");");
+	/*
+	//ima problem sa mapom i audio kada se odavde vrati na PointPageChk
+	if (global_point_distance_chk == 1) {
+		$('header #backButton').attr("onClick","PointPageChk();");
+		global_point_distance_chk = 0;
+	} else {
+		$('header #backButton').attr("onClick","TourPage("+global_ID_tours+");");
+	}
+	*/
 	if (key_next > 0) {
 		$('#top_menu_page .next_point').attr("onClick","PointPageChk("+key_next+");").html('NEXT POINT');
 	} else {

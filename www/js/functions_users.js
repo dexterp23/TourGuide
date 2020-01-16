@@ -68,7 +68,7 @@ function syncUser () {
 			},
 			error : function() {
 				$.ui.hideMask();
-				custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
+				if (global_net_chk == 0) custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
 			}
 		});
 		
@@ -111,7 +111,7 @@ function loginSend () {
 			},
 			error : function() {
 				$.ui.hideMask();
-				custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
+				if (global_net_chk == 0) custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
 			}
 		});
 		
@@ -172,7 +172,7 @@ function FBLogin () {
 					},
 					error : function() {
 						$.ui.hideMask();
-						custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
+						if (global_net_chk == 0) custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
 					}
 				});
 				
@@ -242,7 +242,7 @@ function registrationSend () {
 				},
 				error : function() {
 					$.ui.hideMask();
-					custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
+					if (global_net_chk == 0) custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
 				}
 			});
 			
@@ -284,7 +284,7 @@ function resetpassSend () {
 			},
 			error : function() {
 				$.ui.hideMask();
-				custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
+				if (global_net_chk == 0) custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
 			}
 		});
 		
@@ -348,7 +348,7 @@ function MyProfileSend () {
 			},
 			error : function() {
 				$.ui.hideMask();
-				custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
+				if (global_net_chk == 0) custom_alert ("Cannot connect to server, please try again.", "NoNetAlert");
 			}
 		});
 		

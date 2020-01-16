@@ -1,4 +1,4 @@
-var local_chk = 14; //0 ili 14
+var local_chk = 0; //0 ili 14
 /*
 0 - local app full
 1 - mob app full
@@ -75,6 +75,8 @@ var global_distance_before_point = 500; //metara
 /*var global_time_audio_next_point = 5000; //sec*/
 var global_functions_array = new Array();
 var global_audio_slider;
+var global_net_chk = 0;
+var global_gps_chk = 0;
 
 
 //data
