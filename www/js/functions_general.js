@@ -61,13 +61,13 @@ function getNetChk () {
 		$.ui.hideMask();
 		if (global_net_chk == 0) {
 			custom_alert("No Internet connection, make sure you have coverage and try again.");
-			global_net_chk = 1;
+			//global_net_chk = 1;
 			SetWiFi (false);
 		}
 	} else {
 		global_net_chk = 0;
 		SetWiFi (true);
-		if (global_current_page == "WelcomePage" || global_current_page == "TourPage") homePage ();
+		if (global_current_page == "WelcomePage") homePage ();
 	}
 
 }
@@ -271,16 +271,16 @@ function updateLocation (callback, clearWatch_chk) {
 			clearWatch_chk = global_geolocation_clearWatch_chk;
 		}
 		
-		var test1 = rand(1,1000) + ' * ' + global_geolocation_callback;
-		$('header h1').html(test1);
+		//var test1 = rand(1,1000) + ' * ' + global_geolocation_callback;
+		//$('header h1').html(test1);
 		
-		//global_geolocationWatchTimer_chk = 1;
-		var options = {timeout: 5000, maximumAge: 11000, enableHighAccuracy: true };
+		//global_geolocationWatchTimer_chk = 1; //ova promenjiva ima smisla samo za funkciju updateLocationTest
+		var options = {timeout: 10000, maximumAge: 11000, enableHighAccuracy: true };
 																							  
 		global_geolocationWatchTimer = navigator.geolocation.watchPosition(function(position) {
 			
-																	var test2 = rand(1,1000) + ' * ' + position.coords.latitude;
-																	$('header #backButton').html(test2);
+																	//var test2 = rand(1,1000) + ' * ' + position.coords.latitude;
+																	//$('header #backButton').html(test2);
 																	
 																	global_gps_chk = 0;
 																	SetGps(true);
@@ -291,14 +291,14 @@ function updateLocation (callback, clearWatch_chk) {
 																		global_accuracy = position.coords.accuracy;
 																		if (clearWatch_chk == true) {
 																			navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-																			//global_geolocationWatchTimer_chk = 0;
+																			global_geolocationWatchTimer_chk = 0;
 																			global_geolocation_clear = 1;
 																		}
 																		if (callback != false) setTimeout(callback, 100);
 																		$.ui.hideMask();
 																	} else {
 																		navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-																		//global_geolocationWatchTimer_chk = 0;
+																		global_geolocationWatchTimer_chk = 0;
 																		updateLocation (callback, clearWatch_chk);
 																	}
 																  },updateLocationError,options);
@@ -311,11 +311,11 @@ function updateLocationError (error) {
 	
 	$.ui.hideMask();
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-	//global_geolocationWatchTimer_chk = 0;
+	global_geolocationWatchTimer_chk = 0;
 	//if (global_current_page == "PointPageDirection") TourPage(global_ID_tours);
 	if (global_gps_chk == 0) {
 		custom_alert("Cannot determine current location, ensure location services are on for the app and try again.");
-		global_gps_chk = 1;
+		//global_gps_chk = 1;
 		SetGps(false);
 	}
 	if (global_geolocation_clear == 0) {
@@ -512,9 +512,9 @@ function SetWiFi (status) {
 function SetGps (status) {
 
 	if (status == true) {
-		$('header #menubadge').html('gps radi');
+		//$('header #menubadge').html('gps radi');
 	} else {
-		$('header #menubadge').html('gps ne radi');
+		//$('header #menubadge').html('gps ne radi');
 	}	
 	
 }

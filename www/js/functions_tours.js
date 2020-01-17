@@ -18,7 +18,7 @@ function WelcomePage () {
 	
 	//gasimo navigaciju
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-	//global_geolocationWatchTimer_chk = 0;
+	global_geolocationWatchTimer_chk = 0;
 	global_gps_chk = 0;
 	global_geolocation_clear = 1;
 	
@@ -106,7 +106,7 @@ function TourPage (ID_tours) {
 	
 	//gasimo navigaciju
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-	//global_geolocationWatchTimer_chk = 0;
+	global_geolocationWatchTimer_chk = 0;
 	global_geolocation_clear = 1;
 	
 	ScreenBrightness(true);
@@ -117,15 +117,14 @@ function TourPage (ID_tours) {
 	
 		$.ui.showMask();
 		
-		//if (global_geolocationWatchTimer_chk == 0) {
+		if (global_geolocationWatchTimer_chk == 0) {
 			global_geolocation_clear = 0;
 			if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
 				updateLocation ('UserLocationOnMap();', true);
 			} else {
-				updateLocation ('UserLocationOnMap();', true);
-				//updateLocationTest ('UserLocationOnMap();', true);
+				updateLocationTest ('UserLocationOnMap();', true);
 			}
-		//}
+		}
 		
 		jQuery.ajax({
 			url: global_host + '/action_mobile.php',
@@ -219,16 +218,16 @@ function TourPage (ID_tours) {
 		$.ui.clearHistory();
 		$('header #backButton').attr("onClick","WelcomePage();");
 		
-		//if (global_geolocationWatchTimer_chk == 0) {
+		if (global_geolocationWatchTimer_chk == 0) {
 			global_geolocation_clear = 0;
 			if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
 				updateLocation ('UserLocationOnMap();', true);
 			} else {
 				updateLocationTest ('UserLocationOnMap();', true);
 			}
-		//} else {
-			//UserLocationOnMap();
-		//}
+		} else {
+			UserLocationOnMap();
+		}
 		
 		//gasimo audio
 		if (global_audio_id_current) AudioPause (global_audio_id_current);
@@ -415,7 +414,7 @@ function PointPageChk (key) {
 	
 	//gasimo navigaciju
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-	//global_geolocationWatchTimer_chk = 0;
+	global_geolocationWatchTimer_chk = 0;
 	global_geolocation_clear = 1;
 	
 	if (typeof(key) == 'undefined') key = global_ID_check_point_key;
@@ -431,14 +430,14 @@ function PointPageChk (key) {
 				global_direction_map.setZoom(16);
 				$('header #backButton').attr("onClick","TourPage("+global_ID_tours+");");
 				$.ui.hideMask();
-				//if (global_geolocationWatchTimer_chk == 0) {
+				if (global_geolocationWatchTimer_chk == 0) {
 					global_geolocation_clear = 0;
 					if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
 						updateLocation ('PointPageDirection_2();', false);
 					} else {
 						updateLocationTest ('PointPageDirection_2();', false);
 					}
-				//}
+				}
 			} else {
 				//user je na pointu
 				
@@ -480,7 +479,7 @@ function PointPageDirection () {
 	
 	//gasimo navigaciju
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-	//global_geolocationWatchTimer_chk = 0;
+	global_geolocationWatchTimer_chk = 0;
 	global_geolocation_clear = 1;
 	
 	$('#PointPageDirection h1').html(global_points_data[global_ID_check_point_key]['title']);
@@ -530,14 +529,14 @@ function PointPageDirection () {
 	});
 	//circle point location end
 	
-	//if (global_geolocationWatchTimer_chk == 0) {
+	if (global_geolocationWatchTimer_chk == 0) {
 		global_geolocation_clear = 0;
 		if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
 			updateLocation ('PointPageDirection_2();', false);
 		} else {
 			updateLocationTest ('PointPageDirection_2();', false);
 		}
-	//}
+	}
 
 }
 
@@ -654,7 +653,7 @@ function PointPage () {
 	
 	//gasimo navigaciju
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
-	//global_geolocationWatchTimer_chk = 0;
+	global_geolocationWatchTimer_chk = 0;
 	global_geolocation_clear = 1;
 	
 	global_audio_end_chk = 1;
