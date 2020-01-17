@@ -61,7 +61,7 @@ function getNetChk () {
 		$.ui.hideMask();
 		if (global_net_chk == 0) {
 			custom_alert("No Internet connection, make sure you have coverage and try again.");
-			//global_net_chk = 1;
+			global_net_chk = 1;
 			SetWiFi (false);
 		}
 	} else {
@@ -315,7 +315,7 @@ function updateLocationError (error) {
 	//if (global_current_page == "PointPageDirection") TourPage(global_ID_tours);
 	if (global_gps_chk == 0) {
 		custom_alert("Cannot determine current location, ensure location services are on for the app and try again.");
-		//global_gps_chk = 1;
+		global_gps_chk = 1;
 		SetGps(false);
 	}
 	if (global_geolocation_clear == 0) {

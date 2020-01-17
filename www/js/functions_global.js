@@ -71,7 +71,7 @@ var global_user_location_marker;
 var global_before_point_chk = 0;
 var global_current_page;
 var global_distance_on_point = 30; //metara
-var global_distance_before_point = 500; //metara
+var global_distance_before_point = 100; //metara
 /*var global_time_audio_next_point = 5000; //sec*/
 var global_functions_array = new Array();
 var global_audio_slider;
