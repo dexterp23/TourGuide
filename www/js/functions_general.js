@@ -528,11 +528,11 @@ function SetMapDistance (gps_type) {
 
 	if (local_chk == 1 || local_chk == 20 || local_chk == 14) { //mob
 		if (parseInt(gps_type) == 1) { //driving
-			global_distance_on_point = 40; //metara
+			global_distance_on_point = 30; //metara
 			global_distance_before_point = 300; //metara
 			global_travelMode = google.maps.TravelMode.DRIVING; //DRIVING, WALKING, BICYCLING 
 		} else { //walking
-			global_distance_on_point = 20; //metara
+			global_distance_on_point = 10; //metara
 			global_distance_before_point = 100; //metara
 			global_travelMode = google.maps.TravelMode.WALKING; //DRIVING, WALKING, BICYCLING 
 		}	
