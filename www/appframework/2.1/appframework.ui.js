@@ -4162,7 +4162,7 @@ if (!Date.now)
 		
 		clearHistoryLast: function(id_remove, delta) {if (typeof id_remove !== 'undefined') {var array = this.history;for(var i in array){if(array[i]['target']==id_remove) this.history.splice(i,1);}} else {delta = Math.min(Math.abs(~~delta || 1), this.history.length);if (delta) {var tmpEl = this.history.splice(-delta).shift();var array = this.history;for(var i in array){if(array[i]['target']==tmpEl.target) this.history.splice(i,1);}}}},
 		clearBackCustom: function (num) {for (var i = 0; i < num; i++) {$.ui.history.pop();}},
-		TopMenuPageCustom: function (idHash) { var topMenu = $('#'+idHash).attr('data-topMenu');if (topMenu == 'true') {if (1==1) {var html = $('#'+idHash+' .top_menu_page').html();$('#afui #top_menu_page').html(html);$('#top_menu_page .top_menu_page').css('display','block');$('#afui #content').css('top','48px');$('#top_menu_page').css('width', $('#content').width() + 'px');$('#top_menu_page').show();}} else {$('#afui #content').css('top','0px');$('#top_menu_page').hide();} },
+		TopMenuPageCustom: function (idHash) { var topMenu = $('#'+idHash).attr('data-topMenu');if (topMenu == 'true') {if (1==1) {var html = $('#'+idHash+' .top_menu_page').html();$('#afui #top_menu_page').html(html);$('#top_menu_page .top_menu_page').css('display','block');$('#afui #content').css('top','30px');$('#top_menu_page').css('width', $('#content').width() + 'px');$('#top_menu_page').show();}} else {$('#afui #content').css('top','0px');$('#top_menu_page').hide();} },
 		
 		
         /**
@@ -5425,11 +5425,11 @@ if (!Date.now)
                 }
             }
 
-            $("#header #menubadge").css("float", "right");
+            //$("#header #menubadge").css("float", "right");
             if (this.history.length === 0) {
                 this.setBackButtonVisibility(false);
                 this.history = [];
-                //$("#header #menubadge").css("float", "left");
+                $("#header #menubadge").css("float", "left");
             } else {
                 this.setBackButtonVisibility( this.showBackButton && this.showBackbutton );
             }

@@ -23,7 +23,7 @@ var global_latitude = 0;
 var global_longitude = 0;
 var global_accuracy;
 var global_accuracy_value = 8000;
-if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
+if (local_chk == 1 || local_chk == 20 || local_chk == 14) { //mob
 	global_accuracy_value = 500;
 } 
 var global_list_pgg = new Array();
@@ -64,15 +64,15 @@ var global_infowindow;
 var global_direction_map;
 var global_point_distance_chk = 0;
 var global_coordinate_key_test = 0;
-var global_currentCity
+var global_marker
 var global_directionsDisplay;
 var global_user_location_infowindow;
 var global_user_location_marker;
 var global_before_point_chk = 0;
 var global_current_page;
-var global_distance_on_point = 30; //metara
-var global_distance_before_point = 100; //metara
-/*var global_time_audio_next_point = 5000; //sec*/
+var global_distance_on_point; //setuje se na SetMapDistance
+var global_distance_before_point; //setuje se na SetMapDistance
+var global_travelMode; //setuje se na SetMapDistance
 var global_functions_array = new Array();
 var global_audio_slider;
 var global_net_chk = 0;
@@ -80,6 +80,8 @@ var global_gps_chk = 0;
 var global_geolocation_callback = '';
 var global_geolocation_clearWatch_chk = true;
 var global_geolocation_clear = 0;
+var global_tour_map_infowindow = new Array();
+var global_tour_map_marker = new Array();
 
 
 //data
@@ -159,9 +161,14 @@ function homePage () {
 	//TourPage(1);
 	/*
 	setTimeout(function() {
-		//PointPageChk (0);
+		PointPageChk (0);
 	}, 1000);
-	*/		
+	
+	setTimeout(function() {
+		global_point_distance_chk = 1; 
+		PointPageChk();
+	}, 2000);
+	*/
 	//PointPageChk (0);
 	//nextPage('test');
 

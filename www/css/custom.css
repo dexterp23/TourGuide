@@ -4,8 +4,8 @@
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	/*background-color: #fcb040;*/
-	background-color: #000000;
-	background-image: url(../images/background.jpg);
+	background-color: #fff;
+	/*background-image: url(../images/background.jpg);*/
 	background-repeat: repeat;
 }
 
@@ -18,7 +18,7 @@
 #afui.android>#aside_menu, #afui.android>#menu {
     border-right: 1px solid rgba(128,128,128,.5);
     color: inherit;
-    background-color: #fcb040;
+    background-color: #49c9f2;
 	background-image: none;
 }
 
@@ -236,17 +236,34 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 	margin: 5px;
 }
 
-#afui #header h1 {
+.ellipsis {
 	text-overflow: ellipsis;
 	overflow:hidden;
 	white-space: nowrap;
 }
 
+#afui #header h1 {
+	text-overflow: ellipsis;
+	overflow:hidden;
+	white-space: nowrap;
+	top: -5px;
+	width: 60%;
+    left: 20%;
+}
+
 #afui .footer footer {
-	background-color: #4fc9f0;
-	border-top-width: 2px;
+	background-color: #b6b6b6;
+	border-top-width: 0px;
 	border-top-style: solid;
 	border-top-color: #1c528e;
+}
+
+#afui.android .footer {
+    box-shadow: none;
+    background: inherit;
+    border-top: 2px solid #949494;
+    border-bottom: 0;
+    padding: 0;
 }
 
 #afui.android .footer>footer>a.pressed:not(.button) {
@@ -501,17 +518,17 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 /* top_menu_page */
 
 #top_menu_page {
-	top: 44px;
+	top: 110px;
 	bottom: auto;
 	position: absolute;
 	z-index: 1000;
-	height: 48px;
+	height: 30px;
 	margin: 0px;
 	padding: 0px;
 	display: block;
 	overflow: hidden;
-	background-color: #4fc9f0;
-	border-bottom-width: 1px;
+	background-color: #ff6000;
+	border-bottom-width: 0px;
 	border-bottom-style: solid;
 	border-bottom-color: #32a9cf;
 }
@@ -521,9 +538,14 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 }
 
 #afui.android #top_menu_page .button {
-    background: #fcb040;
+    background: transparent;
     color: inherit;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.4);
+    box-shadow: inset 0 0px 0 rgba(255,255,255,.4);
+	margin: 0;
+}
+
+#afui.android #top_menu_page .button.active {
+	color: #CCC
 }
 
 @media handheld, only screen and (min-width: 9999999px) {
@@ -542,117 +564,71 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 	margin-left: -10px;
 }
 
-.game_list li.divider {
-	line-height: 30px;
-	color: #4fc9f0;
-	background-color: #000;
-	height: 30px;
-	font-weight: bold;
+.game_list li {
+	padding: 0px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	border: 4px solid #c5c5c5;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-color: #49c9f2;
+	margin: 10px;
+	height: 200px;
+	background-size: 100% auto;
+	overflow: hidden;
+	position: relative;
+}
+
+.game_list li a {
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+
+.game_list li .background_hold {
+	background-color: #49c9f2;
+	-moz-opacity: 0.9;
+	opacity: 0.9;
+	position: absolute;
+	top: 100px;
+	left: 0;
+	height: 100px;
+	width: 100%;
+}
+
+.game_list li .content_hold {
+	position: absolute;
+	top: 100px;
+	left: 0;
+	height: 100px;
+	width: 100%;
+	padding-top: 10px;
 	padding-right: 10px;
 	padding-left: 10px;
-	margin: 0px;
-	padding-top: 0px;
-	padding-bottom: 0px;
-	border-top-width: 0px;
-	border-right-width: 0px;
-	border-bottom-width: 0px;
-	border-left-width: 0px;
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	border-radius: 0px;
 }
 
-.game_list li.photo {
-	color: #4fc9f0;
-	background-color: transparent;
-	border-top-width: 0px;
-	border-right-width: 0px;
-	border-bottom-width: 0px;
-	border-left-width: 0px;
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	border-radius: 0px;
-	padding: 0px;
-	text-align: center;
-	margin-top: 10px;
-	margin-right: 0px;
-	margin-bottom: 10px;
-	margin-left: 0px;
-}
-
-.game_list li.title {
-	line-height: 40px;
-	color: #FFFFFF;
-	background-color: #4fc9f0;
-	height: 40px;
+.game_list li .title {
+	color: #fff;
+	font-size: 20px;
 	font-weight: bold;
-	margin: 0px;
-	border-top-width: 0px;
-	border-right-width: 0px;
-	border-bottom-width: 1px;
-	border-left-width: 0px;
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	border-radius: 0px;
-	font-size: 16px;
-	text-align: center;
-	padding: 0px;
-	border-bottom-style: solid;
-	border-bottom-color: #32a9cf;
 }
 
-.game_list li.our_team {
-	background-color: #fcb040;
-}
-
-.game_list li.profile_photos {
-	background-color: #FFFFFF;
-}
-
-.game_list li .buttons_hold {
-	width: 276px;
-}
-
-.game_list .content, .game_list li {
-	background-color: #59ccf1;
-	padding: 10px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	border: 2px solid #FFF;
+.game_list li .description {
 	color: #000;
-	margin-top: 10px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-	margin-left: 10px;
-	list-style-image: none;
-	list-style-type: none;
+	margin-top: 7px;
+	font-size: 14px;
 }
 
-.game_list .content.selected {
-	background-color: #fcb040;
+.game_list li .info {
+	color: #fff600;
+	margin-top: 7px;
+	font-size: 12px;
 }
 
-.game_list li {
-	background-color: #59ccf1;
-	padding: 10px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	border: 2px solid #FFF;
-	color: #000;
-	margin-top: 10px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-	margin-left: 10px;
-}
-
-.game_list .content.join_button {
-	margin-right: 40px;
-}
-
-.game_list .content a {
-	color: #000;
+.game_list li .sep {
+	margin-right: 5px;
+	margin-left: 5px;
 }
 
 .tour_map_hold, .tour_list_hold {
@@ -691,11 +667,11 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 }
 
 .audio_back_button.play {
-	background-image: url(../images/play.png);
+	background-image: url(../images/music_off.png);
 }
 
 .audio_back_button.stop {
-	background-image: url(../images/stop.png);
+	background-image: url(../images/music_on.png);
 }
 
 .audio_button {
@@ -716,7 +692,7 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 }
 
 .audio_button.stop {
-	background-image: url(../images/stop.png);
+	background-image: url(../images/pause.png);
 }
 
 .audio_button.spin {
@@ -731,8 +707,9 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 	padding-left: 15px;
 	border-left-width: 1px;
 	border-left-style: solid;
-	border-left-color: #099;
+	border-left-color: #949494;
 	display: inline-block;
+	height:47px;
 }
 
 .audio_player .player_button {
@@ -752,23 +729,38 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 }
 
 .audio_player .player_button.stop {
-	background-image: url(../images/stop.png);
+	background-image: url(../images/pause.png);
 }
 
 .audio_player .player_slider {
 	float: left;
 	margin-top: 17px;
-	background-color: #4fc9f0;
+	background-color: #b6b6b6;
 }
 
 .audio_player .player_slider::after {
     content: '';
     width: 100%;
-    height: 1px;
-    background: white;
+    height: 7px;
+    background: #6f6f6f;
     display: block;
     position: relative;
-    top: 3px;
+    top: 2px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	border: 0px solid rgb(197, 197, 197);
+    border-radius: 0px;
+    width: 35px;
+    height: 20px;
+    background-color: transparent;
+	background-image: url(../images/slider.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-left:-15px;
 }
 
 .ui-widget-content {
@@ -781,7 +773,8 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 	float: left;
 	width: 70px;
 	line-height: 45px;
-    padding-left: 20px;
+    padding-left: 30px;
+	font-size: 12px;
 }
 
 #afui .list li.search_results_hold:first-child {
@@ -834,9 +827,11 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 .search_results_hold .title {
 	font-size: 18px;
 	font-weight: normal;
+	/*
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
+	*/
 	display: block;
 	padding-bottom: 8px;
 	line-height: 18px;
@@ -859,9 +854,11 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 }
 
 .search_results_hold .description {
+	/*
 	text-overflow: ellipsis;
 	overflow:hidden;
 	white-space: nowrap;
+	*/
 }
 
 .search_results_hold .place {
@@ -1123,14 +1120,40 @@ footer .text {
 	padding-left: 5px;
 }
 
+#afui #PointPage.panel {
+	padding:0;
+	padding-bottom: 40px;
+}
+
 #PointPage .photo_hold {
 	text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding:0;
 }
 
 #PointPage .photo_hold img {
-	width: 300px;
+	width: 100%;
+}
+
+#PointPage .title_hold {
+	text-align: left;
+	font-size: 18px;
+	font-weight: bold;
+	color: #FFF;
+	background-color: #49c9f2;
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-bottom: 5px;
+    padding-top: 5px;
+    margin-top: -3px;
+}
+
+#PointPage .title_hold .diff_color {
+	color: #ffea02;
+}
+
+#PointPage .desc_hold {
+	color: #000;
+	padding: 10px;
 }
 
 .footer_back_button {
@@ -1144,6 +1167,115 @@ footer .text {
 }
 
 /* tour end */
+
+
+
+/* ### new 2020. ### */
+
+#afui .header {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    z-index: 250;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 110px;
+    left: 0;
+    right: 0;
+}
+
+#afui.android .header {
+	border-color: #ff6000;
+	background-color: #49c9f2;
+	background-image: url(../images/header.png);
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-size: auto 100%;
+}
+
+#afui.android .header #settingsButton.button {
+	background-image: url(../images/settings.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	float: right;
+	height: 36px;
+	width: 36px;
+	background-size: 36px 36px;
+	margin-top: 10px;
+}
+
+#afui.android .header #menubadge {
+	position: absolute;
+	top: 5px;
+	right: 0px;
+}
+
+#afui.android .header #menubadge.button {
+	background-image: url(../images/menu.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	float: left;
+	height: 25px;
+    width: 35px;
+	background-size: auto 100%;
+    /*background-size: 25px 25px;*/
+	/*
+    margin-top: 10px;
+    margin-left: 10px;
+	*/
+}
+
+#afui.android .header #wifiButton {
+	position: absolute;
+	top: 38px;
+	right: 7px;
+}
+
+#afui.android .header #wifiButton.on {
+	background-image: url(../images/wifi_on.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	float: right;
+	height: 15px;
+	width: 20px;
+	background-size: auto 100%;
+}
+
+#afui.android .header #wifiButton.off {
+	background-image: url(../images/wifi_off.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	float: right;
+	height: 15px;
+	width: 20px;
+	background-size: auto 100%;
+}
+
+#afui.android .header #gpsButton {
+	position: absolute;
+	top: 60px;
+	right: 9px;
+}
+
+#afui.android .header #gpsButton.on {
+	background-image: url(../images/gps_on.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	float: right;
+	height: 15px;
+	width: 15px;
+	background-size: auto 100%;
+}
+
+#afui.android .header #gpsButton.off {
+	background-image: url(../images/gps_off.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	float: right;
+	height: 15px;
+	width: 15px;
+	background-size: auto 100%;
+}
 
 
 

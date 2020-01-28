@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TourGuide</title>
+    <title>SelfieTours</title>
 <!--
     This template can be used for simple app with left side menu that can be opened to switch views, for applications like Youtube App or Gmail app.
 -->  
@@ -14,10 +14,10 @@
     <link rel="stylesheet" type="text/css" href="./js/jquery-ui-1.11.4.custom/jquery-ui.theme.min.css" />
     <link rel="stylesheet" type="text/css" href="appframework/2.1/css/icons.min.css" />
     <link rel="stylesheet" type="text/css" href="appframework/2.1/css/af.ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/custom.css?6"  />
+    <link rel="stylesheet" type="text/css" href="css/custom.css?7"  />
     
     <script type="application/javascript" src="appframework/2.1/appframework.js"></script>
-    <script type="application/javascript" src="appframework/2.1/appframework.ui.js?7" data-ver="1"></script>
+    <script type="application/javascript" src="appframework/2.1/appframework.ui.js?8" data-ver="1"></script>
 
     <!--AppFramework plugin for sliding side menu-->
     <script type="text/javascript" charset="utf-8" src="appframework/plugins/af.slidemenu.js"></script>
@@ -38,8 +38,8 @@
 
     <script type="text/javascript" charset="utf-8" src="./js/functions_global.js?10"></script>
     <script type="text/javascript" charset="utf-8" src="./js/functions_users.js?3"></script>
-    <script type="text/javascript" charset="utf-8" src="./js/functions_general.js?6"></script>
-    <script type="text/javascript" charset="utf-8" src="./js/functions_tours.js?7"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/functions_general.js?7"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/functions_tours.js?8"></script>
     
     <script type="text/javascript" charset="utf-8" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWbcOZHiwsNy-rbQuizEKqx4N6hwYTSu0"></script><!-- ovo je key od jumpstay -->
     
@@ -52,7 +52,7 @@
     <!--Left Side Menu Navigation bar -->
     <nav>
         <ul class="list">
-        	<li id="login_user_box" class="login_show" style="display:none;"></li>
+        	<!--<li id="login_user_box" class="login_show" style="display:none;"></li>-->
             
             
         	<!-- samo kad user nije ulogovan -->
@@ -61,7 +61,7 @@
             <!-- samo kad user nije ulogovan end -->
             
             <!-- samo kad je user ulogovan -->
-            <li class="login_show" style="display:none;"><a href="javascript: void(0);" onClick="homePage();" class="icon fa-home big">Home</a></li>
+            <li class="login_show" style="display:none;"><a href="javascript: void(0);" onClick="homePage();" class="icon fa-home big">Cities List</a></li>
             <!--
             <li class="login_show" style="display:none;"><a href="javascript: void(0);" onClick="MyProfilePage();" class="icon fa-user big">My Profile</a></li>
             <li class="login_show" style="display:none;"><a href="javascript: void(0);" onClick="logout();" class="icon fa-sign-out big">Sign Out</a></li>
@@ -203,12 +203,24 @@
         
         
         <!-- WelcomePage -->
-        <div id="WelcomePage" class="panel" title="Welcome" data-footer="none">
+        <div id="WelcomePage" class="panel" title="Welcome" data-footer="none" data-topMenu="true">
             <header>
-                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+                <!--<a id="settingsButton" onClick="WelcomePage();" class="button"></a>-->
                 <h1></h1>
-                <span class="left_text">Welcome!</span>
+                <a href="javascript: void(0);" id="wifiButton" class="button on"></a>
+                <a href="javascript: void(0);" id="gpsButton" class="button on"></a>
+                <a id="menubadge" onclick='OpenSideMenu();' class="button"></a>
             </header>
+            
+            <div class="top_menu_page">
+                <div class="top_menu">
+                    <div class="" style="text-align: center;">
+                        <a href="javascript: void(0);" onClick="" class="button">MY TOURS</a>
+                        <a href="javascript: void(0);" onClick="" class="button active">CITIES LIST</a>
+                        <a href="javascript: void(0);" onClick="" class="button">NEAR ME</a>
+                    </div>
+                </div>
+            </div>
             
             <!--
             <a href="javascript: void(0);" onClick="AudioBackLoad ('http://192.168.0.13/tour_guide/images_upload/audio/2019-02-12_7639540d46e93015c8420bfffbbb0f.mp3');" class="page_button">back Load</a>
@@ -227,8 +239,6 @@
             <a href="javascript: void(0);" onClick="AudioPlay('audio_start_2');" class="page_button">audio play 2</a>
 			-->
             
-           	<div class="logo_hold"></div>
-            
             <ul class="game_list search_results_hold"></ul>
             
         </div>
@@ -238,17 +248,19 @@
         
         <!-- TourPage -->
         <div id="TourPage" class="panel no-scroll" title="TourPage" data-topMenu="true">
-            <header>
-                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+        	<header>
+            	<a id="backButton" onClick="WelcomePage();" class='button'>Tours</a>
                 <h1></h1>
-                <a id="backButton" onClick="WelcomePage();" class='button'>Tours</a>
+                <a href="javascript: void(0);" id="wifiButton" class="button on"></a>
+                <a href="javascript: void(0);" id="gpsButton" class="button on"></a>
+                <a id="menubadge" onclick='OpenSideMenu();' class="button"></a>
             </header>
             
             <div class="top_menu_page">
                 <div class="top_menu">
-                    <div class="button-grouped flex" style="text-align: center;">
-                        <a href="javascript: void(0);" onClick="TourPage_MapTab();" class="button top_menu_opacity remaining">MAP</a>
-                        <a href="javascript: void(0);" onClick="TourPage_ListTab();" class="button completed">LIST</a>
+                    <div class="" style="text-align: center;">
+                        <a href="javascript: void(0);" onClick="TourPage_MapTab();" class="button map">MAP</a>
+                        <a href="javascript: void(0);" onClick="TourPage_ListTab();" class="button list">LIST</a>
                     </div>
                 </div>
             </div>
@@ -259,7 +271,7 @@
             	<div>
                     <a href="javascript: void(0);" onClick="AudioBackPause();" class="audio_back_button play"></a>
                     <div class="text">Select your starting point on map or list</div>
-                    <a href="javascript: void(0);" onClick="PointPageChk();" class="page_button footer_back_button">Back To Location > </a>
+                    <!--<a href="javascript: void(0);" onClick="PointPageChk('undefined', true);" class="page_button footer_back_button">Back To Location > </a>-->
                 </div>
             </footer>
             
@@ -271,16 +283,18 @@
         <!-- TourPage_2 -->
         <div id="TourPage_2" class="panel" title="TourPage_2" data-topMenu="true">
             <header>
-                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+            	<a id="backButton" onClick="WelcomePage();" class="button">Tours</a>
                 <h1></h1>
-                <a id="backButton" onClick="WelcomePage();" class='button'>Tours</a>
+                <a href="javascript: void(0);" id="wifiButton" class="button on"></a>
+                <a href="javascript: void(0);" id="gpsButton" class="button on"></a>
+                <a id="menubadge" onclick='OpenSideMenu();' class="button"></a>
             </header>
             
             <div class="top_menu_page">
                 <div class="top_menu">
-                    <div class="button-grouped flex" style="text-align: center;">
-                        <a href="javascript: void(0);" onClick="TourPage_MapTab();" class="button remaining">MAP</a>
-                        <a href="javascript: void(0);" onClick="TourPage_ListTab();" class="button top_menu_opacity completed">LIST</a>
+                    <div class="" style="text-align: center;">
+                        <a href="javascript: void(0);" onClick="TourPage_MapTab();" class="button map">MAP</a>
+                        <a href="javascript: void(0);" onClick="TourPage_ListTab();" class="button list">LIST</a>
                     </div>
                 </div>
             </div>
@@ -291,7 +305,7 @@
             	<div>
                     <a href="javascript: void(0);" onClick="AudioBackPause();" class="audio_back_button play"></a>
                     <div class="text">Select your starting point on map or list</div>
-                    <a href="javascript: void(0);" onClick="PointPageChk();" class="page_button footer_back_button">Back To Location > </a>
+                    <!--<a href="javascript: void(0);" onClick="PointPageChk();" class="page_button footer_back_button">Back To Location > </a>-->
                 </div>
             </footer>
             
@@ -302,10 +316,12 @@
         
         <!-- PointPageDirection -->
         <div id="PointPageDirection" class="panel no-scroll" title="PointPageDirection">
-            <header>
-                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+        	<header>
+            	<a id="backButton" onClick="GoBack();" class="button">Back</a>
                 <h1></h1>
-                <a id="backButton" onClick="GoBack();" class='button'>Back</a>
+                <a href="javascript: void(0);" id="wifiButton" class="button on"></a>
+                <a href="javascript: void(0);" id="gpsButton" class="button on"></a>
+                <a id="menubadge" onclick='OpenSideMenu();' class="button"></a>
             </header>
             
             <div class="direction_map_instructions"></div>
@@ -314,11 +330,6 @@
             <footer>
               	<div>
                     <a href="javascript: void(0);" onClick="AudioBackPause();" class="audio_back_button play"></a>
-                    <!--
-                    <a href="javascript: void(0);" onClick=";" class="page_button">drive</a>
-                    <a href="javascript: void(0);" onClick=";" class="page_button">wifi</a>
-                    <a href="javascript: void(0);" onClick=";" class="page_button">gps</a>
-                    -->
                 </div>
             </footer>
             
@@ -329,22 +340,25 @@
         
         <!-- PointPage -->
         <div id="PointPage" class="panel" title="PointPage" data-topMenu="true">
-            <header>
-                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+        	<header>
+            	<a id="backButton" onClick="GoBack();" class="button">Back</a>
                 <h1></h1>
-                <a id="backButton" onClick="GoBack();" class='button'>Back</a>
+                <a href="javascript: void(0);" id="wifiButton" class="button on"></a>
+                <a href="javascript: void(0);" id="gpsButton" class="button on"></a>
+                <a id="menubadge" onclick='OpenSideMenu();' class="button"></a>
             </header>
             
             <div class="top_menu_page">
                 <div class="top_menu">
-                    <div class="button-grouped flex" style="text-align: center;">
+                    <div class="" style="text-align: center;">
                         <a href="javascript: void(0);" class="button next_point"></a>
                     </div>
                 </div>
             </div>
             
            	<div class="photo_hold"></div>
-            <div class="desc_hold text_box_white"></div>
+            <div class="title_hold ellipsis"></div>
+            <div class="desc_hold"></div>
             
             <footer>
               	<div>
@@ -363,10 +377,12 @@
         
         <!-- BlankoPage -->
         <div id="BlankoPage" class="panel" title="." data-footer="none">
-            <header>
-                <a id="menubadge" onclick='OpenSideMenu();' class='menuButton' style="float:right !important"></a>
+        	<header>
+            	<a id="backButton" onClick="GoBack();" class="button">Back</a>
                 <h1></h1>
-                <a id="backButton" onClick="GoBack();" class='button'>Back</a>
+                <a href="javascript: void(0);" id="wifiButton" class="button on"></a>
+                <a href="javascript: void(0);" id="gpsButton" class="button on"></a>
+                <a id="menubadge" onclick='OpenSideMenu();' class="button"></a>
             </header>
         </div>
         <!-- BlankoPage end -->
