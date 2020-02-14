@@ -332,6 +332,7 @@ function updateLocationTest (callback, clearWatch_chk) {
 	
 	var coordinates_test = new Array();
 	coordinates_test.push({'lat':'44.87902889711484', 'lng':'20.653866349783243'});
+	coordinates_test.push({'lat':'44.876686096191', 'lng':'20.652999877930'});
 	coordinates_test.push({'lat':'44.87476910196427', 'lng':'20.652143617224397'});
 	coordinates_test.push({'lat':'44.871153763713124', 'lng':'20.648988417413534'});
 	coordinates_test.push({'lat':'44.869392510625886', 'lng':'20.64599194563914'});
@@ -353,7 +354,7 @@ function updateLocationTest (callback, clearWatch_chk) {
 		
 		if (global_coordinate_key_test == 0) {
 			setTimeout(function() {
-				if (global_coordinate_key_test > 3) global_coordinate_key_test = 0;
+				if (global_coordinate_key_test > 4) global_coordinate_key_test = 0;
 				global_latitude = coordinates_test[global_coordinate_key_test]['lat'];
 				global_longitude = coordinates_test[global_coordinate_key_test]['lng'];
 				setTimeout(callback, 100);
@@ -361,20 +362,20 @@ function updateLocationTest (callback, clearWatch_chk) {
 				
 				$.ui.hideMask();
 
-			}, 8000);
+			}, 2000);
 		}
 		
 		setTimeout(function() {
-			if (global_coordinate_key_test > 3) global_coordinate_key_test = 0;
+			if (global_coordinate_key_test > 4) global_coordinate_key_test = 0;
 			global_latitude = coordinates_test[global_coordinate_key_test]['lat'];
 			global_longitude = coordinates_test[global_coordinate_key_test]['lng'];
 			setTimeout(callback, 100);
 			global_coordinate_key_test = global_coordinate_key_test + 1;
 			
-			if (global_coordinate_key_test <= 3) setTimeout(updateLocationTest (callback, clearWatch_chk), 100);
+			if (global_coordinate_key_test <= 4) setTimeout(updateLocationTest (callback, clearWatch_chk), 100);
 			$.ui.hideMask();
 			
-		}, 2000);
+		}, 6000);
 		
 		setTimeout(function() {
 			$.ui.hideMask();
@@ -530,15 +531,18 @@ function SetMapDistance (gps_type) {
 		if (parseInt(gps_type) == 1) { //driving
 			global_distance_on_point = 30; //metara
 			global_distance_before_point = 300; //metara
+			global_distance_hide = 30; //metara
 			global_travelMode = google.maps.TravelMode.DRIVING; //DRIVING, WALKING, BICYCLING 
 		} else { //walking
 			global_distance_on_point = 10; //metara
 			global_distance_before_point = 100; //metara
+			global_distance_hide = 10; //metara
 			global_travelMode = google.maps.TravelMode.WALKING; //DRIVING, WALKING, BICYCLING 
 		}	
 	} else {
 		global_distance_on_point = 30; //metara
 		global_distance_before_point = 500; //metara
+		global_distance_hide = 30; //metara
 		global_travelMode = google.maps.TravelMode.DRIVING; //DRIVING, WALKING, BICYCLING 
 	}
 	

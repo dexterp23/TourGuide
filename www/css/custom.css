@@ -608,6 +608,31 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 	padding-left: 10px;
 }
 
+.game_list li .gps_type {
+	position: absolute;
+	z-index: 100;
+	right: 5px;
+	bottom: 5px;
+}
+
+.game_list li .gps_type_1 {
+	background-image: url(../images/driving_tour.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 30px 25px;
+	height: 25px;
+	width: 30px;
+}
+
+.game_list li .gps_type_2 {
+	background-image: url(../images/walking_tour.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 34px 25px;
+	height: 25px;
+	width: 34px;
+}
+
 .game_list li .title {
 	color: #fff;
 	font-size: 20px;

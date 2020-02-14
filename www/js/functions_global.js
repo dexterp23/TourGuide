@@ -1,4 +1,4 @@
-var local_chk = 1; //0 ili 14
+var local_chk = 1; //0 ili 14 za testiranje
 /*
 0 - local app full
 1 - mob app full
@@ -57,6 +57,7 @@ var global_height;
 var global_settings_data = new Array();
 var global_tours_data = new Array();
 var global_points_data = new Array();
+var global_points_data_hide = new Array();
 var global_ID_check_point_key;
 var global_ID_tours;
 var global_tour_map;
@@ -73,6 +74,7 @@ var global_current_page;
 var global_distance_on_point; //setuje se na SetMapDistance
 var global_distance_before_point; //setuje se na SetMapDistance
 var global_travelMode; //setuje se na SetMapDistance
+var global_distance_hide; //setuje se na SetMapDistance
 var global_functions_array = new Array();
 var global_audio_slider;
 var global_net_chk = 0;
@@ -157,13 +159,13 @@ if (local_chk == 10 || local_chk == 12) { //local_chk == 99 nebi trebalo da bude
 function homePage () {
 	
 	homePage_init ();
-	
-	//TourPage(1);
 	/*
+	TourPage(1);
+	
 	setTimeout(function() {
 		PointPageChk (0);
 	}, 1000);
-	
+	/*
 	setTimeout(function() {
 		global_point_distance_chk = 1; 
 		PointPageChk();

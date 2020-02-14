@@ -75,6 +75,7 @@ function ToursList_html (data) {
 	html += '<li style="background-image: url('+data['photo']+');">';
 		html += '<a href="javascript: void(0);" onClick="TourPage('+data['ID_tours']+');">';
 			html += '<div class="background_hold"></div>';
+			html += '<div class="gps_type '+((parseInt(data['gps_type']) == 1) ? 'gps_type_1' : 'gps_type_2')+'"></div>';
 			html += '<div class="content_hold">';
 				html += '<div class="title ellipsis">'+data['title']+'</div>';
 				html += '<div class="description ellipsis">'+data['description']+'&nbsp;</div>';
@@ -84,8 +85,8 @@ function ToursList_html (data) {
 					html += data['distance_tour']+' Miles';
 					html += '<span class="sep">|</span>';
 					html += data['duration_tour']+' Minutes';
-					html += '<span class="sep">|</span>';
-					html += data['gps_type']+' Tour';
+					//html += '<span class="sep">|</span>';
+					//html += data['gps_type']+' Tour';
 				html += '</div>';
 			html += '</div>';
 		html += '</a>';
@@ -135,6 +136,7 @@ function TourPage (ID_tours) {
 				global_settings_data = dataReceived[0];
 				global_tours_data = dataReceived[1];
 				global_points_data = dataReceived[2];
+				global_points_data_hide = dataReceived[3];
 				
 				var html = '';
 				if (global_points_data.length > 0) {
@@ -191,6 +193,11 @@ function TourPage (ID_tours) {
 					AudioLoad (global_points_data[key]['audio_start'], 'audio_start_'+key);
 					AudioLoad (global_points_data[key]['audio_end'], 'audio_end_'+key);
 					AudioLoad (global_points_data[key]['audio_desc'], 'audio_desc_'+key);
+				}
+				
+				for (var key in global_points_data_hide){
+					//ucitavamo sve audio fajlove za hide chacekpoint
+					AudioLoad (global_points_data_hide[key]['audio_end'], 'audio_end_hide_'+key);
 				}
 				
 				
@@ -355,14 +362,20 @@ function AddLocatiOnMap (key) {
 	
 	//setujemo marker
 	var key_count = parseInt (key) + 1;
-	if (parseInt (key_count) == parseInt (global_points_data.length)) OpenCurrentPointMarker();
+	if (parseInt (key_count) == parseInt (global_points_data.length)) {
+		setTimeout(function() {
+			global_tour_map.setZoom(16);
+			global_tour_map.panTo(new google.maps.LatLng(parseFloat (data[0]['lat']), parseFloat (data[0]['lng'])));	
+			OpenCurrentPointMarker();
+		}, 1500);
+	}
 
 	//direction
 	if (parseInt(key) != key_next) {
 		var request = {
 		  origin:new google.maps.LatLng(parseFloat (data[key]['lat']), parseFloat (data[key]['lng'])),
 		  destination:new google.maps.LatLng(parseFloat (data[key_next]['lat']), parseFloat (data[key_next]['lng'])),
-		  travelMode: google.maps.TravelMode.DRIVING, //DRIVING, WALKING, BICYCLING 
+		  travelMode: global_travelMode, //DRIVING, WALKING, BICYCLING 
 		  avoidHighways: true,
 		  unitSystem: google.maps.UnitSystem.IMPERIAL, //UnitSystem.METRIC, UnitSystem.IMPERIAL
 		};
@@ -604,12 +617,42 @@ function PointPageDirection_2 () {
 		infowindow.open(global_tour_map, this);
 	});
 	//circle user location end
+	
+	//distance between current location and hidden chackpoint
+	if (global_points_data_hide.length > 0) {
+		for (var key in global_points_data_hide) {
+			var distance_hide = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(parseFloat (global_latitude), parseFloat (global_longitude)), new google.maps.LatLng(parseFloat (global_points_data_hide[key]['lat']), parseFloat (global_points_data_hide[key]['lng'])));
+			if (global_distance_hide >= distance_hide) {
+				if (global_audio_id_current) { //ako trenutno ide neki audio onda audio_before setujemo za kasnije
+					if (global_points_data_hide[key]['audio_end_background_chk'] == 1) global_functions_array.push({'function':'AudioBackPause ();', 'type':0});
+					global_functions_array.push({'function':'AudioPlay (\'audio_end_hide_'+key+'\');', 'type':1});
+					if (global_points_data_hide[key]['audio_end_background_chk'] == 1) {
+						var class_current = $(".audio_back_button").attr('class');	
+						if (class_current.indexOf("stop") > 0) { 
+							global_functions_array.push({'function':'AudioBackPlay ();', 'type':0});
+							global_functions_array.push({'function':'AudioBackVolume ('+global_audio_back_volume_high+');', 'type':0});
+						}
+					}
+				} else {
+					AudioPlay ('audio_end_hide_' + key);
+					if (global_points_data_hide[key]['audio_end_background_chk'] == 1) {
+						var class_current = $(".audio_back_button").attr('class');	
+						if (class_current.indexOf("stop") > 0) { 
+							global_functions_array.push({'function':'AudioBackPlay ();', 'type':0});
+							global_functions_array.push({'function':'AudioBackVolume ('+global_audio_back_volume_high+');', 'type':0});
+						}
+						AudioBackPause();
+					}
+				} //if (global_audio_id_current)
+			} //if (global_distance_hide >= distance_hide)
+		} //for (var key in global_points_data_hide)
+	} //if (global_points_data_hide.length > 0)
 
 	//direction
 	var request = {
 	  origin:new google.maps.LatLng(global_latitude, global_longitude),
 	  destination:new google.maps.LatLng(parseFloat (global_points_data[global_ID_check_point_key]['lat']), parseFloat (global_points_data[global_ID_check_point_key]['lng'])),
-	  travelMode: global_travelMode,
+	  travelMode: global_travelMode, //DRIVING, WALKING, BICYCLING 
 	  avoidHighways: true,
 	  unitSystem: google.maps.UnitSystem.IMPERIAL, //UnitSystem.METRIC, UnitSystem.IMPERIAL
 	};
