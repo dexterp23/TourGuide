@@ -75,6 +75,7 @@ var global_distance_on_point; //setuje se na SetMapDistance
 var global_distance_before_point; //setuje se na SetMapDistance
 var global_travelMode; //setuje se na SetMapDistance
 var global_distance_hide; //setuje se na SetMapDistance
+var global_distance_near_me = 1600; //metara
 var global_functions_array = new Array();
 var global_audio_slider;
 var global_net_chk = 0;
@@ -84,6 +85,8 @@ var global_geolocation_clearWatch_chk = true;
 var global_geolocation_clear = 0;
 var global_tour_map_infowindow = new Array();
 var global_tour_map_marker = new Array();
+var global_user_tours_array = new Array();
+var global_skiped_checkpoint_array = new Array();
 
 
 //data
@@ -159,11 +162,11 @@ if (local_chk == 10 || local_chk == 12) { //local_chk == 99 nebi trebalo da bude
 function homePage () {
 	
 	homePage_init ();
-	/*
-	TourPage(1);
 	
+	//TourPage(1);
+	/*
 	setTimeout(function() {
-		PointPageChk (0);
+		TourPage_ListTab ();
 	}, 1000);
 	/*
 	setTimeout(function() {

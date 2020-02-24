@@ -572,7 +572,7 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 	border: 4px solid #c5c5c5;
 	background-repeat: no-repeat;
 	background-position: center center;
-	background-color: #49c9f2;
+	background-color: #CCCCCC;
 	margin: 10px;
 	height: 200px;
 	background-size: 100% auto;
@@ -583,6 +583,31 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 .game_list li a {
 	display: block;
 	height: 100%;
+	width: 100%;
+}
+
+.game_list li .skip_button {
+	position: absolute;
+	z-index: 100;
+	top: 5px;
+	right: 5px;
+	width: 70px;
+    height: 30px;
+    line-height: 26px;
+}
+
+.game_list li .skiped {
+	opacity: 0.3;
+}
+
+.game_list li .background_list {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 100% auto;
+	position: absolute;
+	top: 0px;
+	left: 0;
+	height: 200px;
 	width: 100%;
 }
 
@@ -658,6 +683,11 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 
 .tour_map_hold, .tour_list_hold {
 	padding-bottom:50px;
+}
+
+.tour_map_hold, .tour_list_hold .no_list {
+	text-align: center;
+	line-height: 200px;
 }
 
 #VideoEditWelcomePage .hold {

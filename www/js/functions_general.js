@@ -341,7 +341,7 @@ function updateLocationTest (callback, clearWatch_chk) {
 		global_geolocationWatchTimer_chk = 0;
 		global_latitude = coordinates_test[0]['lat'];
 		global_longitude = coordinates_test[0]['lng'];
-		setTimeout(callback, 1000);
+		if (callback != false) setTimeout(callback, 1000);
 		$.ui.hideMask();
 	}
 	
@@ -357,7 +357,7 @@ function updateLocationTest (callback, clearWatch_chk) {
 				if (global_coordinate_key_test > 4) global_coordinate_key_test = 0;
 				global_latitude = coordinates_test[global_coordinate_key_test]['lat'];
 				global_longitude = coordinates_test[global_coordinate_key_test]['lng'];
-				setTimeout(callback, 100);
+				if (callback != false) setTimeout(callback, 100);
 				global_coordinate_key_test = global_coordinate_key_test + 1;
 				
 				$.ui.hideMask();
@@ -369,7 +369,7 @@ function updateLocationTest (callback, clearWatch_chk) {
 			if (global_coordinate_key_test > 4) global_coordinate_key_test = 0;
 			global_latitude = coordinates_test[global_coordinate_key_test]['lat'];
 			global_longitude = coordinates_test[global_coordinate_key_test]['lng'];
-			setTimeout(callback, 100);
+			if (callback != false) setTimeout(callback, 100);
 			global_coordinate_key_test = global_coordinate_key_test + 1;
 			
 			if (global_coordinate_key_test <= 4) setTimeout(updateLocationTest (callback, clearWatch_chk), 100);

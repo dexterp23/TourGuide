@@ -36,10 +36,10 @@
     <script type="text/javascript" charset="utf-8" src="./js/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="./js/jquery-ui-touch-punch-master/jquery.ui.touch-punch.min.js"></script>
 
-    <script type="text/javascript" charset="utf-8" src="./js/functions_global.js?10"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/functions_global.js?12"></script>
     <script type="text/javascript" charset="utf-8" src="./js/functions_users.js?3"></script>
-    <script type="text/javascript" charset="utf-8" src="./js/functions_general.js?7"></script>
-    <script type="text/javascript" charset="utf-8" src="./js/functions_tours.js?9"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/functions_general.js?8"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/functions_tours.js?10"></script>
     
     <script type="text/javascript" charset="utf-8" src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyBWbcOZHiwsNy-rbQuizEKqx4N6hwYTSu0"></script><!-- ovo je key od jumpstay -->
     
@@ -202,8 +202,8 @@
         <!-- MyProfilePage end -->
         
         
-        <!-- WelcomePage -->
-        <div id="WelcomePage" class="panel" title="Welcome" data-footer="none" data-topMenu="true">
+        <!-- CitiesListPage -->
+        <div id="CitiesListPage" class="panel" title="CitiesListPage" data-footer="none" data-topMenu="true">
             <header>
                 <!--<a id="settingsButton" onClick="WelcomePage();" class="button"></a>-->
                 <h1></h1>
@@ -215,9 +215,9 @@
             <div class="top_menu_page">
                 <div class="top_menu">
                     <div class="" style="text-align: center;">
-                        <a href="javascript: void(0);" onClick="" class="button">MY TOURS</a>
-                        <a href="javascript: void(0);" onClick="" class="button active">CITIES LIST</a>
-                        <a href="javascript: void(0);" onClick="" class="button">NEAR ME</a>
+                        <a href="javascript: void(0);" onClick="ToursList_NyToursTab();" class="button">MY TOURS</a>
+                        <a href="javascript: void(0);" onClick="ToursList_CitiesListTab();" class="button active">CITIES LIST</a>
+                        <a href="javascript: void(0);" onClick="ToursList_NearMePageTab();" class="button">NEAR ME</a>
                     </div>
                 </div>
             </div>
@@ -242,7 +242,59 @@
             <ul class="tour_list_hold game_list search_results_hold"></ul>
             
         </div>
-        <!-- WelcomePage end -->
+        <!-- CitiesListPage end -->
+        
+        
+        
+        <!-- MyToursPage -->
+        <div id="MyToursPage" class="panel" title="MyToursPage" data-footer="none" data-topMenu="true">
+            <header>
+                <h1></h1>
+                <a href="javascript: void(0);" id="wifiButton" class="button on"></a>
+                <a href="javascript: void(0);" id="gpsButton" class="button on"></a>
+                <a id="menubadge" onclick='OpenSideMenu();' class="button"></a>
+            </header>
+            
+            <div class="top_menu_page">
+                <div class="top_menu">
+                    <div class="" style="text-align: center;">
+                        <a href="javascript: void(0);" onClick="ToursList_NyToursTab();" class="button active">MY TOURS</a>
+                        <a href="javascript: void(0);" onClick="ToursList_CitiesListTab();" class="button">CITIES LIST</a>
+                        <a href="javascript: void(0);" onClick="ToursList_NearMePageTab();" class="button">NEAR ME</a>
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="tour_list_hold game_list search_results_hold"></ul>
+            
+        </div>
+        <!-- MyToursPage end -->
+        
+        
+        
+        <!-- NearMePage -->
+        <div id="NearMePage" class="panel" title="NearMePage" data-footer="none" data-topMenu="true">
+            <header>
+                <h1></h1>
+                <a href="javascript: void(0);" id="wifiButton" class="button on"></a>
+                <a href="javascript: void(0);" id="gpsButton" class="button on"></a>
+                <a id="menubadge" onclick='OpenSideMenu();' class="button"></a>
+            </header>
+            
+            <div class="top_menu_page">
+                <div class="top_menu">
+                    <div class="" style="text-align: center;">
+                        <a href="javascript: void(0);" onClick="ToursList_NyToursTab();" class="button">MY TOURS</a>
+                        <a href="javascript: void(0);" onClick="ToursList_CitiesListTab();" class="button">CITIES LIST</a>
+                        <a href="javascript: void(0);" onClick="ToursList_NearMePageTab();" class="button active">NEAR ME</a>
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="tour_list_hold game_list search_results_hold"></ul>
+            
+        </div>
+        <!-- NearMePage end -->
         
         
         
@@ -259,7 +311,7 @@
             <div class="top_menu_page">
                 <div class="top_menu">
                     <div class="" style="text-align: center;">
-                        <a href="javascript: void(0);" onClick="TourPage_MapTab();" class="button map">MAP</a>
+                        <a href="javascript: void(0);" onClick="TourPage_MapTab();" class="button map active">MAP</a>
                         <a href="javascript: void(0);" onClick="TourPage_ListTab();" class="button list">LIST</a>
                     </div>
                 </div>
@@ -294,7 +346,7 @@
                 <div class="top_menu">
                     <div class="" style="text-align: center;">
                         <a href="javascript: void(0);" onClick="TourPage_MapTab();" class="button map">MAP</a>
-                        <a href="javascript: void(0);" onClick="TourPage_ListTab();" class="button list">LIST</a>
+                        <a href="javascript: void(0);" onClick="TourPage_ListTab();" class="button list active">LIST</a>
                     </div>
                 </div>
             </div>

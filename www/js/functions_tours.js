@@ -2,7 +2,7 @@ function WelcomePage () {
 	
 	clearInterval(global_countdownInterval);
 	$.ui.launch();
-	nextPage('WelcomePage');
+	nextPage('CitiesListPage');
 	$.ui.clearHistory();
 	
 	ToursListPage();
@@ -33,30 +33,62 @@ function ToursListPage () {
 	
 	$.ui.showMask();
 	
+	if (global_geolocationWatchTimer_chk == 0) {
+		global_geolocation_clear = 0;
+		if (local_chk == 1 || local_chk == 20 || local_chk == 14) {
+			updateLocation (false, true);
+		} else {
+			updateLocationTest (false, true);
+		}
+	}
+	
+	//setCookie ('user_tours', JSON.stringify([]), 3650); //reset cookie
+	var user_tours = getCookie("user_tours");
+	if (user_tours) global_user_tours_array = $.parseJSON(user_tours);
+	
 	jQuery.ajax({
 		url: global_host + '/action_mobile.php',
 		dataType: 'jsonp',
 		data: {page: 'ToursList', lang: global_lang, ID_users: global_login_data['ID_users']},
 		timeout: global_ajax_timeout,
 		success: function(dataReceived) {
-
+			
 			$.ui.hideMask();
 			
-			var html = '';
+			var html_cities_list = '';
+			var html_my_tours = '';
+			var html_neara_me = '';
 			
 			if (dataReceived[0].length > 0) {
 				for (var key in dataReceived[0]) {
 					
-					html += ToursList_html (dataReceived[0][key]);
+					var ID_tours = dataReceived[0][key]['ID_tours'];
+					var array_checkpoint = dataReceived[0][key]['array_checkpoint'];
+					html_cities_list += ToursList_html (dataReceived[0][key]);
+					if (jQuery.inArray(parseInt(ID_tours), global_user_tours_array) >= 0) html_my_tours += ToursList_html (dataReceived[0][key]);
+					
+					var neara_me_chk = 0
+					for (var key_checkpoint in array_checkpoint) {
+						var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(parseFloat (global_latitude), parseFloat (global_longitude)), new google.maps.LatLng(parseFloat (array_checkpoint[key_checkpoint]['lat']), parseFloat (array_checkpoint[key_checkpoint]['lng'])));
+						if (distance <= global_distance_near_me) {
+							neara_me_chk = 1;
+							break;
+						}
+					}
+					
+					if (neara_me_chk == 1) html_neara_me += ToursList_html (dataReceived[0][key]);
 					
 				}
 			}
 
 			
-			if (dataReceived[0].length == 0) html += '<li>No Tours</li>';
+			if (!html_cities_list) html_cities_list += '<li class="no_list">No Tours</li>';
+			$('#CitiesListPage .search_results_hold').html(html_cities_list);
+			if (!html_my_tours) html_my_tours += '<li class="no_list">No Tours</li>';
+			$('#MyToursPage .search_results_hold').html(html_my_tours);
+			if (!html_neara_me) html_neara_me += '<li class="no_list">No Tours</li>';
+			$('#NearMePage .search_results_hold').html(html_neara_me);
 			
-			$('#WelcomePage .search_results_hold').html(html);
-
 		},
 		error : function() {
 			$.ui.hideMask();
@@ -72,8 +104,9 @@ function ToursList_html (data) {
 	
 	var html = '';
 	
-	html += '<li style="background-image: url('+data['photo']+');">';
+	html += '<li>';
 		html += '<a href="javascript: void(0);" onClick="TourPage('+data['ID_tours']+');">';
+			html += '<div class="background_list" style="background-image: url('+data['photo']+');"></div>';
 			html += '<div class="background_hold"></div>';
 			html += '<div class="gps_type '+((parseInt(data['gps_type']) == 1) ? 'gps_type_1' : 'gps_type_2')+'"></div>';
 			html += '<div class="content_hold">';
@@ -98,6 +131,27 @@ function ToursList_html (data) {
 
 
 
+function ToursList_CitiesListTab () {
+	nextPage('CitiesListPage');
+	$.ui.clearHistory();
+}
+
+
+
+function ToursList_NyToursTab () {
+	nextPage('MyToursPage');
+	$.ui.clearHistory();
+}
+
+
+
+function ToursList_NearMePageTab () {
+	nextPage('NearMePage');
+	$.ui.clearHistory();
+}
+
+
+
 function TourPage (ID_tours) {
 	
 	//gasimo navigaciju
@@ -108,6 +162,11 @@ function TourPage (ID_tours) {
 	ScreenBrightness(true);
 	global_ID_tours = ID_tours;
 	global_point_distance_chk = 0;
+	
+	if (jQuery.inArray(ID_tours, global_user_tours_array) < 0) {
+		global_user_tours_array.push(ID_tours);
+		setCookie ('user_tours', JSON.stringify(global_user_tours_array), 3650);
+	}
 
 	if (global_tours_data['ID_tours'] != global_ID_tours) {
 	
@@ -121,6 +180,11 @@ function TourPage (ID_tours) {
 				updateLocationTest ('UserLocationOnMap();', true);
 			}
 		}
+		
+		var skiped_checkpoints = getCookie("skiped_checkpoints");
+		if (skiped_checkpoints) global_skiped_checkpoint_array = $.parseJSON(skiped_checkpoints);
+		if (typeof(global_skiped_checkpoint_array[global_ID_tours]) == 'undefined') global_skiped_checkpoint_array[global_ID_tours] = new Array();
+		var skiped_checkpoint_array = global_skiped_checkpoint_array[global_ID_tours];
 		
 		jQuery.ajax({
 			url: global_host + '/action_mobile.php',
@@ -142,7 +206,9 @@ function TourPage (ID_tours) {
 				if (global_points_data.length > 0) {
 					for (var key in global_points_data) {
 						
-						html += PointsList_html (global_points_data[key], key);
+						var skiped = 0;
+						if (jQuery.inArray(parseInt(key), skiped_checkpoint_array) >= 0) skiped = 1
+						html += PointsList_html (global_points_data[key], key, skiped);
 						
 					}
 				}
@@ -187,7 +253,9 @@ function TourPage (ID_tours) {
 
 				for (var key in global_points_data){
 					//ubacujemo lokacije na mapu
-					AddLocatiOnMap(key);
+					var skiped = 0;
+					if (jQuery.inArray(parseInt(key), skiped_checkpoint_array) >= 0) skiped = 1
+					AddLocatiOnMap(key, skiped);
 					
 					//ucitavamo sve audio fajlove
 					AudioLoad (global_points_data[key]['audio_start'], 'audio_start_'+key);
@@ -266,8 +334,6 @@ function TourPage (ID_tours) {
 function TourPage_MapTab () {
 	nextPage('TourPage');
 	$.ui.clearHistory();
-	$('#top_menu_page .button').removeClass('active');
-	$('#top_menu_page .map').addClass('active');
 }
 
 
@@ -275,8 +341,6 @@ function TourPage_MapTab () {
 function TourPage_ListTab () {
 	nextPage('TourPage_2');
 	$.ui.clearHistory();
-	$('#top_menu_page .button').removeClass('active');
-	$('#top_menu_page .list').addClass('active');
 }
 
 
@@ -314,19 +378,21 @@ function UserLocationOnMap () {
 
 
 
-function AddLocatiOnMap (key) {
+function AddLocatiOnMap (key, skiped) {
 	
 	var data = global_points_data;
 	var key_next = parseInt(key)+1;
 	if (typeof(data[key_next]) == 'undefined') key_next = parseInt(key);
 	var color = '#FFD62F';
 	if (key == 0 || parseInt(global_points_data.length) == parseInt(key)+1) color = '#f25151';
+	if (skiped == 1)  color = '#cccccc';
 	
 	var html = '';
 	html += '<div style="font-weight:bold; margin-bottom:5px; color: black;">#'+data[key]['checkpoint_br']+' '+data[key]['title']+'</div>';
 	html += '<img src="'+data[key]['thumb']+'" />';
 	//html += '<div style="margin-bottom:5px; color: black;">'+data[key]['description']+'</div>';
 	html += '<a href="javascript: void(0);" onclick="PointPageChk('+key+', true);" class="page_button">START</a>';
+	html += '<a href="javascript: void(0);" onClick="SkipCheckpoint('+key+');" class="page_button">'+((skiped == 1) ? 'SKIPED' : 'SKIP')+'</a>';
 	
 	var LocationLatlng = new google.maps.LatLng(parseFloat (data[key]['lat']), parseFloat (data[key]['lng']));
 	
@@ -351,7 +417,14 @@ function AddLocatiOnMap (key) {
 	
 	google.maps.event.addListener(marker, 'click', function() {
 		if (typeof(global_infowindow) !== 'undefined') global_infowindow.close();
-		infowindow.setContent(this.html);
+		
+		if (typeof(global_tour_map_infowindow[key]['content']) !== 'undefined') {
+			var content = global_tour_map_infowindow[key]['content'];
+		} else {
+			var content	= this.html;
+		}
+		
+		infowindow.setContent(content);
 		infowindow.setPosition(this.LocationLatlng);
 		infowindow.open(global_tour_map, this);
 		global_infowindow = infowindow;
@@ -422,16 +495,18 @@ function OpenCurrentPointMarker () {
 
 
 
-function PointsList_html (data, key) {
+function PointsList_html (data, key, skiped) {
 	
 	var html = '';
 	
-	html += '<li style="background-image: url('+data['photo']+');">';
-		html += '<a href="javascript: void(0);" onClick="PointPageChk('+key+', true);">';
+	html += '<li class="checkpoint_id_'+key+'">';
+		html += '<a href="javascript: void(0);" onClick="SkipCheckpoint('+key+');" class="skip_button page_button">'+((skiped == 1) ? 'SKIPED' : 'SKIP')+'</a>';
+		html += '<a href="javascript: void(0);" onClick="PointPageChk('+key+');" class="link_hold '+((skiped == 1) ? 'skiped' : '')+'">';
+			html += '<div class="background_list" style="background-image: url('+data['photo']+');"></div>';
 			html += '<div class="background_hold"></div>';
 			html += '<div class="content_hold">';
 				html += '<div class="title ellipsis">#'+data['checkpoint_br']+' '+data['title']+'</div>';
-				html += '<div class="description">'+data['description']+'&nbsp;</div>';
+				html += '<div class="description">'+data['description_short']+'&nbsp;</div>';
 				/*
 				html += '<div class="info">';
 				html += '</div>';
@@ -442,6 +517,54 @@ function PointsList_html (data, key) {
 	
 	return html;
 
+}
+
+
+
+function SkipCheckpoint (key) {
+	
+	var skiped_checkpoints = getCookie("skiped_checkpoints");
+	if (skiped_checkpoints) global_skiped_checkpoint_array = $.parseJSON(skiped_checkpoints);
+	
+	if (typeof(global_skiped_checkpoint_array[global_ID_tours]) == 'undefined') global_skiped_checkpoint_array[global_ID_tours] = new Array();
+	var skiped_checkpoint_array = global_skiped_checkpoint_array[global_ID_tours];
+	
+	var infowindow_html = global_tour_map_infowindow[key]['content'];
+	if (typeof(infowindow_html) == 'undefined') infowindow_html = global_tour_map_marker[key]['html'];
+	var infowindow_html_new = infowindow_html;
+	if (jQuery.inArray(parseInt(key), skiped_checkpoint_array) < 0) {
+		skiped_checkpoint_array.push(key);
+		$('.checkpoint_id_'+key+' .link_hold').addClass('skiped');	
+		$('.checkpoint_id_'+key+' .skip_button').html('SKIPED');
+		var color = '#cccccc';	
+		if (typeof(infowindow_html) !== 'undefined') infowindow_html_new = infowindow_html.replace("SKIP", "SKIPED");
+	} else {
+		removeItem (skiped_checkpoint_array, key);
+		$('.checkpoint_id_'+key+' .link_hold').removeClass('skiped');
+		$('.checkpoint_id_'+key+' .skip_button').html('SKIP');	
+		var color = '#FFD62F';	
+		if (key == 0 || parseInt(global_points_data.length) == parseInt(key)+1) color = '#f25151';
+		if (typeof(infowindow_html) !== 'undefined') infowindow_html_new = infowindow_html.replace("SKIPED", "SKIP");
+	}
+	
+	global_skiped_checkpoint_array[global_ID_tours] = skiped_checkpoint_array;
+	setCookie ('skiped_checkpoints', JSON.stringify(global_skiped_checkpoint_array), 3650);	
+	
+	var circle = {
+		path: google.maps.SymbolPath.CIRCLE,
+		fillColor: color,
+		fillOpacity: 1,
+		scale: 7,
+		strokeColor: 'black',
+		strokeWeight: 1
+	};
+	var marker = global_tour_map_marker[key];
+	var infowindow = global_tour_map_infowindow[key];
+	marker.setIcon (circle);
+	infowindow.setContent (infowindow_html_new);
+	global_tour_map_marker[key] = marker;
+	global_tour_map_infowindow[key] = infowindow;
+	
 }
 
 
@@ -490,8 +613,7 @@ function PointPageChk (key, push_chk) {
 						global_functions_array = new Array();
 						AudioLocationPlay ('audio_desc_' + global_ID_check_point_key);
 					}
-					
-				} 
+				} //if (global_current_page == "PointPageDirection" || push_chk == true)
 			}
 		} else {
 			$.ui.showMask();
@@ -622,7 +744,7 @@ function PointPageDirection_2 () {
 	if (global_points_data_hide.length > 0) {
 		for (var key in global_points_data_hide) {
 			var distance_hide = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(parseFloat (global_latitude), parseFloat (global_longitude)), new google.maps.LatLng(parseFloat (global_points_data_hide[key]['lat']), parseFloat (global_points_data_hide[key]['lng'])));
-			if (global_distance_hide >= distance_hide) {
+			if (global_distance_hide >= distance_hide && global_audio_end_chk == 0) { //ako je u distanci i nije setovano da se ne pusta audio
 				if (global_audio_id_current) { //ako trenutno ide neki audio onda audio_before setujemo za kasnije
 					if (global_points_data_hide[key]['audio_end_background_chk'] == 1) global_functions_array.push({'function':'AudioBackPause ();', 'type':0});
 					global_functions_array.push({'function':'AudioPlay (\'audio_end_hide_'+key+'\');', 'type':1});
@@ -644,7 +766,8 @@ function PointPageDirection_2 () {
 						AudioBackPause();
 					}
 				} //if (global_audio_id_current)
-			} //if (global_distance_hide >= distance_hide)
+				break;
+			} //if (global_distance_hide >= distance_hide && global_audio_end_chk == 0)
 		} //for (var key in global_points_data_hide)
 	} //if (global_points_data_hide.length > 0)
 
@@ -734,10 +857,14 @@ function PointPage () {
 	global_audio_end_chk = 1;
 	if (typeof(global_infowindow) !== 'undefined') global_infowindow.close();
 	
-	//odredjujemo koji je next point
-	var key_next = parseInt(global_ID_check_point_key) + 1;
-	if (typeof(global_points_data[key_next]) == 'undefined') key_next = 0;
+	var skiped_checkpoints = getCookie("skiped_checkpoints");
+	if (skiped_checkpoints) global_skiped_checkpoint_array = $.parseJSON(skiped_checkpoints);
+	if (typeof(global_skiped_checkpoint_array[global_ID_tours]) == 'undefined') global_skiped_checkpoint_array[global_ID_tours] = new Array();
+	var skiped_checkpoint_array = global_skiped_checkpoint_array[global_ID_tours];
 	
+	//odredjujemo koji je next point
+	var key_next = CheckpointKeyNext(skiped_checkpoint_array, 0);
+
 	$('#PointPage .title_hold').html('<span class="diff_color">Stop #'+global_points_data[global_ID_check_point_key]['checkpoint_br']+':</span> '+global_points_data[global_ID_check_point_key]['title']);
 	$('#PointPage .photo_hold').html('<img src="'+global_points_data[global_ID_check_point_key]['photo']+'" />');
 	$('#PointPage .desc_hold').html(global_points_data[global_ID_check_point_key]['description']);
@@ -777,6 +904,22 @@ function PointPage () {
 	} else {
 		$('#top_menu_page .next_point').attr("onClick","TourPage("+global_ID_tours+");").html('TOUR END');
 	}
+	
+}
+
+
+
+function CheckpointKeyNext (skiped_checkpoint_array, count) {
+	
+	count++;
+	var key_next = parseInt(global_ID_check_point_key) + count;
+	if (jQuery.inArray(parseInt(key_next), skiped_checkpoint_array) >= 0 && typeof(global_points_data[key_next]) !== 'undefined') {
+		key_next = CheckpointKeyNext (skiped_checkpoint_array, count);
+	} else if (typeof(global_points_data[key_next]) == 'undefined') {
+		 key_next = 0;
+	}
+
+	return key_next;
 	
 }
 
