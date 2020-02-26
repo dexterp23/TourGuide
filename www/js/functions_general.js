@@ -589,13 +589,14 @@ function Cleanup_onFail(message) {
 
 
 function SocialSharingStart () {
-
+	
+	$.ui.showMask();
 	var options = {
-	  message: 'share this', // not supported on some apps (Facebook, Instagram)
-	  subject: 'the subject', // fi. for email
+	  //message: 'share this', // not supported on some apps (Facebook, Instagram)
+	  //subject: 'the subject', // fi. for email
 	  files: [global_fileURL], // an array of filenames either locally or remotely
 	  //url: 'https://www.website.com/foo/#bar?a=b',
-	  chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title
+	  //chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title
 	  //appPackageName: 'com.apple.social.facebook', // Android only, you can provide id of the App you want to share with
 	  //iPadCoordinates: '0,0,0,0' //IOS only iPadCoordinates for where the popover should be point.  Format with x,y,width,height
 	};
@@ -605,11 +606,13 @@ function SocialSharingStart () {
 }
 
 function SocialSharing_onSuccess(result) {
-    custom_alert(JSON.stringify(result));
+	$.ui.hideMask();
+    //custom_alert(JSON.stringify(result));
 }
  
 function SocialSharing_onError(message) {
-    custom_alert(JSON.stringify(message));
+	$.ui.hideMask();
+    //custom_alert(JSON.stringify(message));
 }
 
 
