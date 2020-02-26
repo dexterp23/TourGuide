@@ -15,6 +15,7 @@ function WelcomePage () {
 	if (typeof(global_audio_back_player) !== 'undefined' && global_audio_back_player) AudioBackPause();
 	if (global_audio_id_current) AudioPause (global_audio_id_current);
 	global_functions_array = new Array();
+	global_audio_end_chk = 2;
 	
 	//gasimo navigaciju
 	navigator.geolocation.clearWatch(global_geolocationWatchTimer);
