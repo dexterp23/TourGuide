@@ -32,6 +32,7 @@
 <plugin name="cordova-plugin-keyboard" spec="https://github.com/cjpearson/cordova-plugin-keyboard"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="cordova.plugin.Brightness" spec="https://github.com/jlsuarezs/cordova-plugin-brightness"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="cordova-plugin-camera-dex" spec="https://github.com/dexterp23/cordova-plugin-camera-dex"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
+<plugin name="SocialSharing-PhoneGap-Plugin" spec="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="cordova-plugin-whitelist" spec="1.2.2"/>
 <platform  name="ios">
     <!-- below requires the splash screen plugin -->
@@ -49,6 +50,9 @@
     <preference name="StatusBarStyle" value="lightcontent"/>
     <preference name="KeyboardShrinksView" value="true"/>
     <preference name="phonegap-version" value="cli-6.5.0"/>
+	<feature name="SocialSharing">
+	  <param name="ios-package" value="SocialSharing" />
+	</feature>
 </platform>
 <platform  name="android">
     <!-- below requires the splash screen plugin -->
@@ -58,6 +62,9 @@
     <preference name="KeyboardShrinksView" value="true"/>
     <preference name="phonegap-version" value="cli-6.5.0"/>
     <preference name="android-windowSoftInputMode" value="adjustPan"/>
+	<feature name="SocialSharing">
+	  <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+	</feature>
 </platform>
 <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect --ignore-gpu-blacklist "/>
 <platform name="android" >

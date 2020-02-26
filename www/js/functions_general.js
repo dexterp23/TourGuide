@@ -570,7 +570,7 @@ function onSuccessPhoto(imageURI) {
 function onFailPhoto(message) {
 	$.ui.hideMask();
 	setTimeout(function() {
-    	custom_alert(JSON.stringify(message));
+    	//custom_alert(JSON.stringify(message));
 	}, 0);
     
 }
@@ -586,6 +586,32 @@ function Cleanup_onSuccess() {
 function Cleanup_onFail(message) {
     //custom_alert(JSON.stringify(message));
 }
+
+
+function SocialSharingStart () {
+
+	var options = {
+	  message: 'share this', // not supported on some apps (Facebook, Instagram)
+	  subject: 'the subject', // fi. for email
+	  files: [global_fileURL], // an array of filenames either locally or remotely
+	  //url: 'https://www.website.com/foo/#bar?a=b',
+	  chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title
+	  //appPackageName: 'com.apple.social.facebook', // Android only, you can provide id of the App you want to share with
+	  //iPadCoordinates: '0,0,0,0' //IOS only iPadCoordinates for where the popover should be point.  Format with x,y,width,height
+	};
+	
+	window.plugins.socialsharing.shareWithOptions(options, SocialSharing_onSuccess, SocialSharing_onError);
+	
+}
+
+function SocialSharing_onSuccess(result) {
+    custom_alert(JSON.stringify(result));
+}
+ 
+function SocialSharing_onError(message) {
+    custom_alert(JSON.stringify(message));
+}
+
 
 
 function AudioBackLoad (audio) {
