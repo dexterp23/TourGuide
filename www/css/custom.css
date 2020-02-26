@@ -551,7 +551,7 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 	height: 40px;
 	width: 64px;
 	position: absolute;
-	z-index: 100;
+	z-index: 25000;
 	top: 105px;
 	margin-left: -32px;
 	left: 50%;
