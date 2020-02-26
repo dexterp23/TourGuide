@@ -574,6 +574,18 @@ function onFailPhoto(message) {
     
 }
 
+function CameraCleanup () {
+	navigator.camera.cleanup(Cleanup_onSuccess, Cleanup_onFail);
+}
+ 
+function Cleanup_onSuccess() {
+    //console.log("Camera cleanup success.")
+}
+ 
+function Cleanup_onFail(message) {
+    //custom_alert(JSON.stringify(message));
+}
+
 
 function AudioBackLoad (audio) {
 	

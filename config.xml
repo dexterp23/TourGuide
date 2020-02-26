@@ -31,7 +31,7 @@
 <plugin name="es6-promise-plugin" spec="4.2.2"/>
 <plugin name="cordova-plugin-keyboard" spec="https://github.com/cjpearson/cordova-plugin-keyboard"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="cordova.plugin.Brightness" spec="https://github.com/jlsuarezs/cordova-plugin-brightness"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
-<plugin name="cordova-plugin-camera-dex" spec="https://github.com/dexterp23/cordova-plugin-camera-dex.git"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
+<plugin name="cordova-plugin-camera" spec="https://github.com/apache/cordova-plugin-camera"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="cordova-plugin-whitelist" spec="1.2.2"/>
 <platform  name="ios">
     <!-- below requires the splash screen plugin -->
