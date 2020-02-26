@@ -32,8 +32,8 @@
 <plugin name="cordova-plugin-keyboard" spec="https://github.com/cjpearson/cordova-plugin-keyboard"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="cordova.plugin.Brightness" spec="https://github.com/jlsuarezs/cordova-plugin-brightness"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="cordova-plugin-camera-dex" spec="https://github.com/dexterp23/cordova-plugin-camera-dex"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
-<plugin name="SocialSharing-PhoneGap-Plugin" spec="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="cordova-plugin-whitelist" spec="1.2.2"/>
+<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />
 <platform  name="ios">
     <!-- below requires the splash screen plugin -->
     <!-- docs: https://github.com/apache/cordova-plugin-splashscreen -->
