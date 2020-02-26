@@ -537,6 +537,28 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 	display: none;
 }
 
+#top_menu_page .top_menu {
+	text-align: center;
+}
+
+#top_menu_page .top_menu .photo_button_hold {
+	text-align: right;
+}
+
+.take_photo_button {
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 40px;
+	width: 64px;
+	position: absolute;
+	z-index: 100;
+	top: 105px;
+	margin-left: -32px;
+	left: 50%;
+	background-image: url(../images/take_photo_button.png);
+	background-size: 100% auto;
+}
+
 #afui.android #top_menu_page .button {
     background: transparent;
     color: inherit;
@@ -1228,15 +1250,16 @@ footer .text {
 /* ### new 2020. ### */
 
 #afui .header {
-    position: relative;
-    overflow: hidden;
-    display: block;
-    z-index: 250;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    height: 110px;
-    left: 0;
-    right: 0;
+	/*position: relative;*/
+	overflow: hidden;
+	display: block;
+	z-index: 25000;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 110px;
+	left: 0;
+	right: 0;
+	position: static;
 }
 
 #afui.android .header {
