@@ -549,6 +549,32 @@ function SetMapDistance (gps_type) {
 }
 
 
+function capturePhoto(callback) {
+	if (local_chk == 1 || local_chk == 20 || local_chk == 14) { //mob
+		$.ui.showMask();
+		global_photo_callback = callback;
+		navigator.camera.getPicture(onSuccessPhoto, onFailPhoto, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
+	} else {
+		global_fileURL = global_host + '/images/logo.png';
+		setTimeout(callback, 0);
+	}
+}
+
+function onSuccessPhoto(imageURI) {
+	//$.ui.hideMask();
+	global_fileURL = imageURI;
+	setTimeout(global_photo_callback, 0);
+}
+
+function onFailPhoto(message) {
+	$.ui.hideMask();
+	setTimeout(function() {
+    	//custom_alert(JSON.stringify(message));
+	}, 0);
+    
+}
+
+
 function AudioBackLoad (audio) {
 	
 	$('#audio_player_back_holder').remove();

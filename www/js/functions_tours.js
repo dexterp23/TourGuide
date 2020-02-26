@@ -925,6 +925,19 @@ function CheckpointKeyNext (skiped_checkpoint_array, count) {
 
 
 
+function PhotoPage () {
+	
+	$.ui.hideMask();
+	
+	var html = '';
+	html += '<img src="'+global_fileURL+'" class="global_image" />';
+	
+	$('#CitiesListPage .photo_hold').html(html);	
+	
+}
+
+
+
 
 
 

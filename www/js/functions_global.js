@@ -87,6 +87,8 @@ var global_tour_map_infowindow = new Array();
 var global_tour_map_marker = new Array();
 var global_user_tours_array = new Array();
 var global_skiped_checkpoint_array = new Array();
+var global_photo_callback;
+var global_fileURL;
 
 
 //data
