@@ -555,8 +555,9 @@ function capturePhoto(callback) {
 		global_photo_callback = callback;
 		navigator.camera.getPicture(onSuccessPhoto, onFailPhoto, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
 	} else {
+		global_photo_callback = callback;
 		global_fileURL = global_host + '/images/logo.png';
-		setTimeout(callback, 0);
+		setTimeout(global_photo_callback, 0);
 	}
 }
 
@@ -569,7 +570,7 @@ function onSuccessPhoto(imageURI) {
 function onFailPhoto(message) {
 	$.ui.hideMask();
 	setTimeout(function() {
-    	//custom_alert(JSON.stringify(message));
+    	custom_alert(JSON.stringify(message));
 	}, 0);
     
 }
