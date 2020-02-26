@@ -551,7 +551,7 @@ input.error, textarea.error, select.error, #afui input[type="text"].error, #afui
 	height: 40px;
 	width: 64px;
 	position: absolute;
-	z-index: 25000;
+	z-index: 1200;
 	top: 105px;
 	margin-left: -32px;
 	left: 50%;
@@ -1253,13 +1253,13 @@ footer .text {
 	/*position: relative;*/
 	overflow: hidden;
 	display: block;
-	z-index: 25000;
+	z-index: 1200;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	height: 110px;
 	left: 0;
 	right: 0;
-	position: static;
+	position: initial;
 }
 
 #afui.android .header {
