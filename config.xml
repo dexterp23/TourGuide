@@ -33,7 +33,7 @@
 <plugin name="cordova.plugin.Brightness" spec="https://github.com/jlsuarezs/cordova-plugin-brightness"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="cordova-plugin-camera-dex" spec="https://github.com/dexterp23/cordova-plugin-camera-dex"/> <!-- If available via Cordova registry; consider changing to an NPM reference. -->
 <plugin name="cordova-plugin-whitelist" spec="1.2.2"/>
-<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />
+<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" spec="5.4.0" />
 <platform  name="ios">
     <!-- below requires the splash screen plugin -->
     <!-- docs: https://github.com/apache/cordova-plugin-splashscreen -->
